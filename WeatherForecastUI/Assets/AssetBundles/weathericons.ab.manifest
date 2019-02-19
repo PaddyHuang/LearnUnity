@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 2151250207
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 91748132a851cc2eafcfb6b67bc4313f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: b474380d27eb4bc856799e9c585c4864
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Weather/duoyun_da.png
+- Assets/Resources/Weather/qing_zhong.png
+- Assets/Resources/Weather/duoyunzhuanqing_da.png
+- Assets/Resources/Weather/duoyun_zhong.png
+- Assets/Resources/Weather/Marker@2x.png
+- Assets/Resources/Weather/duoyunzhuanqing_zhong.png
+- Assets/Resources/Weather/qing_xiao.png
+- Assets/Resources/Weather/kongqizhiliang.png
+Dependencies: []

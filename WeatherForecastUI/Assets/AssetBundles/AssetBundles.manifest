@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 1850125908
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: weathericons.ab
+      Dependencies: {}
