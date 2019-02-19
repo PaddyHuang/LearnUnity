@@ -1,0 +1,13 @@
+ManifestFileVersion: 0
+CRC: 2782073523
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: capsule
+      Dependencies: {}
+    Info_1:
+      Name: cube
+      Dependencies: {}
+    Info_2:
+      Name: huanreqi
+      Dependencies: {}
