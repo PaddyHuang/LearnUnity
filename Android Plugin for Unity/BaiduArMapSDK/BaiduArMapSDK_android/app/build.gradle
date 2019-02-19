@@ -1,0 +1,69 @@
+//apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    // Add
+    sourceSets {
+        main {
+            //Path to your source code
+            main {
+                jniLibs.srcDir('libs')
+                jni.srcDirs = []
+            }
+            java {
+                srcDir 'src/main/java'
+            }
+        }
+    }
+
+    defaultConfig {
+//        applicationId "com.polin.baiduarmapsdk"
+        minSdkVersion 15
+        targetSdkVersion 28
+//        versionCode 1
+//        versionName "1.0"
+//        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    // Add
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation files('libs/android-support-v4.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
+    implementation files('libs/classes.jar')
+    implementation files('libs/gson-2.2.4.jar')
+    implementation files('libs/org.apache.http.legacy.jar')
+}
+
+// Add Backup
+//task to delete the old jar
+task deleteOldJar(type: Delete) {
+    delete 'release/BaiduMapKit.jar'
+}
+
+//task to export contents as jar
+task exportJar(type: Copy) {
+    from('build/intermediates/packaged-classes/release/')
+    into('release/')
+    include('classes.jar')
+    ///Rename the jar
+    rename('classes.jar', 'BaiduMapKit.jar')
+}
+exportJar.dependsOn(deleteOldJar, build)
