@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaiduSpeechRecognitionLua", "Assembly-CSharp.csproj", "{AB0496B8-8C31-6E02-D7B2-D432A0139274}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaiduSpeechRecognitionLua", "Assembly-CSharp-Editor.csproj", "{7D7B572D-F258-3FF4-1C89-468F9B1FB6E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB0496B8-8C31-6E02-D7B2-D432A0139274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB0496B8-8C31-6E02-D7B2-D432A0139274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB0496B8-8C31-6E02-D7B2-D432A0139274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB0496B8-8C31-6E02-D7B2-D432A0139274}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7B572D-F258-3FF4-1C89-468F9B1FB6E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7B572D-F258-3FF4-1C89-468F9B1FB6E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7B572D-F258-3FF4-1C89-468F9B1FB6E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7B572D-F258-3FF4-1C89-468F9B1FB6E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
