@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastUI", "Assembly-CSharp.csproj", "{30243340-C0B6-7D8F-E499-CF6906135F1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeatherForecastUI", "Assembly-CSharp-Editor.csproj", "{8CE2816C-3681-0268-AF9A-48C0CE5823B1}"

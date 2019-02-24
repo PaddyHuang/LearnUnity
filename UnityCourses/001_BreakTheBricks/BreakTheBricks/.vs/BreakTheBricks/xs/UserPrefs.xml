@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{33B49791-0A51-457E-535D-F9DB2CDE8C1E}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Shoot.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Shoot.cs" Line="23" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "Assembly-CSharp.csproj", "{AB40B3AE-6C9A-B1E1-B01B-22B1E324FC0E}"
 EndProject
 Global
