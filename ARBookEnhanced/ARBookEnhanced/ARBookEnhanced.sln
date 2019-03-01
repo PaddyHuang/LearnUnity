@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARBookEnhanced", "Assembly-CSharp.csproj", "{7712A1AF-0541-5E34-9626-AD2CDBD28910}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARBookEnhanced", "Assembly-CSharp-Editor.csproj", "{BD3DF92A-6D42-8871-F351-90079FA64740}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7712A1AF-0541-5E34-9626-AD2CDBD28910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7712A1AF-0541-5E34-9626-AD2CDBD28910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7712A1AF-0541-5E34-9626-AD2CDBD28910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7712A1AF-0541-5E34-9626-AD2CDBD28910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD3DF92A-6D42-8871-F351-90079FA64740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD3DF92A-6D42-8871-F351-90079FA64740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD3DF92A-6D42-8871-F351-90079FA64740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD3DF92A-6D42-8871-F351-90079FA64740}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

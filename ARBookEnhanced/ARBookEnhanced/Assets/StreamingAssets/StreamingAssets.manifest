@@ -1,0 +1,49 @@
+ManifestFileVersion: 0
+CRC: 1307981091
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: login.unity3d
+      Dependencies: {}
+    Info_1:
+      Name: signup.unity3d
+      Dependencies: {}
+    Info_2:
+      Name: forget.unity3d
+      Dependencies: {}
+    Info_3:
+      Name: navigation.unity3d
+      Dependencies: {}
+    Info_4:
+      Name: detial.unity3d
+      Dependencies: {}
+    Info_5:
+      Name: search.unity3d
+      Dependencies: {}
+    Info_6:
+      Name: model.unity3d
+      Dependencies: {}
+    Info_7:
+      Name: course.unity3d
+      Dependencies: {}
+    Info_8:
+      Name: studentpractise.unity3d
+      Dependencies: {}
+    Info_9:
+      Name: studentuser.unity3d
+      Dependencies: {}
+    Info_10:
+      Name: studentmessage.unity3d
+      Dependencies: {}
+    Info_11:
+      Name: chapter.unity3d
+      Dependencies: {}
+    Info_12:
+      Name: part.unity3d
+      Dependencies: {}
+    Info_13:
+      Name: picture.unity3d
+      Dependencies: {}
+    Info_14:
+      Name: messageitem.unity3d
+      Dependencies: {}
