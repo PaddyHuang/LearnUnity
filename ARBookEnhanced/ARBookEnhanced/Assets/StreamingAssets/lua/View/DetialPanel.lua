@@ -14,6 +14,8 @@ function DetialPanel.Awake(obj)
 end
 
 function DetialPanel.InitPanel()
+    this.panel = transform
+
     this.searchBtn = transform:Find('SearchBtn').gameObject
     this.backBtn = transform:Find('BackBtn').gameObject
     this.courseName = transform:Find('CourseName'):GetComponent('Text')

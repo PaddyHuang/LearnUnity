@@ -1,21 +1,17 @@
 ManifestFileVersion: 0
-CRC: 3230126684
+CRC: 4156377877
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9dd3c745058e29d6b3aa1c91f941a612
+    Hash: a6e8c6e95e6f0aded38115de5dc4ea0b
   TypeTreeHash:
     serializedVersion: 2
-    Hash: fb5ae11944a6f4a2a31a5d9aa69cc818
+    Hash: 6dff8d7ac4689b809e10dc8f0f7094b3
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
-- Class: 21
-  Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -45,8 +41,6 @@ ClassTypes:
   Script: {fileID: 2109663825, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 - Class: 115
   Script: {instanceID: 0}
-- Class: 128
-  Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
 - Class: 222
@@ -54,5 +48,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Panels/LoginScene/SignupPanel/SignupPanel.prefab
+- Assets/Prefabs/Panels/Login/SignupPanel/SignupPanel.prefab
 Dependencies: []

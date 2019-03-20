@@ -14,6 +14,8 @@ function StudentUserPanel.Awake(obj)
 end
 
 function StudentUserPanel.InitPanel()
+    this.panel = transform
+
     this.responseBtn = transform:Find('ResponseBtn').gameObject
     
     this.yuWenCourseBtn = transform:Find('Courses/YuWenCourses').gameObject

@@ -14,6 +14,8 @@ function SignupPanel.Awake(obj)
 end
 
 function SignupPanel.InitPanel()
+    this.panel = transform
+
     this.phone = transform:Find('Phone'):GetComponent('InputField')
     this.name = transform:Find('Name'):GetComponent('InputField')
     this.account = transform:Find('Account'):GetComponent('InputField')

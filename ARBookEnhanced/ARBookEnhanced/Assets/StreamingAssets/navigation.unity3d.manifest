@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 4053122147
+CRC: 889067888
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a0bc774cb8f5f1238062cdeceb85349c
+    Hash: 988beb3d927be68d4049408b89ad228a
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4e994be5f195f7b5b14eca9ba8257f48
+    Hash: f607cfe25532e2ac4aee6f87b9ceb8f0
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -18,11 +18,17 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
   Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
   Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 2109663825, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -1184210157, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 128
@@ -34,5 +40,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Panels/StudentScene/NavigationPanel/NavigationPanel.prefab
+- Assets/Prefabs/Panels/Course/NavigationPanel/NavigationPanel.prefab
 Dependencies: []

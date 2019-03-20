@@ -1,21 +1,17 @@
 ManifestFileVersion: 0
-CRC: 1585071142
+CRC: 2203213750
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f3332a4a7b1a77fc29cd805037106546
+    Hash: 6712904a0fc490781412ae15558d318a
   TypeTreeHash:
     serializedVersion: 2
-    Hash: a7931b60eed301b7ace7d7dce23caebd
+    Hash: 274176e534dfb148fbb1dad07fd776bf
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
-- Class: 21
-  Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -27,8 +23,6 @@ ClassTypes:
   Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
   Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-- Class: 114
-  Script: {fileID: -2061169968, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
   Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
@@ -48,6 +42,7 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Panels/StudentScene/CoursePanel/CoursePanel.prefab
-- Assets/Prefabs/Items/StudentScene/Course/Course.prefab
-Dependencies: []
+- Assets/Prefabs/Panels/Course/CoursePanel/CoursePanel.prefab
+- Assets/Prefabs/Items/Student/Course/Course.prefab
+Dependencies:
+- F:/MySpace/LearnUnity/ARBookEnhanced/ARBookEnhanced/Assets/StreamingAssets/font.unity3d

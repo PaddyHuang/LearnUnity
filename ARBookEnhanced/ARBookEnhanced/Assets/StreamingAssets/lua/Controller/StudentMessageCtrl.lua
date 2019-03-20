@@ -23,7 +23,7 @@ function StudentMessageCtrl.OnCreate(obj)
     LuaBehaviour = transform:GetComponent('LuaBehaviour')    
 
     -- 加载课程，之后改成按Json动态添加
-    resMgr:LoadPrefab('MessageItem', {'MessageItme'}, this.OnLoadMessageItemFinish) 
+    resMgr:LoadPrefab('MessageItem', {'MessageItem'}, this.OnLoadMessageItemFinish) 
 
     CtrlManager.CloseCtrl(this)
 end
@@ -37,7 +37,7 @@ end
 function StudentMessageCtrl.OnLoadMessageItemFinish(obj)
     this.message = GameObject.Instantiate(obj[0])
     
-    this.message.transform:SetParent(StudentMessagePanel.messageView.content)
+    this.message.transform:SetParent(StudentMessagePanel.messageView)
     this.message.transform.localScale = Vector3.one
 
     LuaBehaviour:AddClick(this.message, this.OnMessageClick)
@@ -50,9 +50,9 @@ end
 
 -- Panel 开关
 function StudentMessageCtrl.Open()
-    gameObject:SetActive(true)
+    StudentMessagePanel.panel.gameObject:SetActive(true)
 end
 
 function StudentMessageCtrl.Close()
-    gameObject:SetActive(false)
+    StudentMessagePanel.panel.gameObject:SetActive(false)
 end

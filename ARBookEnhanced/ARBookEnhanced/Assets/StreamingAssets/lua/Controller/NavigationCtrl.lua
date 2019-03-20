@@ -50,9 +50,9 @@ end
 
 -- Panel 开关
 function NavigationCtrl.Open()
-    gameObject:SetActive(true)
+    NavigationPanel.panel.gameObject:SetActive(true)
 end
 
 function NavigationCtrl.Close()
-    gameObject:SetActive(false)
+    NavigationPanel.panel.gameObject:SetActive(false)
 end

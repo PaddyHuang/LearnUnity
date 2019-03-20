@@ -24,29 +24,29 @@ function CourseCtrl.OnCreate(obj)
 
     LuaBehaviour:AddClick(CoursePanel.CourseBtn, this.OnCourseClick)
     
-    CoursePanel.courseOptions.onValueChanged:AddListener(this.OnCourseSelect)
+    CoursePanel.gradeOptions.onValueChanged:AddListener(this.OnGradeSelect)
 
     -- 加载课程，之后改成按Json动态添加
     resMgr:LoadPrefab('Course', {'Course'}, this.OnLoadCourseFinish) 
 end
 
 -- 点击事件
-function CourseCtrl.OnCourseSelect(obj)
+function CourseCtrl.OnGradeSelect(obj)
     print(obj)
 end
 
 -- 加载回调
 function CourseCtrl.OnLoadCourseFinish(obj)
-    this.yuWenBtn = GameObject.Instantiate(obj[0])
+    this.courseBtn = GameObject.Instantiate(obj[0])
     
-    this.yuWenBtn.transform:SetParent(CoursePanel.courseView)
-    this.yuWenBtn.transform.localScale = Vector3.one
+    this.courseBtn.transform:SetParent(CoursePanel.courseView)
+    this.courseBtn.transform.localScale = Vector3.one
 
-    LuaBehaviour:AddClick(this.yuWenBtn, this.OnYuWenClick)
+    LuaBehaviour:AddClick(this.courseBtn, this.OnCourseClick)
 end
 
-function CourseCtrl.OnYuWenClick(obj)
-    print(obj.name)
+function CourseCtrl.OnCourseClick()
+    CtrlManager.OpenCtrl(CtrlNames.Detial)
 end
 
 

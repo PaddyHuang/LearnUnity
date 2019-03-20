@@ -14,6 +14,8 @@ function LoginPanel.Awake(obj)
 end
 
 function LoginPanel.InitPanel()
+    this.panel = transform
+
     this.account = transform:Find('Account'):GetComponent('InputField')
     this.password = transform:Find('Password'):GetComponent('InputField')
     this.message = transform:Find('Message'):GetComponent('Text')

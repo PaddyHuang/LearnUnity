@@ -14,7 +14,9 @@ function StudentMessagePanel.Awake(obj)
 end
 
 function StudentMessagePanel.InitPanel()
-    this.messageView = transform:Find('MessageView'):GetComponent('ScrollRect')
+    this.panel = transform
+    
+    this.messageView = transform:Find('MessageView/Viewport/Content')
 end
 
 --单击事件--

@@ -14,6 +14,8 @@ function ModelPanel.Awake(obj)
 end
 
 function ModelPanel.InitPanel()
+    this.panel = transform
+
     this.backBtn = transform:Find('BackBtn').gameObject
     
 end

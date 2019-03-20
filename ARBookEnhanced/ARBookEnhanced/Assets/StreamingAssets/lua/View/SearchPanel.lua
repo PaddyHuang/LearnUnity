@@ -14,6 +14,8 @@ function SearchPanel.Awake(obj)
 end
 
 function SearchPanel.InitPanel()
+    this.panel = transform
+
     this.backBtn = transform:Find('BackBtn').gameObject
     this.searchBtn = transform:Find('SearchBtn').gameObject
     this.dropdown = transform:Find('Dropdown'):GetComponent('Dropdown')

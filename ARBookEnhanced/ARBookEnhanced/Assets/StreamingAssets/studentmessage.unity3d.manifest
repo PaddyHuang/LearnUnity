@@ -1,22 +1,20 @@
 ManifestFileVersion: 0
-CRC: 3157609459
+CRC: 764648449
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c0d2c6b3417dd4d1015a6c7e7b213f7f
+    Hash: 3f6b98aa864c1e67dcb587513d94bcfe
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 90e742b9daf82f8f9795061b094bc348
+    Hash: cdd9c2a9380b202867f5ecd47a6a54bc
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
-- Class: 21
-  Script: {instanceID: 0}
 - Class: 28
   Script: {instanceID: 0}
-- Class: 48
-  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
   Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
@@ -31,8 +29,6 @@ ClassTypes:
   Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 115
   Script: {instanceID: 0}
-- Class: 128
-  Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
 - Class: 222
@@ -40,5 +36,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Panels/StudentScene/StudentMessagePanel/StudentMessagePanel.prefab
+- Assets/Prefabs/Panels/Course/StudentMessagePanel/StudentMessagePanel.prefab
 Dependencies: []

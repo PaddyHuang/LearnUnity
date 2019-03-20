@@ -158,28 +158,86 @@ public class Packager {
     /// 处理框架实例包
     /// </summary>
     static void HandleExampleBundle() {
+        Caching.ClearCache();
         string resPath = AppDataPath + "/" + AppConst.AssetDir + "/";
         if (!Directory.Exists(resPath)) Directory.CreateDirectory(resPath);
         
-        // LoginScene
-        AddBuildMap("login" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/LoginScene/LoginPanel");
-        AddBuildMap("signup" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/LoginScene/SignupPanel");
-        AddBuildMap("forget" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/LoginScene/ForgetPanel");
-        // StudentScene
-        AddBuildMap("navigation" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/StudentScene/NavigationPanel");
-        AddBuildMap("detial" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/StudentScene/DetialPanel");
-        AddBuildMap("search" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/StudentScene/SearchPanel");
-        AddBuildMap("model" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/StudentScene/ModelPanel");
-        AddBuildMap("course" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/StudentScene/CoursePanel");
-        AddBuildMap("studentpractise" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/StudentScene/StudentPractisePanel");
-        AddBuildMap("studentuser" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/StudentScene/StudentUserPanel");
-        AddBuildMap("studentmessage" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/StudentScene/StudentMessagePanel");
-        // StudentItems
-        AddBuildMap("course" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/StudentScene/Course");
-        AddBuildMap("chapter" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/StudentScene/Chapter");
-        AddBuildMap("part" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/StudentScene/Part");
-        AddBuildMap("picture" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/StudentScene/Picture");
-        AddBuildMap("messageitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/StudentScene/MessageItem");
+        // Panels
+        // Login
+        AddBuildMap("login" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Login/LoginPanel");
+        AddBuildMap("signup" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Login/SignupPanel");
+        AddBuildMap("forget" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Login/ForgetPanel");
+
+        // Model
+        AddBuildMap("model" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Model/ModelPanel");
+        AddBuildMap("scan" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Model/ScanPanel");
+        AddBuildMap("selection" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Model/SelectionPanel");
+
+        // Course        
+        AddBuildMap("course" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/CoursePanel");
+        AddBuildMap("detial" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/DetialPanel");
+        AddBuildMap("message" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/MessagePanel");
+        AddBuildMap("navigation" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/NavigationPanel");
+        AddBuildMap("paper" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/PaperPanel");
+        AddBuildMap("response" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/ResponsePanel");
+        AddBuildMap("search" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/SearchPanel");
+        // Student
+        AddBuildMap("studenthistory" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/StudentHistoryPanel");
+        AddBuildMap("studentmessage" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/StudentMessagePanel");
+        AddBuildMap("studentpaperdetail" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/StudentPaperDetailPanel");
+        AddBuildMap("studentpractise" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/StudentPractisePanel");
+        AddBuildMap("studentscoredetail" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/StudentScoreDetailPanel");
+        AddBuildMap("studentscore" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/StudentScorePanel");
+        AddBuildMap("studentuser" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/StudentUserPanel");
+        AddBuildMap("studentwrong" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/StudentWrongPanel");        
+        // Teacher
+        AddBuildMap("teacheraddlibrary" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherAddLibraryPanel");
+        AddBuildMap("teacheraddstudent" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherAddStudentPanel");
+        AddBuildMap("teacherclass" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherClassPanel");
+        AddBuildMap("teachercode" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherCodePanel");
+        AddBuildMap("teacherlibrarydetial" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherLibraryDetialPanel");
+        AddBuildMap("teacherlibrary" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherLibraryPanel");
+        AddBuildMap("teacherpaperdetail" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherPaperDetailPanel");
+        AddBuildMap("teacherpaper" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherPaperPanel");
+        AddBuildMap("teacherpractise" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherPractisePanel");
+        AddBuildMap("teacherscoredetail" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherScoreDetailPanel");
+        AddBuildMap("teacheruser" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Panels/Course/TeacherUserPanel");
+
+
+        // Items
+        // Message
+        AddBuildMap("message" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Message");
+        // Model
+        AddBuildMap("option" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Model/Option");
+        AddBuildMap("question" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Model/Question");
+        // Paper
+        AddBuildMap("block" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Paper/Block");
+        AddBuildMap("optiontoggle" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Paper/OptionToggle");
+        AddBuildMap("selection" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Paper/Selection");
+        // Student               
+        AddBuildMap("chapter" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/Chapter");
+        AddBuildMap("course" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/Course");
+        AddBuildMap("messageitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/MessageItem");
+        AddBuildMap("paperdetialitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/PaperDetialItem");
+        AddBuildMap("paperhistory" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/PaperHistory");
+        AddBuildMap("paperscore" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/PaperScore");
+        AddBuildMap("part" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/Part");
+        AddBuildMap("picture" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/Picture");
+        AddBuildMap("studentpaper" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/StudentPaper");
+        AddBuildMap("wrongdetialitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/WrongDetialItem");
+        AddBuildMap("wrongitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Student/WrongItem");
+        // Teacher
+        AddBuildMap("addedlibrary" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Teacher/AddedLibrary");
+        AddBuildMap("classsstudentitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Teacher/ClasssStudentItem");
+        AddBuildMap("librarydetialitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Teacher/LibraryDetialItem");
+        AddBuildMap("librarypaper" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Teacher/LibraryPaper");
+        AddBuildMap("paperdetialitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Teacher/PaperDetialItem");
+        AddBuildMap("teacherpaper" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Teacher/TeacherPaper");
+        AddBuildMap("userstudentitem" + AppConst.ExtName, "*.prefab", "Assets/Prefabs/Items/Teacher/UserStudentItem");
+
+        // Fonts
+        AddBuildMap("font" + AppConst.ExtName, "*.otf", "Assets/UI/Font");
+
     }
 
     /// <summary>

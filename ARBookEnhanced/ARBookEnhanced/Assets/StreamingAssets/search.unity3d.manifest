@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3285385745
+CRC: 4024485839
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 51247b03de58e9e46fb6fb1c101e4e3f
+    Hash: fcb643686501cde8f2c65670215a6b58
   TypeTreeHash:
     serializedVersion: 2
-    Hash: aa84ffec6ba5a76712c7d5d019b8cf0d
+    Hash: 1f2e12b46a1dca7c7357efba333652af
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -28,8 +28,6 @@ ClassTypes:
 - Class: 114
   Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
-  Script: {fileID: -2061169968, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-- Class: 114
   Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
   Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -46,5 +44,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Panels/StudentScene/SearchPanel/SearchPanel.prefab
+- Assets/Prefabs/Panels/Course/SearchPanel/SearchPanel.prefab
 Dependencies: []

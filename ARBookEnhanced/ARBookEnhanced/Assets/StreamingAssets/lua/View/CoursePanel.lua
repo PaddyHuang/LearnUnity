@@ -14,7 +14,9 @@ function CoursePanel.Awake(obj)
 end
 
 function CoursePanel.InitPanel()
-    this.courseOptions = transform:Find('CourseOptions/Dropdown'):GetComponent('Dropdown')
+    this.panel = transform
+
+    this.gradeOptions = transform:Find('GradeOptions/Dropdown'):GetComponent('Dropdown')
     this.courseView = transform:Find('CourseView/Viewport/Content')
 end
 

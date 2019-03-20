@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2239054295
+CRC: 3106415220
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: fbd62dc89083bcb9ad3337aa6c099bfc
+    Hash: 4db753e6037081af060d6a9b8e6f49b9
   TypeTreeHash:
     serializedVersion: 2
     Hash: 4e994be5f195f7b5b14eca9ba8257f48
@@ -34,5 +34,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Items/StudentScene/MessageItem/MessageItem.prefab
+- Assets/Prefabs/Items/Student/MessageItem/MessageItem.prefab
 Dependencies: []

@@ -31,8 +31,8 @@ function SearchCtrl.OnCreate(obj)
 end
 
 -- 点击事件
-function SearchCtrl.OnBackClick(obj)
-    print(obj.name)
+function SearchCtrl.OnBackClick()
+    CtrlManager.OpenCtrl(CtrlNames.Detial)
 end
 
 function SearchCtrl.OnSearchClick(obj)

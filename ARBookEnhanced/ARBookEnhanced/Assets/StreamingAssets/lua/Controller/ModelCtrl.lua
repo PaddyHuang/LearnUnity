@@ -35,9 +35,9 @@ end
 
 -- Panel 开关
 function ModelCtrl.Open()
-    gameObject:SetActive(true)
+    ModelPanel.panel.gameObject:SetActive(true)
 end
 
 function ModelCtrl.Close()
-    gameObject:SetActive(false)
+    ModelPanel.panel.gameObject:SetActive(false)
 end

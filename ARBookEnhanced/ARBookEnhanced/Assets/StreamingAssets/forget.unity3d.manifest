@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1660497043
+CRC: 787847091
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 69641cdfe7b6243348ea03c2b2ed16c3
+    Hash: e052aedd40b8b20eee3cf42ba373723e
   TypeTreeHash:
     serializedVersion: 2
     Hash: e874ab238d35e33b1b48b835e9f6cccc
@@ -44,5 +44,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Panels/LoginScene/ForgetPanel/ForgetPanel.prefab
+- Assets/Prefabs/Panels/Login/ForgetPanel/ForgetPanel.prefab
 Dependencies: []

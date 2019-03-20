@@ -14,6 +14,8 @@ function NavigationPanel.Awake(obj)
 end
 
 function NavigationPanel.InitPanel()
+    this.panel = transform
+    
     this.courseBtn = transform:Find('CourseBtn').gameObject
     this.practiseBtn = transform:Find('PractiseBtn').gameObject
     this.messageBtn = transform:Find('MessageBtn').gameObject

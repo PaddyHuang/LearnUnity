@@ -14,6 +14,8 @@ function StudentPractisePanel.Awake(obj)
 end
 
 function StudentPractisePanel.InitPanel()
+    this.panel = transform
+
     this.yuWenCourseBtn = transform:Find('Courses/YuWenCourses').gameObject
     this.mathCourseBtn = transform:Find('Courses/MathCourses').gameObject
     this.physicsCourseBtn = transform:Find('Courses/PhysicsCourses').gameObject

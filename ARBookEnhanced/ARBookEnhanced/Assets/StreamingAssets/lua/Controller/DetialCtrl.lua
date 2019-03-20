@@ -33,12 +33,12 @@ function DetialCtrl.OnCreate(obj)
 end
 
 -- 点击事件
-function DetialCtrl.OnBackClick(obj)
-    print(obj.name)
+function DetialCtrl.OnBackClick()
+    CtrlManager.OpenCtrl(CtrlNames.Course)
 end
 
 function DetialCtrl.OnSearchClick(obj)
-    print(obj.name)
+    CtrlManager.OpenCtrl(CtrlNames.Search)
 end
 
 function DetialCtrl.OnARClick(obj)
@@ -62,9 +62,9 @@ end
 
 -- Panel 开关
 function DetialCtrl.Open()
-    gameObject:SetActive(true)
+    DetialPanel.panel.gameObject:SetActive(true)
 end
 
 function DetialCtrl.Close()
-    gameObject:SetActive(false)
+    DetialPanel.panel.gameObject:SetActive(false)
 end

@@ -72,10 +72,10 @@ end
 
 -- Panel 开关
 function SignupCtrl.Open()
-    gameObject:SetActive(true)
+    SignupPanel.panel.gameObject:SetActive(true)
 end
 
 function SignupCtrl.Close()
     SignupPanel.donePanel.gameObject:SetActive(false)    -- 关闭注册成功面板
-    gameObject:SetActive(false)
+    SignupPanel.panel.gameObject:SetActive(false)
 end

@@ -1,31 +1,29 @@
 ManifestFileVersion: 0
-CRC: 597346948
+CRC: 249276627
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6f468e2a4a0e3a562af779eddb893f42
+    Hash: eb34bed578e3bd5ab34182383624b1c4
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4e994be5f195f7b5b14eca9ba8257f48
+    Hash: 64578690d6ba5bfc21ea2d58c5601a95
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
-- Class: 21
-  Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
+  Script: {fileID: -2095666955, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
   Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
   Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 115
-  Script: {instanceID: 0}
-- Class: 128
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
@@ -34,5 +32,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Panels/StudentScene/StudentUserPanel/StudentUserPanel.prefab
+- Assets/Prefabs/Panels/Course/StudentUserPanel/StudentUserPanel.prefab
 Dependencies: []

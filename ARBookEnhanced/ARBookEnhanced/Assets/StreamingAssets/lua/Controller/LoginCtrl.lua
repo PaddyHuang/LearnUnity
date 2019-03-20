@@ -47,12 +47,11 @@ function LoginCtrl.OnSignupClick()
     CtrlManager.OpenCtrl(CtrlNames.Signup)
 end
 
-
 -- Panel 开关
 function LoginCtrl.Open()
-    gameObject:SetActive(true)
+    LoginPanel.panel.gameObject:SetActive(true)
 end
 
 function LoginCtrl.Close()
-    gameObject:SetActive(false)
+    LoginPanel.panel.gameObject:SetActive(false)
 end

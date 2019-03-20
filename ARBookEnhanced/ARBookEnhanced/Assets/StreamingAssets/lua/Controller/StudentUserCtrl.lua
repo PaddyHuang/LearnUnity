@@ -103,9 +103,9 @@ end
 
 -- Panel 开关
 function StudentUserCtrl.Open()
-    gameObject:SetActive(true)
+    StudentUserPanel.panel.gameObject:SetActive(true)
 end
 
 function StudentUserCtrl.Close()
-    gameObject:SetActive(false)
+    StudentUserPanel.panel.gameObject:SetActive(false)
 end

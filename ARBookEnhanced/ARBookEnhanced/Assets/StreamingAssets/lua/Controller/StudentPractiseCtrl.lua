@@ -97,9 +97,9 @@ end
 
 -- Panel 开关
 function StudentPractiseCtrl.Open()
-    gameObject:SetActive(true)
+    StudentPractisePanel.panel.gameObject:SetActive(true)
 end
 
 function StudentPractiseCtrl.Close()
-    gameObject:SetActive(false)
+    StudentPractisePanel.panel.gameObject:SetActive(false)
 end

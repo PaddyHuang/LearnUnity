@@ -1,24 +1,20 @@
 require "Common/define"
 
-require "Controller/ForgetCtrl"
-require "Controller/SignupCtrl"
-require "Controller/LoginCtrl"
-require "Controller/CourseCtrl"
-require "Controller/DetialCtrl"
-require "Controller/SearchCtrl"
-require "Controller/ModelCtrl"
-require "Controller/StudentPractiseCtrl"
-require "Controller/StudentUserCtrl"
-require "Controller/StudentMessageCtrl"
-require "Controller/NavigationCtrl"
-
 CtrlManager = {};
 local this = CtrlManager;
 local ctrlList = {};	--控制器列表--
 
+function CtrlManager.InitController()
+	for k,v in pairs(CtrlNames) do
+		require("Controller/"..v)
+	end
+end
+
 function CtrlManager.InitScene(sceneName)
 	logWarn("CtrlManager.Init----->>>");
 	
+	this.InitController()
+
 	if sceneName == 'LoginScene' then
 		ctrlList[CtrlNames.Forget] = ForgetCtrl.New();
 		ctrlList[CtrlNames.Signup] = SignupCtrl.New();
@@ -26,7 +22,7 @@ function CtrlManager.InitScene(sceneName)
 		this.currentCtrl = ctrlList[CtrlNames.Login];	-- 初始控制器
 	end
 
-	if sceneName == 'StudentScene' then		
+	if sceneName == 'CourseScene' then		
 		ctrlList[CtrlNames.Detial] = DetialCtrl.New();
 		ctrlList[CtrlNames.Search] = SearchCtrl.New();
 		ctrlList[CtrlNames.Model] = ModelCtrl.New();

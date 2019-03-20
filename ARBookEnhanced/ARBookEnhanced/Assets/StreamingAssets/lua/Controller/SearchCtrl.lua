@@ -31,8 +31,8 @@ function SearchCtrl.OnCreate(obj)
 end
 
 -- 点击事件
-function SearchCtrl.OnBackClick(obj)
-    print(obj.name)
+function SearchCtrl.OnBackClick()
+    CtrlManager.OpenCtrl(CtrlNames.Detial)
 end
 
 function SearchCtrl.OnSearchClick(obj)
@@ -46,9 +46,9 @@ end
 
 -- Panel 开关
 function SearchCtrl.Open()
-    gameObject:SetActive(true)
+    SearchPanel.panel.gameObject:SetActive(true)
 end
 
 function SearchCtrl.Close()
-    gameObject:SetActive(false)
+    SearchPanel.panel.gameObject:SetActive(false)
 end

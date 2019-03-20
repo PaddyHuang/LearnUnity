@@ -14,6 +14,8 @@ function ForgetPanel.Awake(obj)
 end
 
 function ForgetPanel.InitPanel()
+    this.panel = transform
+
     this.phone = transform:Find('Phone'):GetComponent('InputField')    
     this.identityCode = transform:Find('IdentityCode'):GetComponent('InputField')
     this.identityBtn = transform:Find('IdentityBtn').gameObject

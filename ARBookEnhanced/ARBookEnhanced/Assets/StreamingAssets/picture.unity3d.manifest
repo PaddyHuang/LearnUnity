@@ -1,21 +1,17 @@
 ManifestFileVersion: 0
-CRC: 1444831487
+CRC: 1746825301
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 70ef4f55dd1b9c0691e764b15469b77f
+    Hash: ea0e7a957f226d6445bd947b55ad10f2
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4e994be5f195f7b5b14eca9ba8257f48
+    Hash: edfe453b6e4cd5d647c456a11a0fa72e
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
-- Class: 21
-  Script: {instanceID: 0}
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 48
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -25,8 +21,6 @@ ClassTypes:
   Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 115
   Script: {instanceID: 0}
-- Class: 128
-  Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
 - Class: 222
@@ -34,5 +28,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/Items/StudentScene/Picture/Picture.prefab
+- Assets/Prefabs/Items/Student/Picture/Picture.prefab
 Dependencies: []

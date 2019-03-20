@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1307981091
+CRC: 1347113408
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -12,38 +12,174 @@ AssetBundleManifest:
       Name: forget.unity3d
       Dependencies: {}
     Info_3:
-      Name: navigation.unity3d
-      Dependencies: {}
-    Info_4:
-      Name: detial.unity3d
-      Dependencies: {}
-    Info_5:
-      Name: search.unity3d
-      Dependencies: {}
-    Info_6:
       Name: model.unity3d
       Dependencies: {}
-    Info_7:
-      Name: course.unity3d
+    Info_4:
+      Name: scan.unity3d
       Dependencies: {}
+    Info_5:
+      Name: selection.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_6:
+      Name: course.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_7:
+      Name: detial.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
     Info_8:
-      Name: studentpractise.unity3d
+      Name: message.unity3d
       Dependencies: {}
     Info_9:
-      Name: studentuser.unity3d
+      Name: navigation.unity3d
       Dependencies: {}
     Info_10:
-      Name: studentmessage.unity3d
-      Dependencies: {}
+      Name: paper.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
     Info_11:
-      Name: chapter.unity3d
-      Dependencies: {}
+      Name: response.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
     Info_12:
-      Name: part.unity3d
+      Name: search.unity3d
       Dependencies: {}
     Info_13:
+      Name: studenthistory.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_14:
+      Name: studentmessage.unity3d
+      Dependencies: {}
+    Info_15:
+      Name: studentpaperdetail.unity3d
+      Dependencies: {}
+    Info_16:
+      Name: studentpractise.unity3d
+      Dependencies: {}
+    Info_17:
+      Name: studentscoredetail.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_18:
+      Name: studentscore.unity3d
+      Dependencies: {}
+    Info_19:
+      Name: studentuser.unity3d
+      Dependencies: {}
+    Info_20:
+      Name: studentwrong.unity3d
+      Dependencies: {}
+    Info_21:
+      Name: teacheraddlibrary.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_22:
+      Name: teacheraddstudent.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_23:
+      Name: teacherclass.unity3d
+      Dependencies: {}
+    Info_24:
+      Name: teachercode.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_25:
+      Name: teacherlibrarydetial.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_26:
+      Name: teacherlibrary.unity3d
+      Dependencies: {}
+    Info_27:
+      Name: teacherpaperdetail.unity3d
+      Dependencies: {}
+    Info_28:
+      Name: teacherpaper.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_29:
+      Name: teacherpractise.unity3d
+      Dependencies: {}
+    Info_30:
+      Name: teacherscoredetail.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_31:
+      Name: teacheruser.unity3d
+      Dependencies: {}
+    Info_32:
+      Name: option.unity3d
+      Dependencies: {}
+    Info_33:
+      Name: question.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_34:
+      Name: block.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_35:
+      Name: optiontoggle.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_36:
+      Name: chapter.unity3d
+      Dependencies: {}
+    Info_37:
+      Name: messageitem.unity3d
+      Dependencies: {}
+    Info_38:
+      Name: paperdetialitem.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_39:
+      Name: paperhistory.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_40:
+      Name: paperscore.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_41:
+      Name: part.unity3d
+      Dependencies: {}
+    Info_42:
       Name: picture.unity3d
       Dependencies: {}
-    Info_14:
-      Name: messageitem.unity3d
+    Info_43:
+      Name: studentpaper.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_44:
+      Name: wrongdetialitem.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_45:
+      Name: wrongitem.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_46:
+      Name: addedlibrary.unity3d
+      Dependencies: {}
+    Info_47:
+      Name: classsstudentitem.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_48:
+      Name: librarydetialitem.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_49:
+      Name: librarypaper.unity3d
+      Dependencies:
+        Dependency_0: font.unity3d
+    Info_50:
+      Name: userstudentitem.unity3d
+      Dependencies: {}
+    Info_51:
+      Name: font.unity3d
       Dependencies: {}

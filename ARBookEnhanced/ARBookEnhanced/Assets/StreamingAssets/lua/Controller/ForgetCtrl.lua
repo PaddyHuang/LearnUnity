@@ -44,9 +44,9 @@ end
 
 -- Panel 开关
 function ForgetCtrl.Open()
-    gameObject:SetActive(true)
+    ForgetPanel.panel.gameObject:SetActive(true)
 end
 
 function ForgetCtrl.Close()
-    gameObject:SetActive(false)
+    ForgetPanel.panel.gameObject:SetActive(false)
 end
