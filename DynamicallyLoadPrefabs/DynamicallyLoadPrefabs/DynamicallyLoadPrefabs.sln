@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicallyLoadPrefabs", "Assembly-CSharp.csproj", "{52E2D135-A53E-BEBE-1A27-88D27712F025}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicallyLoadPrefabs", "Assembly-CSharp-Editor.csproj", "{BEBCB4D3-C523-5EA5-8BB0-28EBC38D2C9B}"

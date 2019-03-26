@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
+# Visual Studio for Mac
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseOrTouchEvent", "Assembly-CSharp.csproj", "{408D9E60-08B0-DAC9-09EB-F9C6BF49EBCD}"
 EndProject
 Global
