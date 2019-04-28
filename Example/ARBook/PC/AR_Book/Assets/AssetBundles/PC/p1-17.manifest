@@ -1,0 +1,39 @@
+ManifestFileVersion: 0
+CRC: 2224573691
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ebd85a3f2cfe3904429dc932d17a7c90
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 40ff6862be17ebc3be910abffca85282
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefab/AssetBundles/JianZhuJiChuGongCheng/yalujidonghua.prefab
+- Assets/Prefab/AssetBundles/yalujidonghua.prefab
+Dependencies: []

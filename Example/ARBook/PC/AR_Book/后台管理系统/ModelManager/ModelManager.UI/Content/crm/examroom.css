@@ -1,0 +1,18 @@
+﻿.siteBox,.siteBoxCheck{width: 100%;height:70px;border: 1px solid #000;margin: 10px 16px;text-align: left;}
+.siteBoxCheck{cursor:pointer;}
+.siteBoxbgcolor{background:#EC9393}
+.siteNo{margin: 3px 5px 0px 5px;}
+.siteExamNo{color:Green;font-weight:bold; }
+.siteName{color:Blue; }
+.siteExamNo,.siteName{ text-align:center;  height:20px;line-height:20px;}
+.siteColumn{margin: 0;float: left;width: 100px;}
+.roomDiv{width: 794px;height: 900px;border: 1px solid #000;margin: 0 auto;}
+.roomDesk{width: 250px;height: 80px; font-size:18px;font-weight:bold; border: 1px solid #000;margin: 30px auto;vertical-align: middle;}
+.roomNumber{width: 120px;height:50px; font-size:24px; font-weight:bold; margin: 30px auto;vertical-align:middle;line-height: 50px;float: left;margin-left: 16px;margin-right: 16px;}
+
+.teacherBox,.sameTeacherBox,.checkTeacherBox{ border: 1px dashed #BDABAB;width: 70%;height:70px;margin:10px auto;text-align: left; }
+.checkTeacherBox{background-color:#EC9393;}
+.subjectDateBox,.teacherNameBox{ text-align:center;  margin-top:10px; height:20px;line-height:20px;}
+.subjectDateBox{color:Green;font-weight:bold;}
+.teacherNameBox{color:Blue;}
+.teacherBox{cursor:pointer;}

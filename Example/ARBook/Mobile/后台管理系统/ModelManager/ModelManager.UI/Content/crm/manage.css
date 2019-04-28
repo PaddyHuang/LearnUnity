@@ -1,0 +1,120 @@
+﻿html, img{font-size: 100%;border: 0px;}
+html, body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td{margin: 0;padding: 0;}
+html{display: block;}
+body{background-color: #f4f4f4;font-family: "Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;color: #333;font-size: 12px;height:100%;}
+div{display: block;}
+select, input, button, button img, label{vertical-align: middle;}
+.clear { clear: both; margin: 0; padding: 0; height: 0; font-size: 0; line-height: 0; overflow: hidden; }
+ul, li { list-style:none; }
+#main{width: 100%;height: 100%;position: absolute;}
+#head{width: 100%;height: 100px;background: #54A700 url(Images/head_bg_green.png) no-repeat right top;box-shadow: 0 1px 4px rgba(0,0,0,.15);}
+#head .logo{position: absolute;top: 15px;left: 30px;width: 378px;height: 42px;background: url("images/logo_m.png") no-repeat 0px 0px;}
+#head .logo171{position: absolute;top: 15px;left: 20px;width: 409px;height: 46px;background: url("images/logo_m171.png") no-repeat 0px 0px;}
+#head .logo-yl{position: absolute;top: 15px;left: 20px;width: 420px;height: 46px;background: url("images/Logo-yl_m.png") no-repeat 0px 0px;}
+#head .nav{position: absolute;top: 20px;right: 10px;height: 40px;line-height: 40px;}
+#head .ico{background-image: url('images/bg_blue_v1.png');display:inline-block;vertical-align: middle;overflow: hidden;}
+#head .nav .ico-uid{width: 20px;height: 26px;background-position: -96px -60px;}
+#head .nav .ico-msg{width: 25px;height: 20px;background-position: -120px -63px;}
+#head .nav .ico-pwd{width: 20px;height: 20px;background-position: -72px -64px;}
+#head .nav span{font-size:14px;color:#fff;height:25px;line-height:25px;margin: 0px 5px 0px 5px;display:inline-block;}
+#head .nav a{color:#fff;text-decoration: none}
+#head .nav a:hover{color:#baddf4;}
+#head  .sl-angle{width:15px;height:15px;position:absolute;top:102px;left:55px;z-index:3;background-position: -80px -110px;display:none;}
+#head  #panel_menu{width:340px;top: 114px;left: 10px;-webkit-box-shadow: 0 0 4px #999;box-shadow: 0 0 4px #999;position:absolute;z-index:2;background-color:#fff;display:none;}
+#head .menu-parent{float:left;margin:20px 0 20px 0;}
+#head .menu-parent ul{display:inline-block;width:160px;}
+#head .menu-parent li{height:35px;line-height:35px;text-align:left;width:150px;font-size:14px;padding:0 0 0 10px;cursor:pointer;}
+#head .menu-parent li.select,.menu-parent li:hover{background-color: #83c331;color: #fff;}
+#head .menu-parent ul{display:inline-block;width:160px;}
+#head .menu-parent li i{margin:0 5px 0 5px;}
+#head .menu-parent .menu-ico{background-image: url('images/menu-basis-ico.png?v=20151413');display:inline-block;vertical-align: middle;overflow: hidden;}
+#head .menu-parent .basis{width: 30px;height: 30px;background-position: -7px -6px;}
+#head .menu-parent .student{width: 30px;height: 30px;background-position: -7px -40px;}
+#head .menu-parent .teach{width: 30px;height: 30px;background-position: -7px -72px;}
+#head .menu-parent .elective{width: 30px;height: 30px;background-position: -7px -104px;}
+#head .menu-parent .exam{width: 30px;height: 30px;background-position: -7px -136px;}
+#head .menu-parent .evaluate{width: 30px;height: 30px;background-position: -7px -168px;}
+#head .menu-parent .appraise{width: 30px;height: 30px;background-position: -7px -200px;}
+#head .menu-parent .system{width: 30px;height: 30px;background-position: -7px -232px;}
+#head .menu-parent .default{width: 30px;height: 30px;background-position: -7px -264px;}
+#head .menu-parent .message{width: 30px;height: 30px;background-position: -7px -296px;}
+#head .menu-parent .comment{width: 30px;height: 30px;background-position: -7px -328px;}
+#head .menu-parent .attendance{width: 30px;height: 30px;background-position: -7px -360px;}
+#head .menu-parent .courseopen{width: 30px;height: 30px;background-position: -7px -392px;}
+#head .menu-parent .analysis{width: 30px;height: 30px;background-position: -7px -425px;}
+#head .menu-parent .credit{width: 30px;height: 30px;background-position: -7px -457px;}
+#head .menu-parent .repair{width: 30px;height: 30px;background-position: -7px -488px;}
+#head .menu-parent .site{width: 30px;height: 30px;background-position: -7px -520px;}
+#head .menu-parent .academic{width: 30px;height: 30px;background-position: -7px -552px;}
+#head .menu-parent .bed{width: 30px;height: 30px;background-position: -7px -583px;}
+#head .menu-parent .study{width: 30px;height: 30px;background-position: -7px -616px;}
+#head .menu-parent .moral{width: 30px;height: 30px;background-position: -7px -649px;}
+#head .menu-parent .club{width: 30px;height: 30px;background-position: -7px -682px;}
+#head .menu-parent .examination{width: 30px;height: 30px;background-position: -7px -715px;}
+#head .menu-parent .teaching{width: 30px;height: 30px;background-position: -7px -747px;}
+#head .menu-parent .cyanine{width: 30px;height: 30px;background-position: -7px -782px;}
+#head .menu-parent .divide{width: 30px;height: 30px;background-position: -7px -814px;}
+
+#head .menu-sub{width:160px;height:100%;float:left;margin:20px 0 20px 0;background-color: #83c331;}
+#head .menu-sub ul{display:inline-block;width:160px;}
+#head .menu-sub li{height:35px;line-height:35px;text-align:left;width:140px;font-size:14px;padding:0 0 0 20px;cursor:pointer;color:#fff;background-color: #83c331;}
+#head .menu-sub li:hover{background-color: #95d840;}
+
+#head .menu{position: absolute;top: 70px;left: 0px;width: 100%;height: 30px;}
+#head .menu .ico-menu{width: 30px;height: 30px;background-position: -8px -11px;}
+#head .menu .ico-menu-hover{width: 30px;height: 30px;background-position: -8px -40px;}
+#head .startmenu{font-size: 16px;font-weight: bold;color: #fff;float: left;cursor: pointer;width: 110px;height: 30px;text-align: center;line-height: 30px;margin: 0px 2px 0px 10px;}
+#head #tab_panel ul li{width: 115px;height: 30px;line-height: 30px;margin: 0px -2px 0px 0px;padding: 0px;float: left;}
+#head #tab_panel ul li label{font-size: 14px;color: #777;width: 90px;text-align: center;cursor: pointer;display: inline-block;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+#head #tab_panel ul li i{display: inline-block;width: 20px;height: 30px;background-position: -218px -102px;cursor: pointer;}
+#head #tab_panel ul li i:hover{background-position: -237px -100px;}
+#head #tab_panel ul li:hover{background-position: -111px -144px;}
+#head #tab_panel #tab_0 label{width:110px;}
+#head #tab_panel .tab{background-position: -170px -3px;}
+#head #tab_panel .tab-hover{background-position: -40px -3px;}
+#content{width: 100%;margin: 0 auto;height:200px;overflow: hidden;}
+#content .portal-iframe{width: 100%;height: 100%;border: 0px;overflow: hidden;}
+#content .scrollee{-webkit-overflow-scrolling:touch; overflow: scroll;}
+#content iframe {width: 100%;height: 100%;border: 0px;}
+#content #content_portal{width: 900px;margin: 0 auto;}
+#content .panel-app{width: 900px;margin: 60px auto auto auto;}
+#content .panel-app li{float: left;margin: 15px 45px 10px 45px;display:inline-block;width:90px;height:130px;}
+#content .panel-app li a{color:#666;text-decoration: none}
+#content .panel-app li a:hover{color:#333;}
+#content .panel-app li .ico{width:90px;height:90px;background-image: url('images/panel-ico-green.png');display:inline-block;vertical-align: middle;overflow: hidden;}
+#content .panel-app li .message{background-position: 2px 2px;}
+#content .panel-app li .message:hover{background-position: -106px 2px;}
+#content .panel-app li .person-doc{background-position: -216px 2px;}
+#content .panel-app li .person-doc:hover{background-position: -328px 2px;}
+#content .panel-app li .elective-course{background-position: -443px 3px;}
+#content .panel-app li .elective-course:hover{background-position: -558px 3px;}
+#content .panel-app li .schedule{background-position: -670px 3px;}
+#content .panel-app li .schedule:hover{background-position: -784px 3px;}
+#content .panel-app li .class-attendance{background-position: 2px -94px;}
+#content .panel-app li .class-attendance:hover{background-position: -106px -94px;}
+#content .panel-app li .performance{background-position: -216px -94px;}
+#content .panel-app li .performance:hover{background-position: -328px -94px;}
+#content .panel-app li .examtime{background-position: -443px -94px;}
+#content .panel-app li .examtime:hover{background-position: -558px -94px;}
+#content .panel-app li .exammark{background-position: -670px -94px;}
+#content .panel-app li .exammark:hover{background-position: -784px -94px;}
+#content .panel-app li .examcredit{background-position: 2px -190px;}
+#content .panel-app li .examcredit:hover{background-position: -106px -190px;}
+#content .panel-app li .term-comments{background-position: -216px -190px;}
+#content .panel-app li .term-comments:hover{background-position: -328px -190px;}
+#content .panel-app li .term-comments{background-position: -216px -190px;}
+#content .panel-app li .term-comments:hover{background-position: -328px -190px;}
+#content .panel-app li .student-appraise{background-position: -443px -190px;}
+#content .panel-app li .student-appraise:hover{background-position: -558px -190px;}
+#content .panel-app li .teacher-appraise{background-position: -670px -190px;}
+#content .panel-app li .teacher-appraise:hover{background-position: -784px -190px;}
+#content .panel-app li .default{background-position: 2px -307px;}
+#content .panel-app li .default:hover{background-position: -106px -307px;}
+#content .panel-app li .message-class{background-position: -216px -307px;}
+#content .panel-app li .message-class:hover{background-position: -328px -307px;}
+#content .panel-app li .exam-input{background-position: -443px -307px;}
+#content .panel-app li .exam-input:hover{background-position: -558px -307px;}
+
+#content .panel-app li label{display:block;font-size:16px;text-align:center;height:40px;line-height:40px;width:90px;}
+
+#footer{width: 100%;height: 30px;line-height: 30px;text-align: center;position: absolute;left: 0;bottom: 0;background-color: #f4f4f4;}

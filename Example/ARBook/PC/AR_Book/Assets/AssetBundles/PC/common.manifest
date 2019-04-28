@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 1835851822
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2e85046fc0921dddcf846b4c412ac6e4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 51a16e16d5113854a16091e54ae5bb0d
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Materials/included-StandardTrans.mat
+- Assets/Materials/included-Standard.mat
+- Assets/Materials/inclued-LegacyTrans.mat
+Dependencies: []

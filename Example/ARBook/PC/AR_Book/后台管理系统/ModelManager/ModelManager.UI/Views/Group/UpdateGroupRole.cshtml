@@ -1,0 +1,298 @@
+﻿@model ModelManager.Domain.ViewModel.ServerResponse.GroupResponse
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+}
+@section styles{
+
+    @*<link href="~/Content/zTree_v3/css/demo.css" rel="stylesheet" />*@
+    <link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/zTreeStyle/zTreeStyle.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/metroStyle/metroStyle.min.css" rel="stylesheet">
+    @*<link href="~/Content/zTree_v3/css/metroStyle/metroStyle.css" rel="stylesheet" />*@
+    <style type="text/css">
+        ul.ztree {
+            margin-top: 10px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            /*width: 220px;*/
+            min-height: 360px;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+
+        .ztree li span.button.add {
+            margin-left: 2px;
+            margin-right: -1px;
+            background-position: -144px 0;
+            vertical-align: top;
+            *vertical-align: middle;
+        }
+
+        .roleselected {
+            background-color: #5FB878;
+        }
+    </style>
+}
+<div style="margin: 15px;">
+    <form class="layui-form" method="post" id="form" action="">
+
+
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this layui-hide">基本信息</li>
+
+                <li>角色分配</li>
+            </ul>
+
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-hide">
+
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">组名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="填写组名称" class="layui-input" value="@Model.Name">
+                            <input type="hidden" id="ID" name="ID" value="@Model.ID" />
+
+                            @Html.AntiForgeryToken()
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">上级组名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="parentname" autocomplete="off" placeholder="填写上级组名称" class="layui-input" value="@Model.ParentName">
+                        </div>
+                    </div>
+
+                    @*<div class="layui-form-item">
+                <label class="layui-form-label">层级</label>
+                <div class="layui-input-block">
+                    <input type="text" name="levelname" autocomplete="off" placeholder="设定层级" class="layui-input">
+
+                </div>
+            </div>*@
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">
+
+
+
+                            @if (Model.Flag == 0)
+                            {
+                                <input type="checkbox" checked name="flag" lay-skin="switch" lay-text="启用|禁用" lay-filter="switchTest" title="是否可用">
+                            }
+
+                            else
+                            {
+                                <input type="checkbox" name="flag" lay-skin="switch" lay-text="启用|禁用" lay-filter="switchTest" title="是否可用">
+                            }
+
+
+                            @*<input type="text" name="phone" lay-verify="phone" autocomplete="off" placeholder="填写状态" class="layui-input">*@
+
+                        </div>
+                    </div>
+
+
+                    @*<div class="layui-form-item">
+
+                <label class="layui-form-label">分配角色</label>
+                <div class="layui-input-block">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>*@
+                </div>
+
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form-item">
+                        <div class="layui-btn-group demoTest" id="rolegroup" style="margin-top: 5px;">
+
+                            @foreach (var item in Model.AllRole)
+                            {
+
+                                
+                             
+                                
+                                var useRoleExist = Model.HasRole.FirstOrDefault(x => x.ID.Equals(item.ID));
+
+
+
+                                if (useRoleExist == null)
+                                {
+                                    <div class="layui-btn layui-btn-sm " data-type="set" data-key="@item.ID" data-value="@item.RoleValue"> @item.NAME </div>
+                                }
+                                else
+                                {
+                                    <div class="layui-btn layui-btn-sm roleselected" data-type="set" data-key="@item.ID" data-value="@item.RoleValue"> @item.NAME </div>
+                                }
+
+
+
+                            }
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <div class="layui-btn" lay-submit="" lay-filter="productadd">保存并提交</div>
+
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+@section scripts{
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.all.min.js"></script>
+
+
+    <script>
+
+        layui.config({
+            base: '../../Content/layui/extension/js/',
+            v: new Date().getTime()
+        }).use(['form', 'layedit', 'laydate', 'common', 'upload'], function () {
+            var form = layui.form
+        , $ = layui.jquery
+        , layer = layui.layer
+        , layedit = layui.layedit
+        , laydate = layui.laydate
+        , common = layui.common
+        , upload = layui.upload
+        , active = {
+            set: function (othis) {
+                var THIS = 'layui-bg-normal'
+                , key = othis.data('key')
+                , options = {};
+
+
+                if (othis.hasClass('roleselected')) {
+                    othis.removeClass('roleselected');
+                }
+                else {
+                    othis.addClass('roleselected');
+                }
+            }
+        };
+
+            form.verify({
+                    username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                        if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                            return '用户名不能有特殊字符';
+                        }
+                        if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                            return '用户名首尾不能出现下划线\'_\'';
+                        }
+                        if (/^\d+\d+\d$/.test(value)) {
+                            return '用户名不能全为数字';
+                        }
+                    }
+
+                    //我们既支持上述函数式的方式，也支持下述数组的形式
+                    //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+                  , pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                  ]
+
+                   , template: function (value, item) {
+                       if (!value || value.length == 0) {
+                           return '模板信息，不能为空'
+                       }
+
+                   }
+            });
+            //监听指定开关
+            form.on('switch(switchTest)', function (data) {
+
+            });
+
+
+            $(document).on('click', '.demoTest .layui-btn', function () {
+
+                var othis = $(this), type = othis.data('type');
+                active[type] ? active[type].call(this, othis) : '';
+
+
+            })
+
+
+            //监听提交
+            form.on('submit(productadd)', function (data) {
+
+                var roleID = "";
+                $('.roleselected').each(function () {
+                    var id = $(this).data("key")
+
+                    if (id && id != '') {
+                        roleID += (id + ',')
+                    }
+                })
+
+                data.field.RoleID = roleID
+                $.ajax({
+                    type: "POST",
+                    url: common.renderUrl('@Url.Action("UpdateRole", "Group")', {
+
+                    }),
+                    data: data.field,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        layer.load(0);
+                        //  xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                    },
+                    success: function (res) {
+                        if (res.Code == 0) {
+
+                            layer.msg("成功更新管理员组角色");
+
+                            // 添加成功，用户初始密码为123456");
+                        }
+                        else {
+
+                            layer.msg(res.ErrorDesc);
+                        }
+                        layer.closeAll("loading");
+                    },
+
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                        layer.closeAll("loading");
+                    }
+                });
+
+
+                return false;
+
+
+
+
+
+
+
+            });
+
+
+
+
+
+
+        })
+
+
+    </script>
+
+
+
+}
+

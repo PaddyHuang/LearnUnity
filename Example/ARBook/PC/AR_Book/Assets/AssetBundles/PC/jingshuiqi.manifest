@@ -1,0 +1,48 @@
+ManifestFileVersion: 0
+CRC: 2236561862
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6e34c99430c6ccc0ab73b162b3065d9e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e210103fe6ca985a1bce9361ee781a4b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 449fc7635403aaa4d9467c202650c75f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 467cac9c1acdf674990a07e322f691df, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefab/AssetBundles/ChanPinShouCe/JingShuiQi.prefab
+Dependencies: []

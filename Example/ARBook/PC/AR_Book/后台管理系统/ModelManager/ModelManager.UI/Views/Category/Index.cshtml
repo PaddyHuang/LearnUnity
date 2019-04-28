@@ -1,0 +1,516 @@
+﻿
+@{
+    ViewBag.Title = "VR模型目录管理";
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+}
+
+@section styles{
+
+
+    <link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/zTreeStyle/zTreeStyle.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/metroStyle/metroStyle.min.css" rel="stylesheet">
+    @*<link href="~/Content/zTree_v3/css/metroStyle/metroStyle.css" rel="stylesheet" />*@
+    <style type="text/css">
+    ul.ztree {
+        margin-top: 10px;
+        border: 1px solid #617775;
+        background: #f0f6e4;
+        /*width: 220px;*/
+        /*height: 360px;*/
+        overflow-y: scroll;
+        overflow-x: auto;
+    }
+        .ztree li span.button.add {
+            margin-left: 2px;
+            margin-right: -1px;
+            background-position: -144px 0;
+            vertical-align: top;
+            *vertical-align: middle;
+        }
+    </style>
+
+
+}
+<div class="admin-main">
+    <blockquote class="layui-elem-quote">
+        <a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+            <i class="layui-icon">&#xe608;</i> 添加目录
+        </a>
+        <a href="#" class="layui-btn layui-btn-small" id="import">
+            <i class="layui-icon">&#xe608;</i> 导入目录
+        </a>
+        <a href="#" class="layui-btn layui-btn-small">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出到处目录
+        </a>
+
+
+        <div class="layui-form" style="float:right;">
+            <div class="layui-form-item" style="margin:0;">
+                <label class="layui-form-label">关键字</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userkeyword" id="userkeyword" placeholder="名称" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline" style="padding:0;">
+                    <div lay-filter="search" class="layui-btn" lay-submit="" id="btnquery"><i class="fa fa-search" aria-hidden="true"></i> 查询</div>
+                </div>
+            </div>
+        </div>
+    </blockquote>
+  <!--  <div class="layui-container">-->
+        <div class="layui-row">
+            <div class="layui-col-xs6 layui-col-sm6 layui-col-md4">
+                <div class="zTreeDemoBackground left">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>
+            <div class="layui-col-xs6 layui-col-sm6 layui-col-md8">
+                <fieldset class="layui-elem-field">
+                    <legend id="">【<span id="lableName">顶级</span>】 子目录列表</legend>
+                    <div class="layui-field-box layui-form" id="content">
+                        <table class="layui-hide" id="test" lay-filter="demo"></table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+  <!--  </div>-->
+
+    </div>
+
+
+
+
+<script type="text/html" id="barDemo">
+   
+    <a class="layui-btn layui-btn-xs" data-id="{{d.ID}}" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.ID}}" lay-event="del" data-name="{{d.Name}}">删除</a>
+</script>
+    @section scripts{
+
+        <script src="https://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.all.min.js"></script>
+
+
+
+        <script>
+            layui.config({
+                base: '../../Content/layui/extension/js/',
+                v: new Date().getTime()
+
+               // 'laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'common',"md5"
+            }).use(['form', 'layedit', 'laypage', 'layer', 'element', 'laydate', 'common', 'table', 'upload'], function () {
+                var form = layui.form
+                , $ = layui.jquery
+                , layer = layui.layer
+                 , table = layui.table //表格
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , common = layui.common
+                , upload = layui.upload;
+
+                function RefreshTable(treeNode) {
+                    if (treeNode)
+                    {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        var nodes = treeObj.transformToArray(treeNode.children);
+                        $('#lableName').text("").text(treeNode.name);
+                        table.render({
+                            elem: '#test'
+                          , 
+
+                            data: nodes
+                          , page: true //开启分页
+                          , cols: [[ //表头
+
+                             { field: 'Name', title: '名称' }
+                            , { field: 'ParentName', title: '上级组' }
+
+                            , { fixed: 'right', width: 240, align: 'center', toolbar: '#barDemo' }
+                          ]]
+                        });
+                    }
+                }
+
+                function zTreeOnClick(event, treeId, treeNode) {
+                    RefreshTable(treeNode);
+                }
+
+
+                //监听工具条
+                table.on('tool(demo)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                    var data = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+                    var editBoxIndex = -1;
+
+                    if (layEvent === 'del') {
+                        layer.confirm('确定删除【' + data.name + '】？', function (index) {
+                            $.ajax({
+                                type: "GET",
+                                url: common.renderUrl('@Url.Action("Delete", "Category")', {
+                                    id: data.ID
+                                }),
+
+                                dataType: "json",
+                                beforeSend: function (xhr) {
+                                    layer.load();
+                                },
+                                success: function (res) {
+                                    layer.closeAll("loading");
+                                    if (res.Code == 0) {
+                                        layer.msg("删除成功:");
+                                        obj.del();
+                                       // location.reload();
+                                    }
+                                },
+            
+                                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                                    layer.closeAll("loading");
+                                    //layer.closeAll();
+                                }
+                            });
+
+                            layer.close(index);
+
+
+
+                            //向服务端发送删除指令
+                        });
+                    } else if (layEvent === 'edit' || layEvent === 'detail') {
+
+                        if (editBoxIndex !== -1)
+                            return;
+
+                        editBoxIndex = layer.open({
+                            type: 2,
+                            title: '修改目录',
+                            shadeClose: false,
+                            shade: 0.8,
+                            offset: ['10px', '3%'],
+                            area: ['90%', '90%'],
+                            content: common.renderUrl('@Url.Action("Update", "Category")', {
+                                id: data.ID
+
+                            }), //iframe的url
+                            end: function () {
+                                editBoxIndex = -1;
+
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+
+
+
+                var setting = {
+                    view: {
+                        addHoverDom: addHoverDom,
+                        removeHoverDom: removeHoverDom,
+                        selectedMulti: false
+                    },
+                    edit: {
+                        enable: true,
+                        editNameSelectAll: true,
+                        showRemoveBtn: showRemoveBtn,
+                        showRenameBtn: showRenameBtn
+                    },
+                    data: {
+
+                        simpleData: {
+                            enable: true,
+
+                        }
+
+                    },
+                    callback: {
+                        beforeDrag: beforeDrag,
+                        beforeEditName: beforeEditName,
+                        beforeRemove: beforeRemove,
+                        beforeRename: beforeRename,
+                        onRemove: onRemove,
+                        onRename: onRename,
+                        onClick: zTreeOnClick
+                    }
+                };
+
+                var zNodes = [
+			        { id: 1, pId: 0, name: "父节点 1", open: true },
+			        { id: 11, pId: 1, name: "叶子节点 1-1" },
+			        { id: 12, pId: 1, name: "叶子节点 1-2" },
+			        { id: 13, pId: 1, name: "叶子节点 1-3" },
+			        { id: 2, pId: 0, name: "父节点 2", open: true },
+			        { id: 21, pId: 2, name: "叶子节点 2-1" },
+			        { id: 22, pId: 2, name: "叶子节点 2-2" },
+			        { id: 23, pId: 2, name: "叶子节点 2-3" },
+			        { id: 3, pId: 0, name: "父节点 3", open: true },
+			        { id: 31, pId: 3, name: "叶子节点 3-1" },
+			        { id: 32, pId: 3, name: "叶子节点 3-2" },
+			        { id: 33, pId: 3, name: "叶子节点 3-3" }
+                ];
+                var log, className = "dark";
+                function beforeDrag(treeId, treeNodes) {
+                    return false;
+                }
+
+                ///编辑前回调函数
+                function beforeEditName(treeId, treeNode) {
+                    className = (className === "dark" ? "" : "dark");
+                    showLog("[ " + getTime() + " beforeEditName ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                    zTree.selectNode(treeNode);
+                    setTimeout(function () {
+                        if (confirm("进入节点 -- " + treeNode.name + " 的编辑状态吗？")) {
+                            setTimeout(function () {
+                                zTree.editName(treeNode);
+                            }, 0);
+                        }
+                    }, 0);
+                    return false;
+                }
+
+                ///删除前回调函数
+                function beforeRemove(treeId, treeNode) {
+                    className = (className === "dark" ? "" : "dark");
+                    showLog("[ " + getTime() + " beforeRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                    zTree.selectNode(treeNode);                   
+                }
+
+                ///删除回调函数
+                function onRemove(e, treeId, treeNode) {
+                    layer.confirm("确认删除 节点 -- " + treeNode.name + " 吗？", { icon: 3, title: '提示' }, function (index) {
+                        $.ajax({
+                            type: "POST",
+                            url: common.renderUrl('@Url.Action("Delete", "Category")', {
+                                id: treeNode.id
+
+                            }) ,
+                            // async: false, //_config.async,
+                            dataType: 'json',
+                            beforeSend: function () {
+                                layer.load(0);
+
+                            },
+                            success: function (result, status, xhr) {
+                                if (result.Code == 0) {
+                                    layer.msg('删除成功', {
+                                        icon: 1,
+                                        time: 3000 //2秒关闭（如果不配置，默认是3秒）
+                                    }, function () {
+                                        showLog("[ " + getTime() + " onRemove ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name);
+
+                                        location.reload();
+                                    });
+                                }
+                                else
+                                {
+                                    layer.msg(result.ErrorDesc);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                common.msgError('treeDemo error:' + error);
+                            },
+                            complete: function (xhr, status) {
+                                layer.closeAll("loading");
+                            }
+
+                        })
+                    });
+                }
+                ///重命名回调函数
+                function beforeRename(treeId, treeNode, newName, isCancel) {
+                    className = (className === "dark" ? "" : "dark");
+                    showLog((isCancel ? "<span style='color:red'>" : "") + "[ " + getTime() + " beforeRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>" : ""));
+                    if (newName.length == 0) {
+                        setTimeout(function () {
+                            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                            zTree.cancelEditName();
+                            alert("节点名称不能为空.");
+                        }, 0);
+                        return false;
+                    }
+                    return true;
+                }
+                function onRename(e, treeId, treeNode, isCancel) {
+                    showLog((isCancel ? "<span style='color:red'>" : "") + "[ " + getTime() + " onRename ]&nbsp;&nbsp;&nbsp;&nbsp; " + treeNode.name + (isCancel ? "</span>" : ""));
+                }
+                function showRemoveBtn(treeId, treeNode) {
+                    return !treeNode.isFirstNode;
+                }
+                function showRenameBtn(treeId, treeNode) {
+                    return !treeNode.isLastNode;
+                }
+                function showLog(str) {
+                    if (!log) log = $("#log");
+                    log.append("<li class='" + className + "'>" + str + "</li>");
+                    if (log.children("li").length > 8) {
+                        log.get(0).removeChild(log.children("li")[0]);
+                    }
+                }
+                function getTime() {
+                    var now = new Date(),
+			        h = now.getHours(),
+			        m = now.getMinutes(),
+			        s = now.getSeconds(),
+			        ms = now.getMilliseconds();
+                    return (h + ":" + m + ":" + s + " " + ms);
+                }
+                var newCount = 1;
+                function addHoverDom(treeId, treeNode) {
+                    var sObj = $("#" + treeNode.tId + "_span");
+                    if (treeNode.editNameFlag || $("#addBtn_" + treeNode.tId).length > 0) return;
+                    var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+				        + "' title='add node' onfocus='this.blur();'></span>";
+                    sObj.after(addStr);
+                    var btn = $("#addBtn_" + treeNode.tId);
+                    if (btn) btn.bind("click", function () {
+                        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                        var editBoxIndex = -1;
+                        if (editBoxIndex == -1)
+                        {
+
+                            editBoxIndex = layer.open({
+                                type: 2,
+                                title: '添加、修改目录',
+                                shadeClose: false,
+                                shade: 0.8,
+                                offset: ['10px', '3%'],
+                                area: ['90%', '90%'],
+                                content: common.renderUrl('@Url.Action("AddCategory", "Category")', {
+                                    //id: data.ID
+
+                                }), //iframe的url
+                                end: function () {
+                                    editBoxIndex = -1;
+
+                                    location.reload();
+                                }
+                            });
+
+                        }
+                        return false;
+                    });
+                };
+                function removeHoverDom(treeId, treeNode) {
+                    $("#addBtn_" + treeNode.tId).unbind().remove();
+                };
+                function selectAll() {
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                    zTree.setting.edit.editNameSelectAll = $("#selectAll").attr("checked");
+                }
+
+
+                $(function () {
+                    var editBoxIndex = -1;
+                    $('#add').click(function () {
+                        if (editBoxIndex == -1) {
+
+                            editBoxIndex = layer.open({
+                                type: 2,
+                                title: '添加、修改目录',
+                                shadeClose: false,
+                                shade: 0.8,
+                                offset: ['10px', '3%'],
+                                area: ['90%', '90%'],
+                                content: common.renderUrl('@Url.Action("AddCategory", "Category")', {
+                                    //id: data.ID
+
+                                }), //iframe的url
+                                end: function () {
+                                    editBoxIndex = -1;
+
+                                    location.reload();
+                                }
+                            });
+                        }
+                    })
+
+                    $('#import').click(function () {
+
+                        layer.open({
+                            type: 2,
+                            title: '导入目录',
+                            shadeClose: false,
+                            shade: 0.8,
+                            offset: ['10px', '3%'],
+                            area: ['90%', '90%'],
+                            content: common.renderUrl('@Url.Action("Import", "Category")', {
+                                //id: data.ID
+
+                            }), //iframe的url
+                            end: function () {
+                                editBoxIndex = -1;
+
+                                location.reload();
+                            }
+                        });
+
+
+
+                    })
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetList", "Category")',
+                        // async: false, //_config.async,
+                        dataType: 'json',
+                        beforeSend: function () {
+                            layer.load(0);
+                        },
+                        success: function (result, status, xhr) {
+
+                            $.fn.zTree.init($("#treeDemo"), setting, result.Result);
+                            $("#selectAll").bind("click", selectAll);
+                        },
+                        error: function (xhr, status, error) {
+                            common.msgError('treeDemo error:' + error);
+                        },
+                        complete: function (xhr, status) {
+                            layer.closeAll("loading");
+                        }
+                    });
+
+
+                    $('#btnquery').click(function () {
+
+
+
+                        table.render({
+                            elem: '#test'
+
+                           , url: common.renderUrl('@Url.Action("GetCategoryByPage", "Category")', {
+                               keyword: encodeURIComponent($('#userkeyword').val())                             
+                           })
+                            , page: true //开启分页
+                            , cols: [[ //表头
+
+                                { field: 'Name', title: '名称' }
+                            , { field: 'ParentName', title: '上级组' }
+
+                            , { fixed: 'right', width: 240, align: 'center', toolbar: '#barDemo' }
+                            ]]
+                                                });
+
+
+                    })
+
+                })
+
+                var uploadInst = upload.render({
+                    elem: '#test' //绑定元素
+                      , url: '/upload/' //上传接口
+                      , auto: false
+                      , field: "modelthumb"
+                      , accept: "file"
+                      , done: function (res) {
+
+                         // layer.msg(JSON.stringify(res));
+                          //上传完毕回调
+                      }
+                      , error: function () {
+                          //请求异常回调
+                      }
+                });
+
+            });
+        </script>
+    }

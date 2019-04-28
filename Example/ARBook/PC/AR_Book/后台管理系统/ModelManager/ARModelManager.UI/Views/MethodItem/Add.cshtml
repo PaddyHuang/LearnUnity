@@ -1,0 +1,730 @@
+﻿@{
+    //Layout = "~/Areas/Administrator/Views/Shared/View.cshtml";
+}
+@section header
+{
+    <link rel="stylesheet" href="~/Content/admin/css/treetable.css" />
+    <style>
+        .layui-btn + .layui-btn {
+            margin-left: inherit !important;
+        }
+
+        #sizesmodel input {
+            text-align: center;
+        }
+        i.selected {
+            color: red;
+        }
+        textarea {
+            text-align: left;
+        }
+    </style>
+}
+
+
+    <form class="layui-form layui-form-pane" action="" id="formEdit">
+        <div class="layui-form-item layui-hide">
+            <label class="layui-form-label">音频资源</label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="btnuploadaudio">上传音频</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="commonupload">
+
+                        <input type="hidden" name="commonresource" id="commonresource" value="" />
+                        <p id="commontext"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-tab layui-tab-brief" lay-filter="tab" style="margin: 0px">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">模型介绍</li>
+                    <li>作业方式</li>
+                    <li>课后练习</li>
+                </ul>
+                <div class="layui-tab-content" style="height: 100px;">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" value="@ViewBag.ModleID" name="modelID" id="modelID" />
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">模型名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="Name" id="name" @*v-model="Name"*@ required lay-verify="required"
+                                       placeholder="模型名称" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">识别关键字</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="CNID" @*v-model="CNID"*@ id="cnid" required
+                                       placeholder="请输入识别关键字" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">ab包资源</label>
+                            <div class="layui-input-block">
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="test1">上传ab包</button>
+                                    <div class="layui-upload-list">
+                                        <img class="layui-upload-img" id="demo1">
+                                        <input type="hidden" value="" id="aburl" name="aburl" />
+                                        <p id="demoText"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">ab包名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="abObjectName" id="abObjectName" @*v-model="abObjectName"*@ class="layui-input" placeholder="ab包名称需要按照项目设置">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">所属课本</label>
+                            <div class="layui-input-block">
+                                <select name="bookID" lay-filter="book">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">序号</label>
+                            <div class="layui-input-block">
+                                <input type="number" name="Sort" id="sort" value="1" />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="layui-tab-item">
+
+
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>作业方式</legend>
+                        </fieldset>
+                        <ul class="layui-timeline" id="structmodel">
+
+                            <li class="layui-timeline-item ico_end listend" id="comlistend">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <div class="layui-timeline-title">结束</div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                        <div class="layui-btn" id="btnaddcompnentobj">增加</div>
+                        <div class="layui-btn del">删除</div>
+                    </div>
+
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">习题内容</label>
+                            <div class="layui-input-block">
+                                @*<input type="text" name="videoName" id="videoName"
+                                placeholder="视频别称" autocomplete="off" class="layui-input">*@
+                                <textarea class="layui-textarea TextInfo" id="praticetextInfo">
+        
+                            </textarea>
+
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">习题图例名称</label>
+                            <div class="layui-input-block">
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="btnuploadpratice">上传习题图例</button>
+                                    <div class="layui-upload-list">
+                                        <img class="layui-upload-img" id="praticevideoupload" style="width:120px;height:120px;">
+                                        <input type="hidden" name="taskPicName" id="taskPicName" value="" />
+                                        <p id="praticevideoDemo"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">标准答案图片名称</label>
+                            <div class="layui-input-block">
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="btnuploadvideo">上传标准答案图片</button>
+                                    <div class="layui-upload-list">
+                                        <img class="layui-upload-img" id="videoupload" style="width:120px;height:120px;">
+                                        <input type="hidden" name="AnswerPicName" id="AnswerPicName" value="" />
+                                        <p id="videoDemo"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">是否可显示答案</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" checked="" id="open" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF"><div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>ON</em><i></i></div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn layui-btn-normal" id="testList">上传图例</button>
+                                <div class="layui-upload-list">
+                                    <table class="layui-table">
+                                        <thead>
+                                            <tr>
+                                                <th>文件名</th>
+                                                <th>大小</th>
+                                                <th>状态</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="demoList"></tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="layui-btn" id="testListAction">开始上传</button>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row layui-fixbar" style="right:40%">
+            <div class="layui-btn layui-btn-lg" lay-submit lay-filter="formtypeModel">保存信息</div>
+
+        </div>
+        <input type="hidden" lay-submit id="btnSubmit" lay-filter="formSubmit" />
+    </form>
+
+<script type="text/javascript" src="~/Content/admin/layui/layui.js"></script>
+
+<script>
+
+
+    layui.config({
+        base: "/Content/admin/js/"
+    }).use(['form', 'vue', 'ztree', 'layer', 'utils', 'jquery', 'table', 'droptree', 'openauth', 'element', 'upload','common'], function () {
+
+        var $ = layui.jquery
+            , common = layui.common
+            , element = layui.element
+            , form = layui.form
+            , upload = layui.upload;
+        layui.droptree("/UserSession/QueryNavList", "#ParentName", "#BelongToID", false);
+
+        $(document).on("click", "li.layui-timeline-item", function () {
+            var el = $(this).find('i.layui-timeline-axis');
+            if (el) {
+                $('i.selected').removeClass('selected');
+                el.addClass('selected');
+            }
+            $(this).siblings("li.layui-timeline-item").each(function () {
+
+                var el1 = $(this).find('i.layui-timeline-axis');
+
+                el1.removeClass('selected');
+            })
+        })
+
+
+        $('.layui-tab-item > .del').click(function () {
+
+            var selected = $('i.selected').parent();
+
+            if (selected && selected.length > 0) {
+                //询问框
+
+                var inel = selected.find('input.index');
+
+                if (inel && inel.length > 0) {
+
+
+                    layer.confirm('确定删除 内容项：' + inel.val(), {
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+
+                        var parentel = selected.parent();
+
+                        selected.remove();
+
+                        var elems = parentel.find('li.layui-timeline-item');
+
+                        if (elems.length > 0) {
+
+                            var ccnum = 1;
+                            elems.each(function () {
+
+
+
+
+                                var spanel = $(this).find('span.tindex');
+
+                                var inputel = $(this).find('input.index');
+                                if (spanel && spanel.length > 0) {
+                                    spanel.text(ccnum);
+                                }
+
+                                if (inputel && inputel.length > 0) {
+                                    inputel.val(ccnum);
+                                }
+
+                                ccnum++
+                            })
+                        }
+
+
+
+                        layer.msg("移除成功")
+                    }, function () {
+                        return;
+                    });
+                }
+                else {
+                    layer.msg("请选中要移除的节点");
+                }
+
+
+
+            }
+
+
+        })
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+            ,accept:'file'
+            , exts:''
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                //obj.preview(function (index, file, result) {
+                //    $('#demo1').attr('src', result); //图片链接（base64）
+                //});
+
+                layer.load(0);
+            },
+            done: function (res) {
+                $('#aburl').val(res.Result.path);
+
+                $('#demoText').text("ab包资源地址为：" + res.Result.url);
+                layer.closeAll("loading");
+                //如果上传失败
+               // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+         //视频上传
+        var uploadvidelInst = upload.render({
+            elem: '#btnuploadvideo'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+            //, accept: 'file'
+            //, exts:''
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#videoupload').attr('src', result); //图片链接（base64）
+                });
+
+                layer.load(0);
+            }
+            , done: function (res) {
+                $('#AnswerPicName').val(res.Result.path)
+               // $('#videoUrl').attr("src", (res.Result.url));
+                $("#videoDemo").text("标准答案预览地址：" + res.Result.url);
+                layer.closeAll("loading");
+                //如果上传失败
+               // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadvidelInst.upload();
+                });
+            }
+        });
+
+          //视频上传
+        var uploadvidelInst = upload.render({
+            elem: '#btnuploadpratice'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+         
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#praticevideoupload').attr('src', result); //图片链接（base64）
+                });
+                layer.load(0);
+                
+            }
+            , done: function (res) {
+               
+                $('#taskPicName').val(res.Result.path);
+
+          
+                layer.msg("练习题图例上传成功");
+
+                layer.closeAll("loading");
+              
+                var demoText = $('#praticevideoDemo');
+
+              
+                demoText.html('<span style="color: green;">上传成功;资源地址为：' + res.Result.url +  '</span> ');
+         
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadvidelInst.upload();
+                });
+            }
+        });
+
+
+
+
+
+
+        //数据提交
+        var formdata = {
+
+            getTypeItemdata: function () {
+
+                var modelInfo = new Object();
+                modelInfo.Name = $('#name').val();// "Test1";
+                modelInfo.Type = "JiSuan";// "物件";
+                modelInfo.CNID = $("#cnid").val();
+                modelInfo.aburl = $('#aburl').val(); //"/AssetBundles/testab";
+                modelInfo.AbObjectName = $('#abObjectName').val();// "TestGo";
+                modelInfo.TypeItem = new Object();
+                modelInfo.TypeCalculation= new Object();
+                modelInfo.TypeTable = new Object();
+                modelInfo.TypeProcess = new Object();
+
+                ///
+                var TypeMethod = new Object();
+
+                ///
+               // var Methods = new Object();
+           
+                var Methods = new Array();
+                $('#structmodel > li.layui-timeline-item').each(function () {
+
+
+                    if (this.id == 'comlistend')
+                    {
+                        return;
+                    }
+
+                    var Calcul1 = new Object();
+                    Calcul1.Index = $(this).find('input.index').first().val();
+                    Calcul1.Title = $(this).find('input.gamename').first().val();
+                    Calcul1.Info = $(this).find('input.info').first().val();
+                    Calcul1.GameObjectName = $(this).find('input.gobj').first().val();
+                  //  Calcul1.LeftOrRight = $(this).find('input.gobj').first().val();
+                   // Calcul1.GameObjectIndex = $(this).find('input.GameObjectIndex').first().val()
+
+                    Methods.push(Calcul1);
+                })
+
+                TypeMethod.Methods = Methods;
+              
+    
+                var Practice = new Object();
+                Practice.TextInfo = $('#praticetextInfo').val();// "铲运机测试";
+                Practice.TaskPicName = $('#taskPicName').val();// "http://www.html5videoplayer.net/videos/toystory.mp4";
+                Practice.AnswerPicName = $('#AnswerPicName').val();// "描述测试";
+
+                if ($('#open').parent().find('em').text() == "ON") {
+                    Practice.IsShowAnswer = true;
+                }
+                else
+                {
+                    Practice.IsShowAnswer = false;
+                }
+
+
+
+                var Practices = new Array();
+                var Answers = new Array();
+
+                $('#demoList >tr').each(function () {
+
+
+                    tds = $(this).children();
+
+                    var srcvalel = tds.eq(3).find('input.srcval');
+                    var pnumel = tds.eq(3).find('input.pnum');
+                    var isAnswerel = tds.eq(3).find('input.isright');
+
+                    if(!srcvalel)
+                    {
+                        return;
+                    }
+
+
+                    var praticeItem = new Object();
+
+                    praticeItem.Index = pnumel.first().val();
+                    praticeItem.Url = srcvalel.first().val();
+                    Practices.push(praticeItem);
+
+                    if (isAnswerel.first().is(":checked")) {
+                        Answers.push(praticeItem.Index);
+                    }
+                })
+
+                Practice.PracObjects = Practices;
+                Practice.Answers = Answers;
+
+                TypeMethod.Practices = Practice;
+                modelInfo.TypeMethod = TypeMethod;
+                return modelInfo;
+            }
+
+
+        }
+
+
+
+        $('#modeltest').click(function () {
+
+            var modelInfo = new Object();
+            modelInfo.Name = $('#name').val();// "Test1";
+            modelInfo.Type = "FangShi";// "物件";
+            modelInfo.CNID = $("#cnid").val();
+            modelInfo.aburl = $('#aburl').val(); //"/AssetBundles/testab";
+            modelInfo.AbObjectName = $('#abObjectName').val();// "TestGo";
+            modelInfo.TypeItem = new Object();
+            modelInfo.TypeCalculation = new Object();
+            modelInfo.TypeTable = new Object();
+            modelInfo.TypeProcess = new Object();
+
+            ///
+            var TypeMethod = new Object();
+
+            ///
+            // var Methods = new Object();
+
+            var Methods = new Array();
+            $('#structmodel > li.layui-timeline-item').each(function () {
+
+
+                if (this.id == 'comlistend') {
+                    return;
+                }
+
+                var Calcul1 = new Object();
+                Calcul1.Index = $(this).find('input.index').first().val();
+                Calcul1.Title = $(this).find('input.gamename').first().val();
+                Calcul1.Info = $(this).find('input.info').first().val();
+                Calcul1.GameObjectName = $(this).find('input.gobj').first().val();
+                //  Calcul1.LeftOrRight = $(this).find('input.gobj').first().val();
+                // Calcul1.GameObjectIndex = $(this).find('input.GameObjectIndex').first().val()
+
+                Methods.push(Calcul1);
+            })
+
+            TypeMethod.Methods = Methods;
+
+
+            var Practice = new Object();
+            Practice.TextInfo = $('#praticetextInfo').val();// "铲运机测试";
+            Practice.TaskPicName = $('#taskPicName').val();// "http://www.html5videoplayer.net/videos/toystory.mp4";
+            Practice.AnswerPicName = $('#AnswerPicName').val();// "描述测试";
+
+            if ($('#open').parent().find('em').text() == "ON") {
+                Practice.IsShowAnswer = true;
+            }
+            else {
+                Practice.IsShowAnswer = false;
+            }
+
+
+
+            var Practices = new Array();
+            var Answers = new Array();
+
+            $('#demoList >tr').each(function () {
+
+
+                tds = $(this).children();
+
+                var srcvalel = tds.eq(3).find('input.srcval');
+                var pnumel = tds.eq(3).find('input.pnum');
+                var isAnswerel = tds.eq(3).find('input.isright');
+
+                if (!srcvalel) {
+                    return;
+                }
+
+
+                var praticeItem = new Object();
+
+                praticeItem.Index = srcvalel.first().val();
+                praticeItem.Url = pnumel.first().val();
+                Practices.push(praticeItem);
+
+                if (isAnswerel.first().is(":checked")) {
+                    Answers.push(praticeItem.Index);
+                }
+            })
+
+            Practice.Practices = Practices;
+            Practices.Answers = Answers;
+
+            TypeMethod.Practice = Practice;
+            modelInfo.TypeMethod = TypeMethod;
+           
+
+            console.log(  JSON.stringify(modelInfo));
+            return modelInfo;
+
+
+        })
+        ///添加构建交互
+        $('#btnaddcompnentobj').click(function () {
+
+
+            var count = $('#structmodel > li.layui-timeline-item').length;
+
+            var html = '<li class="layui-timeline-item">'
+                + '<i class="layui-icon layui-timeline-axis"></i>'
+                + '<div class="layui-timeline-content layui-text">'
+                + '<h3 class="layui-timeline-title">方式:<span class="tindex">' + count + '</span><input type="hidden" value="' + count +'" class="index" /></h3>'
+                + ' <p>'
+              
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">方式名称</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input gamename" />'
+                + '</div>'
+                + '</div>'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">方式信息</label>'
+                + '<div class="layui-input-block">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input info" />'
+                + '</div>'
+                + '</div>'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">方式对象名</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input gobj" />'
+                + '</div>'
+                + '</div>'
+
+
+     
+
+                + '</p>'
+                + '</div>'
+                + '</li>';
+            $('#comlistend').before(html);
+            form.render();
+
+        })
+
+
+        //多文件列表示例
+        var demoListView = $('#demoList')
+            , uploadListIns = upload.render({
+                elem: '#testList'
+                , url: common.renderUrl('/QiniuClient/CreateDir', {
+                         modelID: '@ViewBag.ModleID'
+                })
+                , field:"modelthumb"
+                , accept: 'file'
+                , multiple: true
+                , auto: false
+                , bindAction: '#testListAction'
+                , choose: function (obj) {
+                    var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
+                    //读取本地文件
+                    obj.preview(function (index, file, result) {
+                        var tr = $(['<tr class="trfile" id="upload-' + index + '">'
+                            , '<td>' + file.name + '</td>'
+                            , '<td>' + (file.size / 1024).toFixed(1) + 'kb</td>'
+                            , '<td>等待上传</td>'
+                            , '<td>'
+                            , '<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
+                            , '<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
+                            , '</td>'
+                            , '</tr>'].join(''));
+                        //单个重传
+                        tr.find('.demo-reload').on('click', function () {
+                            obj.upload(index, file);
+                        });
+                        //删除
+                        tr.find('.demo-delete').on('click', function () {
+                            delete files[index]; //删除对应的文件
+                            tr.remove();
+                            uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
+                        });
+                        demoListView.append(tr);
+                    });
+                }
+                , done: function (res, index, upload) {
+                    if (res.Code == 0) { //上传成功
+                        var tr = demoListView.find('tr#upload-' + index)
+                            , tds = tr.children();
+                        tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
+                        tds.eq(3).html('' + res.Result.path + '<input type="hidden" class="srcval" value="' + res.Result.path + '"/> 待选答案唯一标志：<input type="number" class="pnum" required lay-verify="required" value="' + index + '"/> 是否正确答案<input type="checkbox" class="isright" style="display:inline" />'); //清空操作
+                        return delete this.files[index]; //删除文件队列已经上传成功的文件
+                    }
+                    this.error(index, upload);
+                }
+                , error: function (index, upload) {
+                    var tr = demoListView.find('tr#upload-' + index)
+                        , tds = tr.children();
+                    tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
+                    tds.eq(3).find('.demo-reload').removeClass('layui-hide'); //显示重传
+                }
+            });
+
+        //监听提交
+        form.on('submit(formtypeModel)', function (data) {
+            data.field.Resource = JSON.stringify( formdata.getTypeItemdata());
+            $.post('/MethodItem/Save',
+                data.field,
+                function (result) {
+                    layer.msg(result.Message);
+                },
+                "json");
+            return false;
+        });
+
+
+    })
+
+
+</script>
+

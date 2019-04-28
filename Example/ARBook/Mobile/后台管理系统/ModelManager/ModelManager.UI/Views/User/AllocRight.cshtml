@@ -1,0 +1,241 @@
+﻿@model ModelManager.Domain.ViewModel.ServerResponse.RBAC.UserDataViewModel
+@{
+    ViewBag.Title = "UpdateUser";
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+}
+
+@section styles {
+    <style>
+        .roleselected {
+            background-color: #5FB878;
+        }
+    </style>
+
+
+}
+
+
+@if (Model == null)
+{
+    <div> 数据处理异常 </div>
+}
+
+<div style="margin: 15px;">
+    <form class="layui-form" method="post" id="form" action="">
+
+
+
+        <div class="layui-tab layui-tab-card">
+            <ul class="layui-tab-title">
+                <li class="layui-this layui-hide">基本信息</li>
+
+                <li>角色分配</li>
+            </ul>
+
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-hide">
+
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">账号</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="username" lay-verify="required" autocomplete="off" placeholder="用户名" class="layui-input" value="@Model.UserName">
+                            <input type="hidden" id="ID" name="ID" value="@Model.ID" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">真实姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="填写真是姓名" class="layui-input" value="@Model.Name">
+
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">昵称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="nickname" autocomplete="off" placeholder="请设定昵称" class="layui-input" value="@Model.NickName">
+
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">手机号码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="phone" lay-verify="phone" autocomplete="off" placeholder="手机号码不能为空" class="layui-input" value="@Model.Phone">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-form-item">
+                        <div class="layui-btn-group demoTest" id="rolegroup" style="margin-top: 5px;">
+
+
+                            @foreach (var item in Model.AllRoles)
+                            {
+
+                                var useRoleExist = Model.UseRoles.FirstOrDefault(x => x.ID.Equals(item.ID));
+
+
+
+                                if (useRoleExist == null)
+                                {
+                                    <div class="layui-btn layui-btn-sm " data-type="set" data-key="@item.ID" data-value="@item.RoleValue"> @item.NAME </div>
+                                }
+                                else
+                                {
+                                    <div class="layui-btn layui-btn-sm roleselected" data-type="set" data-key="@item.ID" data-value="@item.RoleValue"> @item.NAME </div>
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <div class="layui-btn" lay-submit="" lay-filter="productadd">保存并提交</div>
+                <div class="layui-btn" lay-submit="" lay-filter="productsave">保存草稿</div>
+                <div type="reset" class="layui-btn layui-btn-primary">重置</div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+
+    <script>
+        layui.config({
+            base: '../../Content/layui/extension/js/',
+            v: new Date().getTime()
+        }).use(['form', 'layedit', 'laydate', 'common', 'upload'], function () {
+
+            var form = layui.form
+                , $ = layui.jquery
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , common = layui.common
+                , upload = layui.upload
+                , active = {
+                    set: function (othis) {
+                        var THIS = 'layui-bg-normal'
+                        , key = othis.data('key')
+                        , options = {};
+
+
+                        if (othis.hasClass('roleselected')) {
+                            othis.removeClass('roleselected');
+                        }
+                        else {
+                            othis.addClass('roleselected');
+                        }
+                    }
+                };
+
+
+
+            form.verify({
+                username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                        return '用户名不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                        return '用户名首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)) {
+                        return '用户名不能全为数字';
+                    }
+                }
+
+                //我们既支持上述函数式的方式，也支持下述数组的形式
+                //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+                  , pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                  ]
+
+                   , template: function (value,item) {
+                       if (!value || value.length == 0)
+                       {
+                           return '模板信息，不能为空'
+                       }
+
+                   }
+            });
+            $(document).on('click', '.demoTest .layui-btn', function () {
+
+                var othis = $(this), type = othis.data('type');
+                active[type] ? active[type].call(this, othis) : '';
+
+
+            })
+
+            //监听提交
+            form.on('submit(productadd)', function (data) {
+
+
+
+
+                var roleID = "";
+                $('.roleselected').each(function () {
+
+                    var id = $(this).data("key")
+                    if (id && id != '') {
+                        roleID += (id + ',')
+                    }
+                })
+
+                data.field.RoleID = roleID
+
+                $.ajax({
+                    type: "POST",
+                    url: common.renderUrl('@Url.Action("UpdateUserRole", "User")', {
+
+                    }),
+                    data: data.field,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        layer.load(0);
+                       
+                    },
+                    success: function (res) {
+                        if (res.Code == 0) {
+                            layer.msg("修改成功");
+                        }
+                        else {
+                            layer.msg(res.ErrorDesc);
+                        }
+                        layer.closeAll('loading');
+                       // layer.closeAll();
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                        layer.msg("操作异常");
+                        layer.closeAll('loading');
+
+                    }
+                });
+                return false;
+                title: '最终的提交信息'
+
+            });
+
+
+
+        });
+
+
+    </script>
+
+
+}

@@ -1,0 +1,196 @@
+﻿@{
+
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+
+
+    ViewBag.Title = "菜单列表";
+}
+<div class="admin-main">
+    <blockquote class="layui-elem-quote">
+        <a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+            <i class="layui-icon">&#xe608;</i> 添加菜单
+        </a>
+        <a href="#" class="layui-btn layui-btn-small" id="import">
+            <i class="layui-icon">&#xe608;</i> 导入菜单
+        </a>
+        <a href="#" class="layui-btn layui-btn-small">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出菜单
+        </a>
+
+
+        <div class="layui-form" style="float:right;">
+            <div class="layui-form-item" style="margin:0;">
+                <label class="layui-form-label">关键字</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userkeyword" placeholder="姓名" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline" style="padding:0;">
+                    <div lay-filter="search" class="layui-btn" lay-submit=""><i class="fa fa-search" aria-hidden="true"></i> 查询</div>
+                </div>
+            </div>
+        </div>
+    </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>数据列表</legend>
+        <div class="layui-field-box layui-form" id="content">
+            <table class="layui-hide" id="test" lay-filter="demo"></table>
+        </div>
+    </fieldset>
+
+
+</div>
+
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" data-id="{{d.ID}}" lay-event="detail">分配角色</a>
+    <a class="layui-btn layui-btn-xs" data-id="{{d.ID}}" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.ID}}" lay-event="del" data-name="{{d.Name}}">删除</a>
+</script>
+@*<blockquote class="layui-elem-quote layui-quote-nm" id="footer">layui {{ layui.v }} 提供强力驱动</blockquote>*@
+@section scripts{
+
+    <script>
+
+    layui.config({
+        base: '../../../Content/layui/extension/js/',
+        version: '@DateTime.Now.Ticks' //为了更新 js 缓存，可忽略
+    });
+
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'common',"md5"], function () {
+        var laydate = layui.laydate //日期
+        , laypage = layui.laypage //分页
+        layer = layui.layer //弹层
+          , $ = layui.jquery
+        , table = layui.table //表格
+        , carousel = layui.carousel //轮播
+        , upload = layui.upload //上传
+           , md5 = layui.md5
+        , element = layui.element //元素操作
+        , common = layui.common;
+
+
+        //执行一个 table 实例
+        table.render({
+            elem: '#test'
+          , height: 332
+          , url:common.renderUrl( '@Url.Action("GetList", "Menu")',common.RenderParams({
+
+          })) //数据接口
+          , page: true //开启分页
+          , cols: [[ //表头
+
+            { field: 'Name', title: '名称', width: 120, align: 'center' }
+           , { field: 'ParentName', title: '菜单组', align: 'center' }
+           //,{ field: 'OpValue', title: '执行值' }
+           //,{ field: 'Areas', title: '区域' }
+           //,{ field: 'Controller', title: '控制器' }
+           //,{ field: 'ACTION', title: '执行目标', width: 160 }
+           ,{ field: 'Href', title: '超链接',  align: 'center', sort: true }
+           ,{ field: 'FlagDesc', title: '状态值', width: 160,align: 'center', sort: true }
+           ,{ field: 'Icon', title: '小图标', width: 160 , align: 'center'}
+           ,{ field: 'CreateTimeDesc', title: '创建时间', width: 160, align: 'center', sort: true }
+           ,{ field: 'UpdateTimeDesc', title: '更新时间', width: 160, align: 'center' }
+           ,{ fixed: 'right', width: 240, align: 'center', toolbar: '#barDemo' }
+          ]]
+            //ID, MenuID, NAME, OpValue,Areas,	Controller,ACTION, Href, Icon, Flag, CreateTime,UpdateTime
+        });
+        var editBoxIndex = -1;
+        //监听工具条
+        table.on('tool(demo)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+            , layEvent = obj.event; //获得 lay-event 对应的值
+
+
+                if (layEvent === 'del') {
+                layer.confirm('确定删除菜单' + data.Name, function (index) {
+                  //  console.log(JSON.stringify(data));
+                    $.ajax({
+                        type: "GET",
+                        url: common.renderUrl('@Url.Action("Delete", "Menu")', {
+                            id: data.ID
+                        }),
+                        data: {
+
+
+                        },
+                        dataType: "json",
+                        beforeSend: function (xhr) {
+                            layer.load();
+
+                        },
+                        success: function (res) {
+                            if (res.Code == 0) {
+                                layer.msg("删除菜单成功");
+                            }
+                            else
+                            {
+                                layer.msg(res.ErrorDesc);
+                            }
+                            layer.closeAll("loading");
+                        },
+
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                            layer.msg("后台处理异常");
+                            layer.closeAll("loading");
+                           // layer.closeAll();
+                        }
+                    });
+
+                    layer.close(index);
+
+
+
+                    //向服务端发送删除指令
+                });
+            } else if (layEvent === 'edit' || layEvent === 'detail') {
+
+                if (editBoxIndex !== -1)
+                    return;
+
+                editBoxIndex = layer.open({
+                    type: 2,
+                    title: '添加、修改菜单',
+                    shadeClose: false,
+                    shade: 0.8,
+                    offset: ['10px', '3%'],
+                    area: ['90%', '90%'],
+                    content: common.renderUrl('@Url.Action("Update", "Menu")', {
+                        id: data.ID
+
+                    }), //iframe的url
+                    end: function () {
+                        editBoxIndex = -1;
+
+                        location.reload();
+                    }
+                });
+
+
+
+            }
+        });
+
+
+        var addBoxIndex = -1;
+        $('#add').on('click', function () {
+                if (addBoxIndex !== -1)
+                    return;
+
+                addBoxIndex = layer.open({
+                    type: 2,
+                    title: '添加、修改菜单',
+                    shadeClose: false,
+                    shade: 0.8,
+                    offset: ['10px', '3%'],
+                    area: ['90%', '90%'],
+                    content: common.renderUrl('@Url.Action("AddMenu", "Menu")'), //iframe的url
+                end: function () {
+                    addBoxIndex = -1;
+                    location.reload();
+                }
+            });
+        });
+    });
+    </script>
+}

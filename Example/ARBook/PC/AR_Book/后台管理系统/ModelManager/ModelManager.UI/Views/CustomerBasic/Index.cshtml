@@ -1,0 +1,272 @@
+﻿@{
+
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+
+
+    ViewBag.Title = "用户组列表";
+}
+<style>
+    .layui-table-cell {
+        height:auto;
+
+    }
+    .layui-table td, .layui-table th {
+        text-align: center;
+    }
+
+</style>
+<div class="admin-main">
+    <blockquote class="layui-elem-quote">
+        <a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+            <i class="layui-icon">&#xe608;</i> 添加客户
+        </a>
+        <a href="#" class="layui-btn layui-btn-small" id="import">
+            <i class="layui-icon">&#xe608;</i> 导入客户
+        </a>
+        <a href="#" class="layui-btn layui-btn-small">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i> 导出客户
+        </a>
+
+
+        <div class="layui-form" style="float:right;">
+            <div class="layui-form-item" style="margin:0;">
+                <label class="layui-form-label">姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" id="name" placeholder="姓名" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label">手机号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" id="phone" placeholder="手机号码" autocomplete="off" class="layui-input">
+                </div>
+                <label class="layui-form-label">辅助查询</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userkeyword" id="userkeyword" placeholder="关键字" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline" style="padding:0;">
+                    <div lay-filter="search" class="layui-btn" lay-submit="" id="btnquery"><i class="fa fa-search" aria-hidden="true"></i> 查询</div>
+                </div>
+            </div>
+        </div>
+    </blockquote>
+    <fieldset class="layui-elem-field">
+        <legend>数据列表</legend>
+        <div class="layui-field-box layui-form" id="content">
+            <table class="layui-hide" id="test" lay-filter="demo"></table>
+        </div>
+    </fieldset>
+
+
+</div>
+
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" data-id="{{d.ID}}" lay-event="detail">访问轨迹</a>
+    <a class="layui-btn layui-btn-xs" data-id="{{d.ID}}" lay-event="edit">洽谈记录</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-id="{{d.ID}}" lay-event="del" data-name="{{d.Name}}">删除</a>
+</script>
+<script type="text/html" id="contractorTpl">
+
+    {{#  if(d.QQ != ""){ }}
+    <div>QQ：{{d.QQ}} </div>
+
+    {{#  }  }}
+
+
+    {{#  if(d.Phone != ""){ }}
+    <div>手机：{{d.Phone}} </div>
+  
+    {{#  }  }}
+
+    {{#  if(d.Email != ""){ }}
+    <div>Email：{{d.Email}} </div>
+
+    {{#  }  }}
+
+
+   
+</script>
+@*<blockquote class="layui-elem-quote layui-quote-nm" id="footer">layui {{ layui.v }} 提供强力驱动</blockquote>*@
+@section scripts{
+
+    <script>
+
+    layui.config({
+        base: '../../../Content/layui/extension/js/',
+        version: '@DateTime.Now.Ticks' //为了更新 js 缓存，可忽略
+    });
+
+    layui.use(['laydate', 'laypage', 'laytpl', 'layer', 'table', 'carousel', 'upload', 'element', 'common', "md5"], function () {
+        var laydate = layui.laydate //日期
+        , laypage = layui.laypage //分页
+        layer = layui.layer //弹层
+          , $ = layui.jquery
+        , table = layui.table //表格
+        , carousel = layui.carousel //轮播
+        , upload = layui.upload //上传
+           , md5 = layui.md5
+        , element = layui.element //元素操作
+        , common = layui.common;
+
+
+        //执行一个 table 实例
+        //  Name = "测试",
+        //  Email = "li@163.com",
+        //  IdCert = "452702198911071594",
+        //  Phone = "13421380810",
+        //  QQ = "28256755",
+        //  Source = "微信"
+       var temptable =  table.render({
+            elem: '#test'
+          , url: common.renderUrl('@Url.Action("GetList", "CustomerBasic")', common.RenderParams({
+              cname: $('#name').val(),
+              cphone: $('#phone').val(),
+              ckeyword: $('#userkeyword').val()
+          })) //数据接口
+          , page: true //开启分页
+          , cols: [[ //表头
+
+             { field: 'Name', title: '客户姓名' }
+            , { title: '联系方式', toolbar: '#contractorTpl', style: 'height:100px;', }
+            , { field: 'IdCert', title: '身份证号' }
+            , { field: 'Source', title: '客户来源' }
+            , { fixed: 'right',title: '操作', align: 'center', toolbar: '#barDemo' }
+          ]]
+        });
+        var editBoxIndex = -1;
+        //监听工具条
+        table.on('tool(demo)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+            , layEvent = obj.event; //获得 lay-event 对应的值
+
+
+            if (layEvent === 'del') {
+                layer.confirm('确定删除客户信息' + data.Name, function (index) {
+
+
+
+                    //  console.log(JSON.stringify(data));
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: common.renderUrl('@Url.Action("Delete", "Group")', {
+                            id: data.ID
+                        }),
+                        data: {
+
+
+                        },
+                        dataType: "json",
+                        beforeSend: function (xhr) {
+                            layer.load();
+
+                        },
+                        success: function (res) {
+                            //layer.msg("提交成功:" + JSON.stringify(res));
+                            //layer.closeAll();
+
+
+                            if (res.Code == 0) {
+                                layer.msg("删除客户信息成功");
+                            }
+                            else {
+                                layer.msg(res.ErrorDesc);
+                            }
+                            layer.closeAll("loading");
+                        },
+
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                            layer.msg("后台处理异常");
+                            layer.closeAll("loading");
+                            // layer.closeAll();
+                        }
+                    });
+
+                    layer.close(index);
+
+
+
+                    //向服务端发送删除指令
+                });
+            } else if (layEvent === 'edit' || layEvent === 'detail') {
+
+                if (editBoxIndex !== -1)
+                    return;
+
+                editBoxIndex = layer.open({
+                    type: 2,
+                    title: '添加、修改客户信息',
+                    shadeClose: false,
+                    shade: 0.8,
+                    offset: ['10px', '3%'],
+                    area: ['90%', '90%'],
+                    content: common.renderUrl('@Url.Action("Register", "CustomerBasic")', {
+                        id: data.ID
+
+                    }), //iframe的url
+                    end: function () {
+                        editBoxIndex = -1;
+
+                        temptable.reload();
+                    }
+                });
+
+
+
+            }
+        });
+
+
+
+        $('#btnquery').click(function () {
+
+
+
+            table.render({
+                elem: '#test'
+                     , url: common.renderUrl('@Url.Action("GetList", "CustomerBasic")', common.RenderParams({
+                         cname: $('#name').val(),
+                         cphone: $('#phone').val(),
+                         ckeyword: $('#userkeyword').val()
+                     })) //数据接口
+                     , page: true //开启分页
+                     , cols: [[ //表头
+
+                        { field: 'Name', title: '客户姓名' }
+                       , { title: '联系方式', toolbar: '#contractorTpl', style: 'height:100px;', }
+                       , { field: 'IdCert', title: '身份证号' }
+                       , { field: 'Source', title: '客户来源' }
+                       , { fixed: 'right', align: 'center', toolbar: '#barDemo' }
+                     ]]
+            });
+
+
+        })
+
+
+
+        var addBoxIndex = -1;
+        $('#add').on('click', function () {
+                if (addBoxIndex !== -1)
+                    return;
+
+                addBoxIndex = layer.open({
+                    type: 2,
+                    title: '添加、修改客户信息',
+                    shadeClose: false,
+                    shade: 0.8,
+                    offset: ['10px', '3%'],
+                    area: ['90%', '90%'],
+                    content: common.renderUrl('@Url.Action("Register", "CustomerBasic")'), //iframe的url
+                    end: function () {
+                    addBoxIndex = -1;
+                    temptable.reload();
+
+                        // location.reload();
+                }
+            });
+        });
+    });
+    </script>
+}

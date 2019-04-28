@@ -1,0 +1,237 @@
+﻿@model ModelManager.Domain.ViewModel.ServerResponse.ARModelResponse
+@{
+    ViewBag.Title = "更新模型";
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+}
+
+<form enctype="multipart/form-data" class="layui-form" id="uploadForm" method="post" action="@Url.Action("UpdateARModel", "ARModel")">
+    <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+    <div class="layui-form-item">
+        <div class="layui-hide" id="msg">@ViewBag.MSG</div>
+        <label class="layui-form-label">模型名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="name" lay-verify="required" id="name" value="@Model.Name" placeholder="请输入模型名称" autocomplete="off" class="layui-input">
+            <input value="@Model.ID" name="id" id="id" type="hidden" />
+            @Html.AntiForgeryToken()
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">模板关键字</label>
+        <div class="layui-input-block">
+            <input placeholder="请输入内容" name="keyword" class="layui-input" value="@Model.Keywords" />
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-upload">
+            <label class="layui-form-label">模板贴图</label>
+            <div class="layui-input-inline">
+                <input type="file" multiple name="atlas" id="atlas" placeholder="文件路径">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+      
+
+        @if (Model.Atlas != null)
+        {
+          <label class="layui-form-label">现有贴图</label>
+            foreach (var atla in Model.Atlas)
+            {
+                
+                var indexof = atla.LastIndexOf("/");
+                string fileName = atla;
+                if (indexof != -1)
+                {
+                     fileName = atla.Substring(indexof + 1, atla.Length - indexof-1); 
+                }
+            
+                
+                
+                <div class="layui-input-inline">
+                   
+                        <img src="@atla" alt="贴图" title="贴图" width="200" height="200" />
+                   
+                    <br />
+                    <button type="button" class="layui-btn layui-btn-normal delatla" data-url="@fileName" data-id="@Model.ID">删除</button>
+                </div>
+            }
+        }
+    </div>
+
+
+
+
+
+    <div class="layui-form-item">
+        <div class="layui-upload">
+            <label class="layui-form-label">上传模板</label>
+            <div class="layui-input-inline">
+                <input type="file" name="artemplate" id="artemplate" placeholder="文件路径">
+
+            </div>
+
+
+            @*<div class="layui-input-inline">
+                    <button type="button" class="layui-btn layui-btn-normal" id="template">选择文件</button>
+                </div>*@
+        </div>
+    </div>
+
+    @*<div class="layui-form-item">
+        @if (Model.ArTemplateUrl != null)
+        {
+
+            foreach (var atla in Model.ArTemplateUrl)
+            {
+                <div class="layui-input-block">
+                    <span class="layui-input-block">
+                        @atla
+                    </span>
+                    <button type="button" class="layui-btn layui-btn-normal">删除</button>
+                </div>
+            }
+        }
+    </div>*@
+
+    <div class="layui-form-item">
+        <div class="layui-upload">
+            <label class="layui-form-label">上传渲染数据</label>
+            <div class="layui-input-inline">
+                <input type="file" name="showdata" id="shoedata" placeholder="文件路径">
+
+            </div>
+            @*<div class="layui-input-inline">
+                    <button type="button" class="layui-btn layui-btn-normal" id="showdata">选择文件</button>
+                </div>*@
+        </div>
+    </div>
+
+
+
+    @*<div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">模板描述</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容" name="desc" class="layui-textarea"></textarea>
+        </div>
+    </div>*@
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="productadd">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+    <!-- 更多表单结构排版请移步文档左侧【页面元素-表单】一项阅览 -->
+</form>
+
+
+@section scripts{
+    <script>
+        layui.config({
+            base: '../../Content/layui/extension/js/',
+            v: new Date().getTime()
+        }).use(['form', 'layedit', 'laydate', 'common', 'upload'], function () {
+            var form = layui.form
+            , $ = layui.jquery
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate
+            , common = layui.common
+            , upload = layui.upload;
+
+            var uploadInst = upload.render({
+                elem: '#test' //绑定元素
+                  , url: '/upload/' //上传接口
+                  , auto: false
+                  , field: "modelthumb"
+                  , accept: "file"
+                  , done: function (res) {
+
+                      layer.msg(JSON.stringify(res));
+                      //上传完毕回调
+                  }
+                  , error: function () {
+                      //请求异常回调
+                  }
+            });
+
+
+            $(function () {
+
+                var tmsg = $('#msg').text();
+
+
+                if (tmsg == "")
+                { }
+                else
+                {
+                    layer.msg(tmsg);
+                }
+                $('.delatla').click(function () {
+
+
+                    var id = $(this).data("id");
+                    var url =$(this).data("url");
+
+                    //   layer.msg( "ID为:" +id +"URL地址" + url);
+
+
+                    var that = $(this);
+
+
+                    $.ajax({
+                        type: "GET",
+                        url: common.renderUrl('@Url.Action("DeleteARModelMedia", "ARModel")', {
+                            fileName: url,
+                            path: "Atlas",
+                            id:id
+
+                        }),
+                      
+                        dataType: "json",
+                        beforeSend: function (xhr) {
+                            layer.load();
+                            //  xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                        },
+                        success: function (res) {
+
+
+
+                            if (res.Code == 0) {
+
+                                //$('#formreset').trigger("click");
+                                //$('#modelid').val(res.Result);
+
+
+                              
+                                that.parent().remove();
+
+                                layer.msg("删除【" + url +"】成功");
+
+                            }
+                            else {
+                                layer.msg(res.ErrorDesc);
+                            }
+
+
+
+
+                            layer.closeAll('loading');
+                        },
+
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                            layer.closeAll();
+                        }
+                    });
+
+
+                })
+
+
+            })
+
+        });
+    </script>
+}
+
+

@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = " 手动添加微信粉丝";
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+}
+
+
+<div style="margin: 15px;">
+
+  
+
+ <!--   //  Name = "测试",
+    //  Email = "li@163.com",
+    //  IdCert = "452702198911071594",
+    //  Phone = "13421380810",
+    //  QQ = "28256755",
+    //  Source = "微信"-->
+    
+
+
+    <form class="layui-form" method="post" id="form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">客户姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" lay-verify="required" autocomplete="off" placeholder="姓名（必填）" class="layui-input">
+                <input type="hidden" id="ID" name="ID" value="@ViewBag.ID" />
+                @Html.AntiForgeryToken()
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Email(邮箱) </label>
+            <div class="layui-input-block">
+                <input type="text" id="Email" name="Email" autocomplete="off" lay-verify="email" placeholder="邮箱地址" class="layui-input" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证号 </label>
+            <div class="layui-input-block">
+                <input type="text" id="IdCert" name="IdCert" autocomplete="off" lay-verify="identity" placeholder="身份证号" class="layui-input" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话号码</label>
+            <div class="layui-input-block">
+                <input type="text" id="Phone" name="Phone" lay-verify="required" autocomplete="off" placeholder="电话号码" class="layui-input" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">QQ</label>
+            <div class="layui-input-block">
+                <input type="text" id="qq" name="qq" autocomplete="off" placeholder="QQ号码" class="layui-input" />
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">客户来源</label>
+            <div class="layui-input-block">
+                <input type="text" name="Source" id="Source" autocomplete="off" placeholder="客户来源" class="layui-input">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+        <label class="layui-form-label">微信唯一编码</label>
+        <div class="layui-input-block">
+            <input type="text" name="openID" id="openID" autocomplete="off" placeholder="请设定昵称" class="layui-input">
+
+        </div>
+    </div>
+        <div class="layui-form-item">
+        <label class="layui-form-label">公众号ID</label>
+        <div class="layui-input-block">
+            <input type="text" name="uniqueID" id="uniqueID" autocomplete="off" placeholder="" class="layui-input">
+        </div>
+    </div>
+
+        <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+
+                    <input type="checkbox" checked="" name="flag" lay-skin="switch" lay-text="启用|禁用" lay-filter="switchTest" title="是否可用">
+                  
+
+                </div>
+            </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <div class="layui-btn" lay-submit="" lay-filter="wxadd">保存并提交</div>
+                @*<button class="layui-btn" lay-submit="" lay-filter="wxsave">保存草稿</button>*@
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+    <script>
+
+        layui.config({
+            base: '../../Content/layui/extension/js/',
+            v: new Date().getTime()
+        }).use(['form', 'layedit', 'laydate', 'common', 'upload'], function () {
+
+            var form = layui.form
+                , $ = layui.jquery
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , common = layui.common
+                , upload = layui.upload;
+            //监听表单提交
+            form.on('submit(wxadd)', function (data) {
+
+                //$(this).text()
+                $.ajax({
+                    type: "POST",
+                    url: common.renderUrl('@Url.Action("SaveCustomer", "CustomerBasic")', {
+
+                    }),
+                    data: data.field,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        layer.load(0);
+                        //  xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                    },
+                    success: function (res) {
+                        if (res.Code == 0) {
+                            layer.msg("添加公众号成功");
+                        }
+                        else {
+                            layer.msg(res.ErrorDesc);
+                        }
+                        layer.closeAll("loading");
+                    },
+
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                        layer.closeAll("loading");
+                    }
+                });
+
+
+                return false;
+
+
+                title: '最终的提交信息'
+
+
+
+
+            });
+
+
+
+
+
+        })
+
+
+    </script>
+
+
+
+
+
+}

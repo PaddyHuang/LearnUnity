@@ -1,0 +1,25 @@
+[
+ {
+		"title": "BIM模型管理",
+		"icon": "&#x1002;",
+		"spread": true,
+		"children": [
+			{
+				"title": "安全图集目录",
+				"icon": "fa-sitemap",
+				"href": "/Category/Index"
+			},
+			{
+				"title": "模型列表",
+				"icon": "fa-check-square-o",
+				"href": "/Model/ShowList"
+			},
+			{
+				"title": "AR模型列表",
+				"icon": "fa-check-square-o",
+				"href": "/ARModel/Index"
+			}
+		
+		]
+	}
+ ]

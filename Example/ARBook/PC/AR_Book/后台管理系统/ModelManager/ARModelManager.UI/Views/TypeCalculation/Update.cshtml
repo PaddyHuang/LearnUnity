@@ -1,0 +1,1618 @@
+﻿@model ARModelManager.UI.Models.ARJsonModel.RootARCaculate
+
+@{ 
+    var resourceurl = ViewBag.ResourceUrl;
+}
+@section header
+{
+    <link rel="stylesheet" href="~/Content/admin/css/treetable.css" />
+    <style>
+        .layui-btn + .layui-btn {
+            margin-left: inherit !important;
+        }
+
+        #sizesmodel input {
+            text-align: center;
+        }
+        i.selected {
+            color: red;
+        }
+        textarea {
+            text-align:left;
+        }
+    </style>
+}
+
+
+    <form class="layui-form layui-form-pane" action="" id="formEdit">
+        <div class="layui-form-item layui-hide">
+            <label class="layui-form-label">音频资源</label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="btnuploadaudio">上传音频</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="commonupload">
+
+                        <input type="hidden" name="commonresource" id="commonresource" value="" />
+                        <p id="commontext"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-tab layui-tab-brief" lay-filter="tab" style="margin: 0px">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">模型介绍</li>
+                    <li>简单介绍</li>
+                    <li>计算原理</li>
+                    <li>元素尺寸</li>
+                    <li>随堂练习</li>
+                    <li>标准答案</li>
+                </ul>
+                <div class="layui-tab-content" style="height: 100px;">
+
+
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" value="@ViewBag.ModleID" name="modelID" id="modelID" />
+                    <div class="layui-tab-item layui-show">
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">模型名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="Name" id="name" @*v-model="Name"*@ required lay-verify="required"
+                                       placeholder="模型名称" autocomplete="off" class="layui-input" value="@Model.Name">
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">识别关键字</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="CNID" @*v-model="CNID"*@ id="cnid" value="@Model.CNID" required
+                                       placeholder="请输入识别关键字" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">ab包资源</label>
+                            <div class="layui-input-block">
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="test1">上传ab包</button>
+                                    <div class="layui-upload-list">
+                                        <img class="layui-upload-img" id="demo1">
+                                        <input type="hidden" value="@Model.aburl" id="aburl" name="aburl" />
+                                        <p id="demoText">ab包资源地址为：@string.Format("{0}/{1}", resourceurl, Model.aburl)  </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">ab包名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="abObjectName" id="abObjectName" @*v-model="abObjectName"*@ class="layui-input" placeholder="ab包名称需要按照项目设置" value="@Model.AbObjectName">
+                            </div>
+                        </div>
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">所属课本</label>
+                            <div class="layui-input-block">
+                                <select name="bookID" lay-filter="book">
+                                    <option value=""></option>
+
+
+
+
+                                    @*<option value="0">写作</option>
+                                    <option value="1" selected="">阅读</option>
+                                    <option value="2">游戏</option>
+                                    <option value="3">音乐</option>
+                                    <option value="4">旅行</option>*@
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">序号</label>
+                            <div class="layui-input-block">
+                                <input type="number" name="Sort" id="sort" value="@Model.SerId" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-row">
+                            <blockquote class="layui-elem-quote">
+                                提醒：
+                            </blockquote>
+                        </div>
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">概念菜单</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="introduceMenuName" id="introduceMenuName" @*v-model="modeltitle"*@ class="layui-input" placeholder="输入主题名称" value="@Model.TypeCalculation.OverallInfo.Title">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">概念定义</label>
+                            <div class="layui-input-block">
+
+                                <textarea name="introduceinfo" id="introduceinfo"
+                                          placeholder="输入定义" class="layui-textarea">@Model.TypeCalculation.OverallInfo.Info</textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">计算项目</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="structMenuname" id="structMenuname" @*v-model="modelName"*@ required lay-verify="required" placeholder="请输入计算项目名称" autocomplete="off" class="layui-input" value="@Model.TypeCalculation.Calculations.Title">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">计算原理</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="structInfo" id="structInfo" @*v-model="modelName"*@ required lay-verify="required"
+                                       placeholder="请输入计算原理" autocomplete="off" class="layui-input" value="@Model.TypeCalculation.Calculations.Info">
+                            </div>
+                        </div>
+
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>构建编辑</legend>
+                        </fieldset>
+                        <ul class="layui-timeline" id="structmodel">
+
+
+
+                            @if (Model != null && Model.TypeCalculation != null && Model.TypeCalculation.Calculations != null && Model.TypeCalculation.Calculations.Calcul != null)
+                        {
+
+                            foreach (var item in Model.TypeCalculation.Calculations.Calcul)
+                            {
+                                <li class="layui-timeline-item">
+                                    <i class="layui-icon layui-timeline-axis"></i>
+                                    <div class="layui-timeline-content layui-text">
+                                        <h3 class="layui-timeline-title">算量:<span class="tindex"> @item.Index </span><input type="hidden" value="@item.Index" class="index" /></h3>
+                                        <p>
+
+                                            <div class="layui-form-item" pane>
+
+                                                <label class="layui-form-label">算量名称</label>
+                                                <div class="layui-input-block">
+
+                                                    <input type="text" value="@item.Info" lay-verify="required" class="layui-input info" />
+
+                                                </div>
+
+                                            </div>
+                                            <div class="layui-form-item" pane>
+
+                                                <label class="layui-form-label">对象名</label>
+                                                <div class="layui-input-inline">
+
+                                                    <input type="text" value="@item.GameObjectName" lay-verify="required" class="layui-input gamename" />
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="layui-form-item" pane>
+
+                                                <label class="layui-form-label">序号</label>
+                                                <div class="layui-input-inline">
+
+                                                    <input type="text" value="@item.GameObjectIndex" lay-verify="required" class="layui-input GameObjectIndex" />
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="layui-form-item">
+
+                                                <label class="layui-form-label">左或右:</label>
+                                                <div class="layui-input-block">
+
+
+
+                                                    @if (item.LeftOrRight)
+                                                {
+                                                    <select lay-verify="required">
+
+
+                                                        <option value="">请选择位置</option>
+
+                                                        <option value="true" selected>左</option>
+
+                                                        <option value="false">右</option>
+
+                                                    </select>
+                                            }
+                                            else
+                                            {
+                                                <select lay-verify="required">
+
+
+                                                    <option value="">请选择位置</option>
+
+                                                    <option value="true">左</option>
+
+                                                    <option value="false" selected>右</option>
+
+                                                </select>
+                                        }
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="layui-form-item" pane>
+
+                                                <label class="layui-form-label">音频</label>
+                                                <div class="layui-input-inline">
+
+                                                    <input type="text" value="@item.Audio" class="layui-input audio" />
+                                                    <span class="layui-btn audio">上传音频</span>
+
+                                                </div>
+
+
+                                            </div>
+
+
+                                        </p>
+
+                                    </div>
+
+                                </li>
+                        }
+
+
+                    }
+
+
+                            <li class="layui-timeline-item ico_end listend" id="comlistend">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <div class="layui-timeline-title">结束</div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+
+
+
+                        <div class="layui-btn" id="btnaddcompnentobj">增加</div>
+
+                        <div class="layui-btn del">删除</div>
+
+                    </div>
+                    <div class="layui-tab-item">
+                        @*<div class="layui-form-item">
+                            <label class="layui-form-label">尺寸菜单名称</label>
+                            <div class="layui-input-block">
+                                <input name="SizeMenuName" id="SizeMenuName" value="@Model.TypeCalculation.Calculations.Sizes." @*v-model="SizeName" class="layui-input" placeholder="模块名称">
+                            </div>
+                        </div>*@
+
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>尺寸标注</legend>
+                        </fieldset>
+                        <ul class="layui-timeline" id="sizesmodel">
+
+
+
+                            @if (Model != null && Model.TypeCalculation != null && Model.TypeCalculation.Calculations != null && Model.TypeCalculation.Calculations.Sizes != null)
+                        {
+
+                            var list = Model.TypeCalculation.Calculations.Sizes.OrderBy(x => x.Index).ToList();
+
+
+                            foreach (var item in list)
+                            {
+                                <li class="layui-timeline-item">
+                                    <i class="layui-icon layui-timeline-axis"></i>
+                                    <div class="layui-timeline-content layui-text">
+                                        <h3 class="layui-timeline-title"><span class="tindex">@item.Index</span><input type="hidden" value="@item.Index" class="index" /></h3>
+                                        <p>
+
+
+                                            零部件：<input type="text" value="@item.FromGoName" lay-verify="required" class="layui-input-inline sfrom" />   到   <input type="text" value="@item.ToGaName" lay-verify="required" class="layui-input-inline sto" /> 的长度为    <input type="text" class="slength" value="@item.Length" />
+
+
+                                            <div class="layui-form-item" pane>
+
+                                                <label class="layui-form-label">音频</label>
+                                                <div class="layui-input-inline">
+
+                                                    <input type="text" value="@item.Audio" class="layui-input audio" />
+                                                    <span class="layui-btn audio">上传音频</span>
+
+                                                </div>
+
+
+                                            </div>
+                                        </p>
+
+                                    </div>
+                                </li>
+                        }
+
+
+
+                    }
+
+
+
+
+                            <li class="layui-timeline-item ico_end listend" id="listend">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <div class="layui-timeline-title">结束</div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                        <div class="layui-btn" id="btnaddsizeobj">增加</div>
+                        <div class="layui-btn del">删除</div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div class="layui-form-item" pane>
+                            <label class="layui-form-label">习题内容</label>
+                            <div class="layui-input-block">
+
+                                <textarea class="layui-textarea TextInfo" id="praticetextInfo" style="text-align:left;">
+                                    @Model.TypeCalculation.Practices.TextInfo.Trim()
+                            </textarea>
+
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">习题图例</label>
+                            <div class="layui-input-block">
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="btnuploadpratice">上传习题图例</button>
+                                    <div class="layui-upload-list">
+                                        <img class="layui-upload-img" id="TaskPicUrl" src="@Model.TypeCalculation.Practices.TaskPicUrl" style="width:120px;height:120px;">
+                                        <input type="hidden" name="TaskPicName" id="TaskPicName" value="@Model.TypeCalculation.Practices.TaskPicName" />
+                                        <p id="taskDemo"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">标准答案图片名称</label>
+                            <div class="layui-input-block">
+                                <div class="layui-upload">
+                                    <button type="button" class="layui-btn" id="btnuploadvideo">上传标准答案图片</button>
+                                    <div class="layui-upload-list">
+                                        <img class="layui-upload-img" id="AnswerPicUrl" src="@Model.TypeCalculation.Practices.AnswerPicUrl" style="width:120px;height:120px;">
+                                        <input type="hidden" name="AnswerPicName" id="AnswerPicName" value="@Model.TypeCalculation.Practices.AnswerPicName" />
+                                        <p id="answerDemo"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">是否可显示答案</label>
+
+                            @if (!Model.TypeCalculation.Practices.IsShowAnswer)
+                        {
+
+                            <div class="layui-input-block">
+                                <input type="checkbox" id="open" name="open" lay-skin="switch" lay-text="ON|OFF"><div class="layui-unselect layui-form-switch" lay-skin="_switch"><em>OFF</em><i></i></div>
+                            </div>
+                    }
+                    else
+                    {
+                        <div class="layui-input-block">
+                            <input type="checkbox" checked="" id="open" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF"><div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch"><em>ON</em><i></i></div>
+                        </div>
+                }
+                        </div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <ul class="layui-timeline" id="structanswermodel">
+
+                            @if (Model != null && Model.TypeCalculation != null && Model.TypeCalculation.Practices != null && Model.TypeCalculation.Practices.Answers != null)
+                        {
+
+                            var list = Model.TypeCalculation.Practices.Answers.OrderBy(x => x.Index).ToList();
+
+                            foreach (var item in list)
+                            {
+                                <li class="layui-timeline-item">
+                                    <i class="layui-icon layui-timeline-axis"></i>
+                                    <div class="layui-timeline-content layui-text">
+                                        <h3 class="layui-timeline-title">答案内容:<span class="tindex">@item.Index</span>  <input type="hidden" value="@item.Index" class="index" /></h3>
+                                        <p>
+                                            <div class="layui-form-item" pane>
+                                                <label class="layui-form-label">答案</label>
+                                                <div class="layui-input-block">
+                                                    <input type="number" value="@item.Answer" lay-verify="required" class="layui-input info" />
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </li>
+                        }
+
+
+
+                    }
+
+
+                            <li class="layui-timeline-item ico_end listend" id="answercomlistend">
+                                <i class="layui-icon layui-timeline-axis"></i>
+                                <div class="layui-timeline-content layui-text">
+                                    <div class="layui-timeline-title">结束</div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="layui-btn" id="btnaddanswercompnentobj">增加</div>
+
+                        <div class="layui-btn del">删除</div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row layui-fixbar" style="right:40%">
+            <div class="layui-btn layui-btn-lg" lay-submit lay-filter="formtypeModel">保存信息</div>
+
+        </div>
+        <input type="hidden" lay-submit id="btnSubmit" lay-filter="formSubmit" />
+    </form>
+
+<script type="text/javascript" src="~/Content/admin/layui/layui.js"></script>
+
+<script>
+
+
+    layui.config({
+        base: "/Content/admin/js/"
+    }).use(['form', 'vue', 'ztree', 'layer', 'utils', 'jquery', 'table', 'droptree', 'openauth', 'element', 'upload','common'], function () {
+
+        var $ = layui.jquery
+            , common = layui.common
+            , element = layui.element
+            , form = layui.form
+            , upload = layui.upload;
+
+        var domIDel = "";
+        layui.droptree("/UserSession/QueryNavList", "#ParentName", "#BelongToID", false);
+
+        $(document).on("click", "li.layui-timeline-item", function () {
+            var el = $(this).find('i.layui-timeline-axis');
+            if (el) {
+                $('i.selected').removeClass('selected');
+                el.addClass('selected');
+            }
+            $(this).siblings("li.layui-timeline-item").each(function () {
+
+                var el1 = $(this).find('i.layui-timeline-axis');
+
+                el1.removeClass('selected');
+            })
+        })
+
+
+        $('.layui-tab-item > .del').click(function () {
+
+            var selected = $('i.selected').parent();
+
+            if (selected && selected.length > 0) {
+                //询问框
+
+                var inel = selected.find('input.index');
+
+                if (inel && inel.length > 0) {
+
+
+                    layer.confirm('确定删除 内容项：' + inel.val(), {
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+
+                        var parentel = selected.parent();
+
+                        selected.remove();
+
+                        var elems = parentel.find('li.layui-timeline-item');
+
+                        if (elems.length > 0) {
+
+                            var ccnum = 1;
+                            elems.each(function () {
+
+
+
+
+                                var spanel = $(this).find('span.tindex');
+
+                                var inputel = $(this).find('input.index');
+                                if (spanel && spanel.length > 0) {
+                                    spanel.text(ccnum);
+                                }
+
+                                if (inputel && inputel.length > 0) {
+                                    inputel.val(ccnum);
+                                }
+
+                                ccnum++
+                            })
+                        }
+
+
+
+                        layer.msg("移除成功")
+                    }, function () {
+                        return;
+                    });
+                }
+                else {
+                    layer.msg("请选中要移除的节点");
+                }
+
+
+
+            }
+
+
+        })
+
+
+
+
+        $(document).on("click", "span.audio", function () {
+
+
+            var thisel = $(this);
+
+
+            domIDel = thisel.parent().find("input");
+
+
+
+            $('#btnuploadaudio').trigger("click");
+
+
+
+        })
+
+
+         //视频上传
+        var uploadvidelInst = upload.render({
+            elem: '#btnuploadaudio'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                 modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+            , accept: 'audio'
+            //, exts:''
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                //obj.preview(function (index, file, result) {
+                //    $('#answerload').attr('src', result); //图片链接（base64）
+                //});
+                layer.load(0);
+            }
+            , done: function (res) {
+
+
+
+                if (domIDel != "" && domIDel)
+                {
+                    domIDel.val(res.Result.path);
+                }
+
+                layer.closeAll("loading");
+                //$('#videoUrl').val(res.Result.path);
+
+                //layer.msg("上传视频成功");
+                //如果上传失败
+                // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+
+                layer.msg("服务器异常");
+                //演示失败状态，并实现重传
+                //var demoText = $('#demoText');
+                //demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                //demoText.find('.demo-reload').on('click', function () {
+                //    uploadvidelInst.upload();
+                //});
+            }
+        });
+
+
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+            ,accept:'file'
+            , exts:''
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                //obj.preview(function (index, file, result) {
+                //    $('#demo1').attr('src', result); //图片链接（base64）
+                //});
+
+                layer.load(0);
+            }
+            , done: function (res) {
+
+
+                $('#aburl').val(res.Result.path);
+
+                layer.closeAll("loading");
+
+                //var demoText = $('#demoText');
+
+                $('#demoText').text("ab包资源地址为：" + res.Result.url);
+                //layer.msg("上传成功");
+                //如果上传失败
+               // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+         //标准答案示意图
+        var uploadvidelInst = upload.render({
+            elem: '#btnuploadvideo'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#AnswerPicUrl').attr('src', result); //图片链接（base64）
+                });
+
+                layer.load(0);
+            }
+            , done: function (res) {
+
+                $('#AnswerPicName').val(res.Result.path)
+                $('#answerDemo').text("标准答案示意图预览地址" + res.Result.url);
+                layer.closeAll("loading");
+                //layer.msg("上传标准答案示意图成功");
+                //如果上传失败
+               // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#answerDemo');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadvidelInst.upload();
+                });
+            }
+        });
+
+        //练习题图例
+        var uploadanswerInst = upload.render({
+            elem: '#btnuploadpratice'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#TaskPicUrl').attr('src', result); //图片链接（base64）
+                });
+                layer.load(0);
+            }
+            , done: function (res) {
+
+                $('#TaskPicName').val(res.Result.path)
+
+                $('#taskDemo').text("练习题图例预览地址：" + res.Result.url)
+                //$('#TaskPicUrl').val(res.Result.path);
+
+                layer.closeAll("loading");
+
+
+                //如果上传失败
+               // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#taskDemo');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadanswerInst.upload();
+                });
+            }
+        });
+
+
+
+
+
+        ///添加尺寸
+        $('#btnaddsizeobj').click(function () {
+
+            var count = $('#sizesmodel > li.layui-timeline-item').length;
+
+
+            var html = '<li class="layui-timeline-item">' +
+                ' <i class="layui-icon layui-timeline-axis"></i>' +
+                '<div class="layui-timeline-content layui-text">' +
+                ' <h3 class="layui-timeline-title"> <span class="tindex">' + count +'</span><input type="hidden" value="' + count +'" class="index" />'+'</h3>'
+                + '<p>'
+
+                + '      零部件：<input type="text" value="" lay-verify="required" class="layui-input-inline sfrom" />   到   <input type="text" value="" lay-verify="required" class="layui-input-inline sto" /> 的长度为    <input type="text" class="slength" value="" />'
+
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">音频</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input audio" />'
+                + '<span class="layui-btn audio">上传音频</span>'
+                + '</div>'
+
+                + '</div>'
+                + ' </p>'
+                + '</div>'
+                + '</li >'
+            $('#listend').before(html);
+            form.render();
+
+        })
+
+
+
+        var formdata = {
+
+            getTypeItemdata: function () {
+
+                var modelInfo = new Object();
+                modelInfo.Name = $('#name').val();// "Test1";
+                modelInfo.Type = "JiSuan";// "物件";
+                modelInfo.CNID = $("#cnid").val();
+                modelInfo.aburl = $('#aburl').val(); //"/AssetBundles/testab";
+                modelInfo.AbObjectName = $('#abObjectName').val();// "TestGo";
+                modelInfo.TypeItem = new Object();
+                modelInfo.TypeMethod = new Object();
+                modelInfo.TypeTable = new Object();
+                modelInfo.TypeProcess = new Object();
+
+                ///
+                var TypeCalculation = new Object();
+
+                var OverallInfo = new Object();
+                OverallInfo.Title = $('#introduceMenuName').val();// "基坑概念";
+                OverallInfo.Info = $('#introduceinfo').val();//"基坑是指长宽比小于或等于3的矩形土体";
+                TypeCalculation.OverallInfo = OverallInfo;
+
+
+                ///
+                var Calculations = new Object();
+                Calculations.Title = $('#structMenuname').val();//"铲运机介绍";
+                Calculations.Info = $('#structInfo').val();
+                var Calcul = new Array();
+                $('#structmodel > li.layui-timeline-item').each(function () {
+
+
+                    if (this.id == 'comlistend')
+                    {
+                        return;
+                    }
+
+                    var Calcul1 = new Object();
+                    Calcul1.Index = $(this).find('input.index').first().val();
+                    Calcul1.Info = $(this).find('input.info').first().val();
+                    Calcul1.GameObjectName = $(this).find('input.gamename').first().val();
+                    Calcul1.LeftOrRight = $(this).find('select').first().val();
+                    Calcul1.GameObjectIndex = $(this).find('input.GameObjectIndex').first().val()
+                    Calcul1.Audio = $(this).find('input.audio').first().val();
+                    Calcul.push(Calcul1);
+                })
+
+                Calculations.Calcul = Calcul;
+
+
+                var Sizes = new  Array();
+                //Sizes.Title = $('#SizeMenuName').val();//"尺寸";
+              //  Size = new Array();
+                $('#sizesmodel > li.layui-timeline-item').each(function (ele, index, val) {
+
+
+
+                    if (this.id == 'listend') {
+                        return;
+                    }
+                    var sizeIobj = new Object();
+                    sizeIobj.Index = $(this).find('input.index').first().val();
+                    sizeIobj.Length = $(this).find('input.slength').first().val();
+                    sizeIobj.FromGoName = $(this).find('input.sfrom').first().val();//"zhongyangkuangjia";
+                    sizeIobj.ToGaName = $(this).find('input.sto').first().val();// "JiaShiShi";
+                    sizeIobj.Audio = $(this).find('input.audio').first().val();
+                    Sizes.push(sizeIobj);
+                })
+
+                Calculations.Sizes = Sizes;
+                TypeCalculation.Calculations = Calculations;
+
+                var Practice = new Object();
+                Practice.TextInfo = $('#praticetextInfo').val();// "铲运机测试";
+                Practice.TaskPicName = $('#TaskPicName').val();// "http://www.html5videoplayer.net/videos/toystory.mp4";
+                Practice.AnswerPicName = $('#AnswerPicName').val();// "描述测试";
+
+                if ($('#open').parent().find('em').text() == "ON") {
+                    Practice.IsShowAnswer = true;
+                }
+                else
+                {
+                    Practice.IsShowAnswer = false;
+                }
+
+
+                var Answers = new Array();
+
+                $('#structanswermodel > li.layui-timeline-item').each(function () {
+
+
+                    if (this.id == 'answercomlistend') {
+                        return;
+                    }
+
+                    var StructObj1 = new Object();
+                    StructObj1.Index = $(this).find('input.index').first().val();
+                    StructObj1.Answer = $(this).find('input.info').first().val();
+
+                    Answers.push(StructObj1);
+                })
+                Practice.Answers = Answers;
+                TypeCalculation.Practices = Practice;
+                modelInfo.TypeCalculation = TypeCalculation;
+                return modelInfo;
+            }
+
+
+        }
+
+
+
+        $('#modeltest').click(function () {
+
+            var modelInfo = new Object();
+            modelInfo.Name = $('#name').val();// "Test1";
+            modelInfo.Type = "JiSuan";// "物件";
+            modelInfo.CNID = $("#cnid").val();
+            modelInfo.aburl = $('#aburl').val(); //"/AssetBundles/testab";
+            modelInfo.AbObjectName = $('#abObjectName').val();// "TestGo";
+            modelInfo.TypeItem = new Object();
+            modelInfo.TypeMethod = new Object();
+            modelInfo.TypeTable = new Object();
+            modelInfo.TypeProcess = new Object();
+
+            ///
+            var TypeCalculation = new Object();
+
+            var OverallInfo = new Object();
+            OverallInfo.Title = $('#introduceMenuName').val();// "基坑概念";
+            OverallInfo.Info = $('#introduceinfo').val();//"基坑是指长宽比小于或等于3的矩形土体";
+            TypeCalculation.OverallInfo = OverallInfo;
+
+
+            ///
+            var Calculations = new Object();
+            Calculations.Title = $('#structMenuname').val();//"铲运机介绍";
+            Calculations.Info = $('#structInfo').val();
+            var Calcul = new Array();
+            $('#structmodel > li.layui-timeline-item').each(function () {
+
+
+                if (this.id == 'comlistend') {
+                    return;
+                }
+
+                var Calcul1 = new Object();
+                Calcul1.Index = $(this).find('input.index').first().val();
+                Calcul1.Info = $(this).find('input.info').first().val();
+                Calcul1.GameObjectName = $(this).find('input.gamename').first().val();
+                Calcul1.LeftOrRight = $(this).find('select').first().val();
+                Calcul1.GameObjectIndex = $(this).find('input.GameObjectIndex').first().val()
+
+                Calcul.push(Calcul1);
+            })
+
+            Calculations.Calcul = Calcul;
+            TypeCalculation.Calculations = Calculations;
+
+            var Sizes = new  Array();
+            //Sizes.Title = $('#SizeMenuName').val();//"尺寸";
+            //  Size = new Array();
+            $('#sizesmodel > li.layui-timeline-item').each(function (ele, index, val) {
+
+
+
+                if (this.id == 'listend') {
+                    return;
+                }
+                var sizeIobj = new Object();
+                sizeIobj.Index = $(this).find('input.index').first().val();
+                sizeIobj.Length = $(this).find('input.slength').first().val();
+                sizeIobj.FromGoName = $(this).find('input.sfrom').first().val();//"zhongyangkuangjia";
+                sizeIobj.ToGaName = $(this).find('input.sto').first().val();// "JiaShiShi";
+                Sizes.push(sizeIobj);
+            })
+            TypeCalculation.Sizes = Sizes;
+            var Practice = new Object();
+            Practice.TextInfo = $('#praticetextInfo').val();// "铲运机测试";
+            Practice.TaskPicName = $('#TaskPicName').val();// "http://www.html5videoplayer.net/videos/toystory.mp4";
+            Practice.AnswerPicName = $('#AnswerPicName').val();// "描述测试";
+
+            if ($('#open').parent().find('em').text() == "ON") {
+                Practice.IsShowAnswer = true;
+            }
+            else {
+                Practice.IsShowAnswer = false;
+            }
+            TypeCalculation.Practice = Practice;
+            modelInfo.TypeCalculation = TypeCalculation;
+
+            console.log(JSON.stringify(modelInfo));
+            return modelInfo;
+
+
+
+
+        })
+        ///添加构建交互
+        $('#btnaddcompnentobj').click(function () {
+
+
+            var count = $('#structmodel > li.layui-timeline-item').length;
+
+            var html = '<li class="layui-timeline-item">'
+                + '<i class="layui-icon layui-timeline-axis"></i>'
+                + '<div class="layui-timeline-content layui-text">'
+                + '<h3 class="layui-timeline-title">算量:<span class="tindex">' + count + '</span> <input type="hidden" value="' + count +'" class="index" /></h3>'
+                + ' <p>'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">算量名称</label>'
+                + '<div class="layui-input-block">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input info" />'
+                + '</div>'
+                + '</div>'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">对象名</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input gamename" />'
+                + '</div>'
+                + '</div>'
+
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">序号</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input GameObjectIndex" />'
+                + '</div>'
+                + '</div>'
+
+
+                + '<div class="layui-form-item">'
+                + '<label class="layui-form-label">左或右:</label>'
+                + '<div class="layui-input-block">'
+                + '<select lay-verify="required">'
+                + '<option value="" selected="">请选择位置</option>'
+                + '<option value="true">左</option>'
+                + '<option value="false">右</option>'
+                + '</select>'
+                + '</div>'
+                + '</div>'
+
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">音频</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input audio" />'
+                + '<span class="layui-btn audio">上传音频</span>'
+                + '</div>'
+
+                + '</div>'
+
+                + '</p>'
+                + '</div>'
+                + '</li>';
+            $('#comlistend').before(html);
+            form.render();
+
+        })
+
+
+        $('#btnaddanswercompnentobj').click(function () {
+            var count = $('#structanswermodel > li.layui-timeline-item').length;
+
+            var html = '<li class="layui-timeline-item">'
+                + '<i class="layui-icon layui-timeline-axis"></i>'
+                + '<div class="layui-timeline-content layui-text">'
+                + '<h3 class="layui-timeline-title">答案内容:<span class="tindex">' + count + '</span> <input type="hidden" value="' + count + '" class="index" /></h3>'
+                + ' <p>'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">答案</label>'
+                + '<div class="layui-input-block">'
+                + '<input type="number" value="" lay-verify="required" class="layui-input info" />'
+                + '</div>'
+                + '</div>'
+
+                + '</p>'
+                + '</div>'
+                + '</li>';
+            $('#answercomlistend').before(html);
+            form.render();
+
+        })
+        //监听提交
+        form.on('submit(formtypeModel)', function (data) {
+            data.field.Resource = JSON.stringify( formdata.getTypeItemdata());
+            $.post('/TypeCalculation/Save',
+                data.field,
+                function (result) {
+                    layer.msg(result.Message);
+                },
+                "json");
+            //layer.alert(JSON.stringify(data.field), {
+            //    title: '最终的提交信息'
+            //})
+            return false;
+        });
+
+
+    })
+
+
+</script>
+
+@*<script>
+
+
+    layui.config({
+        base: "/Content/admin/js/"
+    }).use(['form', 'vue', 'ztree', 'layer', 'utils', 'jquery', 'table', 'droptree', 'openauth', 'element', 'upload','common'], function () {
+
+        var $ = layui.jquery
+            , common = layui.common
+            , element = layui.element
+            , form = layui.form
+            , upload = layui.upload;
+        layui.droptree("/UserSession/QueryNavList", "#ParentName", "#BelongToID", false);
+
+        $(document).on("click", "li.layui-timeline-item", function () {
+            var el = $(this).find('i.layui-timeline-axis');
+            if (el) {
+
+                $('i.selected').removeClass('selected');
+                el.addClass('selected');
+            }
+            $(this).siblings("li.layui-timeline-item").each(function () {
+
+                var el1 = $(this).find('i.layui-timeline-axis');
+
+                el1.removeClass('selected');
+            })
+        })
+
+
+        $('.layui-tab-item > .del').click(function () {
+
+            var selected = $('i.selected').parent();
+
+            if (selected && selected.length > 0) {
+                //询问框
+
+                var inel = selected.find('input.index');
+
+                if (inel && inel.length > 0) {
+
+
+                    layer.confirm('确定删除 内容项：' + inel.val(), {
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+
+                        var parentel = selected.parent();
+
+                        selected.remove();
+
+                        var elems = parentel.find('li.layui-timeline-item');
+
+                        if (elems.length > 0) {
+
+                            var ccnum = 1;
+                            elems.each(function () {
+
+
+
+
+                                var spanel = $(this).find('span.tindex');
+
+                                var inputel = $(this).find('input.index');
+                                if (spanel && spanel.length > 0) {
+                                    spanel.text(ccnum);
+                                }
+
+                                if (inputel && inputel.length > 0) {
+                                    inputel.val(ccnum);
+                                }
+
+                                ccnum++
+                            })
+                        }
+
+
+
+                        layer.msg("移除成功")
+                    }, function () {
+                        return;
+                    });
+                }
+                else {
+                    layer.msg("请选中要移除的节点");
+                }
+
+
+
+            }
+
+
+        })
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+            ,accept:'file'
+            , exts:''
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                //obj.preview(function (index, file, result) {
+                //    $('#demo1').attr('src', result); //图片链接（base64）
+                //});
+            }
+            , done: function (res) {
+
+
+                $('#aburl').val(res.Result.path);
+
+                layer.msg("上传成功");
+                //如果上传失败
+               // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
+         //标准答案示意图
+        var uploadvidelInst = upload.render({
+            elem: '#btnuploadvideo'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#AnswerPicUrl').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+
+                $('#AnswerPicName').val(res.Result.path)
+                //$('#AnswerPicUrl').val(res.Result.path);
+
+                layer.msg("上传标准答案示意图成功");
+                //如果上传失败
+               // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#answerDemo');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadvidelInst.upload();
+                });
+            }
+        });
+
+        //练习题图例
+        var uploadanswerInst = upload.render({
+            elem: '#btnuploadpratice'
+            , url: common.renderUrl('/QiniuClient/CreateDir', {
+                modelID: '@ViewBag.ModleID'
+            })
+            , field: 'modelthumb'
+
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#TaskPicUrl').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+
+                $('#TaskPicName').val(res.Result.path)
+                //$('#TaskPicUrl').val(res.Result.path);
+
+                layer.msg("上传练习题图例成功");
+                //如果上传失败
+               // console.log(JSON.stringify(res));
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#taskDemo');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadanswerInst.upload();
+                });
+            }
+        });
+
+
+
+
+
+        ///添加尺寸
+        $('#btnaddsizeobj').click(function () {
+
+            var count = $('#sizesmodel > li.layui-timeline-item').length;
+
+
+            var html = '<li class="layui-timeline-item">' +
+                ' <i class="layui-icon layui-timeline-axis"></i>' +
+                '<div class="layui-timeline-content layui-text">' +
+                ' <h3 class="layui-timeline-title"><span class="tindex">' + count +'</span><input type="hidden" value="' + count +'" class="index" />'+'</h3>'
+                + '<p>'
+
+                + '      零部件：<input type="text" value="" lay-verify="required" class="layui-input-inline sfrom" />   到   <input type="text" value="" lay-verify="required" class="layui-input-inline sto" /> 的长度为    <input type="text" class="slength" value="" />'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">音频</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value=""  class="layui-input audio" />'
+                + '<span class="layui-btn audio">上传音频</span>'
+                + '</div>'
+
+                + '</div>'
+                + ' </p>'
+                + '</div>'
+                + '</li >'
+            $('#listend').before(html);
+            form.render();
+
+        })
+
+
+
+        var formdata = {
+
+            getTypeItemdata: function () {
+
+                var modelInfo = new Object();
+                modelInfo.Name = $('#name').val();// "Test1";
+                modelInfo.Type = "JiSuan";// "物件";
+                modelInfo.CNID = $("#cnid").val();
+                modelInfo.aburl = $('#aburl').val(); //"/AssetBundles/testab";
+                modelInfo.AbObjectName = $('#abObjectName').val();// "TestGo";
+                modelInfo.TypeItem = new Object();
+                modelInfo.TypeMethod = new Object();
+                modelInfo.TypeTable = new Object();
+                modelInfo.TypeProcess = new Object();
+
+                ///
+                var TypeCalculation = new Object();
+
+                var OverallInfo = new Object();
+                OverallInfo.Title = $('#introduceMenuName').val();// "基坑概念";
+                OverallInfo.Info = $('#introduceinfo').val();//"基坑是指长宽比小于或等于3的矩形土体";
+                TypeCalculation.OverallInfo = OverallInfo;
+
+
+                ///
+                var Calculations = new Object();
+                Calculations.Title = $('#structMenuname').val();//"铲运机介绍";
+                Calculations.Info = $('#structInfo').val();
+                var Calcul = new Array();
+                $('#structmodel > li.layui-timeline-item').each(function () {
+
+
+                    if (this.id == 'comlistend')
+                    {
+                        return;
+                    }
+
+                    var Calcul1 = new Object();
+                    Calcul1.Index = $(this).find('input.index').first().val();
+                    Calcul1.Info = $(this).find('input.info').first().val();
+                    Calcul1.GameObjectName = $(this).find('input.gamename').first().val();
+                    Calcul1.LeftOrRight = $(this).find('select').first().val();
+                    Calcul1.GameObjectIndex = $(this).find('input.GameObjectIndex').first().val()
+
+                    Calcul.push(Calcul1);
+                })
+
+                Calculations.Calcul = Calcul;
+
+
+                var Sizes = new  Array();
+                //Sizes.Title = $('#SizeMenuName').val();//"尺寸";
+              //  Size = new Array();
+                $('#sizesmodel > li.layui-timeline-item').each(function (ele, index, val) {
+
+
+
+                    if (this.id == 'listend') {
+                        return;
+                    }
+                    var sizeIobj = new Object();
+                    sizeIobj.Index = $(this).find('input.index').first().val();
+                    sizeIobj.Length = $(this).find('input.slength').first().val();
+                    sizeIobj.FromGoName = $(this).find('input.sfrom').first().val();//"zhongyangkuangjia";
+                    sizeIobj.ToGaName = $(this).find('input.sto').first().val();// "JiaShiShi";
+                    Sizes.push(sizeIobj);
+                })
+
+                Calculations.Sizes = Sizes;
+                TypeCalculation.Calculations = Calculations;
+
+                var Practice = new Object();
+                Practice.TextInfo = $('#praticetextInfo').val();// "铲运机测试";
+                Practice.TaskPicName = $('#TaskPicName').val();// "http://www.html5videoplayer.net/videos/toystory.mp4";
+                Practice.AnswerPicName = $('#AnswerPicName').val();// "描述测试";
+
+                if ($('#open').parent().find('em').text() == "ON") {
+                    Practice.IsShowAnswer = true;
+                }
+                else
+                {
+                    Practice.IsShowAnswer = false;
+                }
+
+
+                var Answers = new Array();
+
+                $('#structanswermodel > li.layui-timeline-item').each(function () {
+
+
+                    if (this.id == 'answercomlistend') {
+                        return;
+                    }
+
+                    var StructObj1 = new Object();
+                    StructObj1.Index = $(this).find('input.index').first().val();
+                    StructObj1.Answer = $(this).find('input.info').first().val();
+
+                    Answers.push(StructObj1);
+                })
+                Practice.Answers = Answers;
+                TypeCalculation.Practices = Practice;
+                modelInfo.TypeCalculation = TypeCalculation;
+                return modelInfo;
+            }
+
+
+        }
+
+
+
+        $('#modeltest').click(function () {
+
+            var modelInfo = new Object();
+            modelInfo.Name = $('#name').val();// "Test1";
+            modelInfo.Type = "JiSuan";// "物件";
+            modelInfo.CNID = $("#cnid").val();
+            modelInfo.aburl = $('#aburl').val(); //"/AssetBundles/testab";
+            modelInfo.AbObjectName = $('#abObjectName').val();// "TestGo";
+            modelInfo.TypeItem = new Object();
+            modelInfo.TypeMethod = new Object();
+            modelInfo.TypeTable = new Object();
+            modelInfo.TypeProcess = new Object();
+
+            ///
+            var TypeCalculation = new Object();
+
+            var OverallInfo = new Object();
+            OverallInfo.Title = $('#introduceMenuName').val();// "基坑概念";
+            OverallInfo.Info = $('#introduceinfo').val();//"基坑是指长宽比小于或等于3的矩形土体";
+            TypeCalculation.OverallInfo = OverallInfo;
+
+
+            ///
+            var Calculations = new Object();
+            Calculations.Title = $('#structMenuname').val();//"铲运机介绍";
+            Calculations.Info = $('#structInfo').val();
+            var Calcul = new Array();
+            $('#structmodel > li.layui-timeline-item').each(function () {
+
+
+                if (this.id == 'comlistend') {
+                    return;
+                }
+
+                var Calcul1 = new Object();
+                Calcul1.Index = $(this).find('input.index').first().val();
+                Calcul1.Info = $(this).find('input.info').first().val();
+                Calcul1.GameObjectName = $(this).find('input.gamename').first().val();
+                Calcul1.LeftOrRight = $(this).find('select').first().val();
+                Calcul1.GameObjectIndex = $(this).find('input.GameObjectIndex').first().val()
+
+                Calcul.push(Calcul1);
+            })
+
+            Calculations.Calcul = Calcul;
+            TypeCalculation.Calculations = Calculations;
+
+            var Sizes = new  Array();
+            //Sizes.Title = $('#SizeMenuName').val();//"尺寸";
+            //  Size = new Array();
+            $('#sizesmodel > li.layui-timeline-item').each(function (ele, index, val) {
+
+
+
+                if (this.id == 'listend') {
+                    return;
+                }
+                var sizeIobj = new Object();
+                sizeIobj.Index = $(this).find('input.index').first().val();
+                sizeIobj.Length = $(this).find('input.slength').first().val();
+                sizeIobj.FromGoName = $(this).find('input.sfrom').first().val();//"zhongyangkuangjia";
+                sizeIobj.ToGaName = $(this).find('input.sto').first().val();// "JiaShiShi";
+                Sizes.push(sizeIobj);
+            })
+            TypeCalculation.Sizes = Sizes;
+            var Practice = new Object();
+            Practice.TextInfo = $('#praticetextInfo').val();// "铲运机测试";
+            Practice.TaskPicName = $('#TaskPicName').val();// "http://www.html5videoplayer.net/videos/toystory.mp4";
+            Practice.AnswerPicName = $('#AnswerPicName').val();// "描述测试";
+
+            if ($('#open').parent().find('em').text() == "ON") {
+                Practice.IsShowAnswer = true;
+            }
+            else {
+                Practice.IsShowAnswer = false;
+            }
+            TypeCalculation.Practice = Practice;
+            modelInfo.TypeCalculation = TypeCalculation;
+
+            console.log(JSON.stringify(modelInfo));
+            return modelInfo;
+
+
+
+
+        })
+        ///添加构建交互
+        $('#btnaddcompnentobj').click(function () {
+
+
+            var count = $('#structmodel > li.layui-timeline-item').length;
+
+            var html = '<li class="layui-timeline-item">'
+                + '<i class="layui-icon layui-timeline-axis"></i>'
+                + '<div class="layui-timeline-content layui-text">'
+                + '<h3 class="layui-timeline-title">算量:<span class="tindex">' + count + '</span> <input type="hidden" value="' + count +'" class="index" /></h3>'
+                + ' <p>'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">算量名称</label>'
+                + '<div class="layui-input-block">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input info" />'
+                + '</div>'
+                + '</div>'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">对象名</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input gamename" />'
+                + '</div>'
+                + '</div>'
+
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">序号</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input GameObjectIndex" />'
+                + '</div>'
+                + '</div>'
+
+
+                + '<div class="layui-form-item">'
+                + '<label class="layui-form-label">左或右:</label>'
+                + '<div class="layui-input-block">'
+                + '<select lay-verify="required">'
+                + '<option value="" selected="">请选择位置</option>'
+                + '<option value="true">左</option>'
+                + '<option value="false">右</option>'
+                + '</select>'
+                + '</div>'
+                + '</div>'
+
+
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">音频</label>'
+                + '<div class="layui-input-inline">'
+                + '<input type="text" value="" lay-verify="required" class="layui-input audio" />'
+                + '<span class="layui-btn audio">上传音频</span>'
+                + '</div>'
+
+                + '</div>'
+
+
+                + '</p>'
+                + '</div>'
+                + '</li>';
+            $('#comlistend').before(html);
+            form.render();
+
+        })
+
+
+        $('#btnaddanswercompnentobj').click(function () {
+            var count = $('#structanswermodel > li.layui-timeline-item').length;
+
+            var html = '<li class="layui-timeline-item">'
+                + '<i class="layui-icon layui-timeline-axis"></i>'
+                + '<div class="layui-timeline-content layui-text">'
+                + '<h3 class="layui-timeline-title">答案内容:<span class="tindex">' + count + '</span> <input type="hidden" value="' + count + '" class="index" /></h3>'
+                + ' <p>'
+                + '<div class="layui-form-item" pane>'
+                + '<label class="layui-form-label">答案</label>'
+                + '<div class="layui-input-block">'
+                + '<input type="number" value="" lay-verify="required" class="layui-input info" />'
+                + '</div>'
+                + '</div>'
+
+                + '</p>'
+                + '</div>'
+                + '</li>';
+            $('#answercomlistend').before(html);
+            form.render();
+
+        })
+        //监听提交
+        form.on('submit(formtypeModel)', function (data) {
+            data.field.Resource = JSON.stringify( formdata.getTypeItemdata());
+            $.post('/TypeCalculation/Save',
+                data.field,
+                function (result) {
+                    layer.msg(result.Message);
+                },
+                "json");
+            //layer.alert(JSON.stringify(data.field), {
+            //    title: '最终的提交信息'
+            //})
+            return false;
+        });
+
+
+    })
+
+
+</script>*@
+

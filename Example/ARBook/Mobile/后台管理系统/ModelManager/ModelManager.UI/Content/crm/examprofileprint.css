@@ -1,0 +1,21 @@
+﻿html, body, div, p, ul, li, ol, dl, dt, dd, form, h1, h2, h3, h4, h5, h6, input, fieldset, legend, optgroup, table, tr, td{margin: 0;padding: 0;}
+html, body, form{font-family: "Microsoft Yahei" , "微软雅黑e软雅黑6f\96c5\9ed1" ,Tahoma,Arial,STHeiti,sans-serif;font-size: 12px;color: #000;line-height: 18px;text-align: center;}
+body{color: #333;}
+div{text-align: left;}
+.week_pro{margin: 1px auto;border: 1px solid #e0e0e0;border-right: none;border-bottom: none;border-collapse: collapse;border-spacing: 0;width: 100%;background-color:transparent; font-size:12px;}
+.week_pro th{border-top: 1px solid #4AADEF; font-weight:normal;}
+.week_pro th, .week_pro td{border: 1px solid #A5A2A2;padding: 0 2px;font-size:12px;text-align:center;}
+.week_pro th{height: 22px;line-height: 22px; border-color:#A5A2A2;font-weight:normal;}
+.week_pro td{height: 22px;height:22px;min-height: 22px;border-color:#A5A2A2;font-weight:normal;}
+#content{width:90%;margin:0px auto;clear: both;}
+#content .profile-edit{width: 100%;padding:5px 5px 5px 5px;background:#fff;border: 1px solid #ccc;border-bottom: 1px solid #b4b4b4;margin: 15px auto 15px auto;box-shadow: 1px 3px 3px rgba(150,152,153,0.3);zoom: 1;position: relative;}
+#content .profile-edit h2{border-bottom: 1px solid #ccc;padding-bottom: 7px;line-height: 19px;padding-right: 20px;margin-bottom: 10px;}
+#content .profile-edit h2 span{float: right;line-height: 19px;height: 19px;display: block;}
+#content .profile-edit h2 i{font-style: normal;font-size: 12px;font-family: 'Microsoft YaHei','hei','tahoma';line-height: 22px;display: inline-block;vertical-align: middle;}
+#content .profile-edit h2 em{width: 5px;height: 19px;overflow: hidden;margin-right: 10px;display: inline-block;background: #e76322;vertical-align: bottom;}
+#content .profile-edit a.green, a.high:visited{text-decoration: none;color: #86b5d7;font-size:12px;}
+.print{background: url("images/print.png") no-repeat 0px 0px;width: 17px;height: 17px;display: block;}
+.yahei{font-family: "Microsoft Yahei" , "微软雅黑e软雅黑6f\96c5\9ed1" ,Tahoma,Arial,STHeiti,sans-serif;}
+.print-btn{margin: 5px;border: solid 1px #F1152F;padding: 5px 15px 5px 15px;cursor: pointer;background-color: #F1152F;color: #fff;display: inline-block;border-radius: 3px;box-shadow: 0 1px 0 rgba(0,0,0,.03);}
+.getback-btn{margin: 5px;border: solid 1px #9C9899;padding: 5px 15px 5px 15px;cursor: pointer;background-color: #9C9899;color: #fff;display: inline-block;border-radius: 3px;box-shadow: 0 1px 0 rgba(0,0,0,.03);}
+.printbox{ margin:0 auto;width:92%;background: url('Images/hgbj2015.png') repeat-y top center;}

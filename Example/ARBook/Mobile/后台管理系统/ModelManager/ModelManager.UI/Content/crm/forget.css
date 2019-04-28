@@ -1,0 +1,39 @@
+﻿html, img{font-size: 100%;border: 0px;}
+html, body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td{margin: 0;padding: 0;}
+html{display: block;}
+body{background-color: #f4f4f4;font-family: "Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;color: #333;font-size: 12px;background: #fafafa url(images/bodybg.gif) repeat-x top;}
+div{display: block;}
+select, input, button, button img, label{vertical-align: middle;}
+a{color: #7a7a7a;text-decoration: none;cursor: pointer;}
+.background{display: block;width: 100%;height: 100%;opacity: 0.4;filter: alpha(opacity=40);background: while;position: absolute;top: 0;left: 0;z-index: 2000;}
+.progressBar{border: solid 2px #86A5AD;background: white url(Images/progressBar_m.gif) no-repeat 10px 10px;}
+.progressBar{display: block;width: 148px;height: 28px;position: fixed;top: 50%;left: 50%;margin-left: -74px;margin-top: -14px;padding: 10px 10px 10px 50px;text-align: left;line-height: 27px;font-weight: bold;position: absolute;z-index: 2001;}
+#main{width: 980px;margin: 0 auto;}
+#f-head{height:74px;padding: 12px 10px 0;position: relative;}
+#f-head .logo{float: left;}
+#f-head .logo a{display: block;width: 385px;height: 53px;background: url(images/logo_c.png) no-repeat;line-height: 300px;overflow: hidden;}
+#f-head .nav{float: right;}
+#f-head .nav a{color: #1797B3;padding: 0 10px;}
+#f-content{background-color:#fff;border:1px solid #e0ded7;box-shadow:0 0 5px #e0ded7;}
+#f-content .form-password{text-align: center;padding: 50px 0 50px 0;}
+#f-content .title-change-password{margin-bottom: 10px;color: #7a7a7a;border-bottom: 1px solid #E9EEF1;font-size: 16px;margin-left: 38px;margin-right: 38px;padding-bottom: 10px;text-align: left;}
+#f-content .tips-ps{line-height: 30px;padding-left: 38px;text-align: left;color:#999;}
+#f-content .from-panel{margin:30px 0px;text-align:left;}
+#f-content .from-panel span{display:inline-block;width:80px;text-align:right;margin-left:280px;}
+#f-content .from-panel .img{display:inline-block;margin-left:365px;}
+#f-content .from-panel .flk13{color: #005AA0;}
+#f-content .cl{text-align:center;}
+#f-content input[type="text"],input[type="password"]{width:200px;height:25px;line-height:25px;box-shadow: inset 0 1px 3px -1px rgba(0, 0, 0, 0.1);border: 1px solid #CCC;font-family: tahoma,arial;padding:2px 0 2px 5px;color: #666;font-size: 14px;margin:5px 0px 5px 5px;}
+/* validate */
+#f-content label.error{background: url("images/unchecked.gif") no-repeat 0px 0px;padding-left: 16px;margin-left:10px;}
+#f-content label.success{background: url("images/checked.gif") no-repeat 0px 0px;padding-left: 16px;}
+#f-content input.error{border: 1px solid #e80c4d;}
+
+#f-bottom{width:100%;height: 50px;line-height: 50px;text-align: center;}
+
+/*-- btn --*/
+.btn_select{margin: 5px; border: solid 1px #ddd; padding: 5px 15px 5px 15px;cursor: pointer; background-color: #f4f4f4; color: #333;display: inline-block;border-radius: 3px;box-shadow: 0 1px 0 rgba(0,0,0,.03);}
+.btn_select:hover{background-color:#cc3333;color:#fff;}
+.btn_link{margin: 5px; border: solid 1px #f17c15; padding: 5px 30px 5px 30px;cursor: pointer; background-color: #f17c15; color: #fff;display: inline-block;border-radius: 3px;box-shadow: 0 1px 0 rgba(0,0,0,.03);}
+.btn_link:hover{background-color:#cc3333;color:#fff;border: solid 1px #cc3333;}
+/*--end btn --*/

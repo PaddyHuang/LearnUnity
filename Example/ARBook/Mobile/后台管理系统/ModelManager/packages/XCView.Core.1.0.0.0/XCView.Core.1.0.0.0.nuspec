@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>XCView.Core</id>
+    <version>1.0.0.0</version>
+    <title>XCView.Core</title>
+    <authors>Zhangh</authors>
+    <owners>Zhangh</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>先创核心库</description>
+  </metadata>
+</package>

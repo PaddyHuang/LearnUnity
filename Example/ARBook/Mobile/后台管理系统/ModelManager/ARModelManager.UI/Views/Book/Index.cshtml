@@ -1,0 +1,544 @@
+﻿@section header
+{
+    <link rel="stylesheet" href="~/Content/admin/css/treetable.css" />
+}
+<blockquote class="layui-elem-quote news_search toolList" id="menus"></blockquote>
+
+<div class="layui-row">
+    <div class="layui-col-xs1">
+        @*<ul id="tree" class="ztree"
+            style="padding: 2px; border: 1px solid #ddd; overflow: auto;"></ul>*@
+    </div>
+    <div class="layui-col-xs10">
+        <table class="layui-table"
+               lay-data="{height: 'full-80', page:true, id:'mainList'}"
+               lay-filter="list" lay-size="sm">
+            <thead>
+                <tr>
+                    <th lay-data="{checkbox:true, fixed: true}"></th>
+                    <th lay-data="{field:'Name', width:120, sort: true, fixed: true}">书籍名称</th>
+                    <th lay-data="{field:'Remark', width:80}">说明</th>
+                    <th lay-data="{field:'ISBN', width:80}">ISBN</th>
+                    <th lay-data="{field:'PubHouse', width:200}">Url</th>
+                    <th lay-data="{field:'Photo', width:60,templet: '#iconTpl'}">封面</th>
+                    <th lay-data="{field:'FlagDesc', width:135}">状态</th>
+                    <th lay-data="{field:'Sort', width:80}">排序</th>
+                    <th lay-data="{field:'CreateTime', width:80}">创建时间</th>
+                    <th lay-data="{fixed: 'right', width:100, toolbar: '#barList'}"></th>
+                </tr>
+            </thead>
+        </table>
+        <!--列表右边的按钮-->
+        <script type="text/html" id="barList">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看菜单</a>
+        </script>
+        <script type="text/html" id="iconTpl">
+            {{#  if( d.Styles != null && d.Styles != ''){ }}
+            <i class="layui-icon">{{ d.Styles }}</i>
+            {{#  } else { }}
+            {{ d.Styles }}
+            {{#  } }}
+        </script>
+    </div>
+
+    <div class="layui-col-xs">
+        <!--菜单列表-->
+        <table class="layui-table"
+               lay-data="{height: 'full-80', id:'menuList'}"
+               lay-filter="menulist" lay-size="sm">
+            <thead>
+                <tr>
+                    <th lay-data="{checkbox:true, fixed: true}"></th>
+                    <th lay-data="{field:'Icon', width:150,templet: '#menuTpl'}">已有菜单</th>
+                </tr>
+            </thead>
+        </table>
+
+        <script type="text/html" id="menuTpl">
+            <button class="layui-btn layui-btn-xs {{ d.Class }} layui-btn-fluid" alt="{{ d.DomId }}">{{ d.Name }}</button>
+        </script>
+    </div>
+</div>
+
+
+<!--模块添加/编辑窗口-->
+<div id="divEdit" style="display: none">
+    <form class="layui-form layui-form-pane" action="" id="formEdit">
+
+        <input type="hidden" name="Id" v-model="Id" />
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" v-model="Name" required lay-verify="required"
+                       placeholder="请输入书名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">书籍简介</label>
+            <div class="layui-input-block">
+                <textarea name="Remark" v-model="Remark" class="layui-textarea" placeholder="请输入内容"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">ISBN</label>
+            <div class="layui-input-block">
+                <input type="text" name="ISBN" v-model="ISBN" placeholder="请输入ISBN" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">出版社</label>
+            <div class="layui-input-block">
+                <input type="text" name="PubHouse" v-model="PubHouse" placeholder="请输入出版社" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">封面</label>
+            <div class="layui-input-block">
+                <div class="layui-upload">
+                    <button class="layui-btn" id="test1" type="button">上传封面</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="demo1">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        @*<div class="layui-form-item">
+            <label class="layui-form-label">模块标识</label>
+            <div class="layui-input-block">
+                <input type="text" name="Code" v-model="Code"
+                       placeholder="比如：Module" autocomplete="off" class="layui-input">
+            </div>
+        </div>*@
+
+
+        <div class="layui-form-item" pane>
+            <label class="layui-form-label">是否启用</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="Flag"  v-model="Flag" lay-skin="switch" lay-filter="test" value="1" true-value="1" false-value="0">
+            </div>
+        </div>
+
+        @*<div class="layui-form-item" pane>
+            <label class="layui-form-label">出国或移民</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="AbroadOrLearn" v-model="AbroadOrLearn" lay-skin="switch" value="1">
+            </div>
+        </div>*@
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序号</label>
+            <div class="layui-input-block">
+                <input type="text" name="Sort"  v-model="Sort" 
+                       placeholder="请输入排序号" autocomplete="off" lay-skin="switch" class="layui-input">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--添加菜单窗口-->
+<div id="divMenuEdit" style="display: none">
+    <form class="layui-form layui-form-pane" action="" id="mfromEdit">
+        <input type="hidden" name="Id" v-model="Id" />
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" v-model="Name" required lay-verify="required"
+                       placeholder="请输入书名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">书籍简介</label>
+            <div class="layui-input-block">
+                <textarea name="Remark" class="layui-textarea" placeholder="请输入内容"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">ISBN</label>
+            <div class="layui-input-block">
+                <input type="text" name="ISBN" v-model="ISBN" placeholder="请输入ISBN" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-upload">
+                <button class="layui-btn" id="test1" type="button">上传封面</button>
+                <div class="layui-upload-list">
+                    <img class="layui-upload-img" id="demo1">
+
+                    <input type="hidden" value="" />
+                    <p id="demoText"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="mformSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="~/Content/admin/layui/layui.js"></script>
+@*<script type="text/javascript" src="~/Content/admin/userJs/menu.js"></script>*@
+<script>
+    layui.config({
+        base: "/Content/admin/js/"
+    }).use(['form', 'vue', 'ztree', 'layer', 'utils', 'jquery', 'table', 'droptree', 'openauth', 'element', 'upload',"common"], function () {
+
+        var $ = layui.jquery,
+             form = layui.form,
+            layer = layui.layer,
+            common = layui.common,
+             table = layui.table,
+             openauth = layui.openauth
+            , upload = layui.upload;
+        layui.droptree("/UserSession/QueryNavList", "#ParentName", "#BelongToID", false);
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: common.renderUrl( '@Url.Action("CreateDir", "QiniuClient")', {
+              modelID: "@ViewBag.ID"
+           }), before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code > 0) {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
+        layui.droptree("/UserSession/QueryNavList", "#ParentName", "#ParentID", false);//BelongToID
+
+        $("#menus").loadMenus("arbooktypeitem");
+
+        //主列表加载，可反复调用进行刷新
+        var config = {};  //table的参数，如搜索key，点击tree的id
+        var mainList = function (options) {
+            if (options != undefined) {
+                $.extend(config, options);
+            }
+            table.reload('mainList', {
+                url: '/Book/Load',
+                where: config
+            });
+        }
+
+        //菜单列表
+        var menucon = {};  //table的参数，如搜索key，点击tree的id
+        var menuList = function (options) {
+            if (options != undefined) {
+                $.extend(menucon, options);
+            }
+            table.reload('menuList', {
+                url: '/Book/Load',
+                where: menucon
+            });
+        }
+
+        //左边树状机构列表
+        var ztree = function () {
+            var url = '/UserSession/QueryNavList';
+            var zTreeObj;
+            var setting = {
+                view: { selectedMulti: false },
+                data: {
+                    key: {
+                        name: 'Title',
+                        title: 'Title'
+                    },
+                    simpleData: {
+                        enable: true,
+                        idKey: 'Id',
+                        pIdKey: 'ParentId',
+                        rootPId: 'null'
+                    }
+                },
+                callback: {
+                    onClick: function (event, treeId, treeNode) {
+                        mainList({ pId: treeNode.Id });
+                    }
+                }
+            };
+            var load = function () {
+                $.getJSON(url, function (json) {
+                    zTreeObj = $.fn.zTree.init($("#tree"), setting);
+                    var newNode = { Title: "根节点", Id: null, ParentId: "" };
+                    json.push(newNode);
+                    zTreeObj.addNodes(null, json);
+                    mainList({ pId: "" });
+                    zTreeObj.expandAll(true);
+                });
+            };
+            load();
+            return {
+                reload: load
+            }
+        }();
+        $("#tree").height($("div.layui-table-view").height());
+        //添加（编辑）模块对话框
+        var editDlg = function () {
+            var vm = new Vue({
+                el: "#formEdit",
+                data: {
+                    Id: "",
+                    Name: "",
+                    Remark: "",
+                    ISBN: "",
+                    PubHouse: "",
+                    Photo: "",
+                    Flag: 1,
+                    Sort: -1
+                }
+            });
+            var update = false;  //是否为更新
+            var show = function (data) {
+                var title = update ? "编辑信息" : "添加";
+                if (!update) {
+
+                    vm = new Vue({
+                        el: "#formEdit",
+                        data: {
+                            Id: "",
+                            Name: "",
+                            Remark: "",
+                            ISBN: "",
+                            PubHouse: "",
+                            Photo: "",
+                            Flag: 1,
+                            Sort: -1
+                        }
+                    });
+                }
+
+             
+                layer.open({
+                    title: title,
+                    area: ["68%", "98%"],
+                    type: 1,
+                    content: $('#divEdit'),//update ? common.renderUrl('/administrator/Menu/Create', {
+                    //    id: data.Id
+                    //}) : common.renderUrl('/administrator/Menu/Create', {
+                    //    id: data.Id
+                    //}),
+                    success: function () {
+                        vm.$set('$data', data);
+
+
+                        //if (data.IsOnNav == 1) {
+                        //    $("input:checkbox[name=IsOnNav][value=1]").attr("checked", true);
+                        //}
+                        //else {
+                        //    $("input:checkbox[name=IsOnNav]").attr("checked", false);
+                        //}
+
+                        //console.log(JSON.stringify(data));
+
+                    },
+                    end: mainList
+                });
+
+                var url = "/Book/Save";
+                if (update) {
+                    url = "/Book/Save"; //暂时和添加一个地址
+                }
+
+                //提交数据
+                form.on('submit(formSubmit)',
+
+                    function (data) {
+                        // console.log(JSON.stringify(data));
+                        $.post(url,
+                            data.field,
+                            function (data) {
+                                layer.msg(data.Message);
+                            },
+                            "json");
+                        return false;
+                    });
+            }
+            return {
+                add: function () { //弹出添加
+                    update = false;
+                    show({
+                        Id: "",
+                        Sort: 1
+                    });
+                },
+                update: function (data) { //弹出编辑框
+                    update = true;
+                    show(data);
+                }
+            };
+        }();
+
+        //添加菜单对话框
+        var meditDlg = function () {
+            var vm = new Vue({
+                el: "#mfromEdit",
+                data: {
+                    Id: "",
+                    Name: "",
+                    Remark: "",
+                    ISBN: "",
+                    PubHouse: "",
+                    Photo: "",
+                    Flag: 0,
+                    Sort: -1
+                }
+            });
+            var update = false;  //是否为更新
+            var show = function (data) {
+                var title = update ? "编辑信息" : "添加";
+                layer.open({
+                    title: title,
+                    area: ["68%", "98%"],
+                    type: 1,
+                    content: $('#divEdit'),          
+                    success: function () {
+                        vm.$set('$data', data);
+                    },
+                    end: mainList
+                });
+
+                var url = "/Menu/Add";
+                if (update) {
+                    url = "/Menu/Update"; //暂时和添加一个地址
+                }
+                //提交数据
+                form.on('submit(formSubmit)',
+
+                    function (data) {
+                        $.post(url,
+                            data.field,
+                            function (data) {
+                                layer.msg(data.Message);
+                            },
+                            "json");
+                        return false;
+                    });
+            }
+            return {
+                add: function (moduleId) { //弹出添加
+                    update = false;
+                    show({
+                        Id: "",
+                        ModuleId: moduleId,
+                        Sort: 1
+                    });
+                },
+                update: function (data) { //弹出编辑框
+                    update = true;
+                    show(data);
+                }
+            };
+        }();
+
+        //监听模块表格内部按钮
+        table.on('tool(list)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {      //查看
+                //layer.msg('ID：' + data.Id + ' 的查看操作');
+                menuList({moduleId: data.Id});
+            }
+        });
+
+        //监听页面主按钮操作
+        var active = {
+            btnDel: function () {      //删除模块
+                var checkStatus = table.checkStatus('mainList')
+                    , data = checkStatus.data;
+                openauth.del("/Menu/Delete",
+                    data.map(function (e) { return e.Id; }),
+                    mainList);
+            }
+            , btnDelMenu: function () {      //删除菜单
+                var checkStatus = table.checkStatus('menuList')
+                    , data = checkStatus.data;
+                openauth.del("/administrator/moduleManager/DelMenu",
+                    data.map(function (e) { return e.Id; }),
+                    menuList);
+            }
+            , btnAdd: function () {  //添加模块
+                editDlg.add();
+            }
+            , btnAddMenu: function () {  //添加菜单
+                var checkStatus = table.checkStatus('mainList')
+                    , data = checkStatus.data;
+                if (data.length != 1) {
+                    layer.msg("请选择一个要添加菜单的模块");
+                    return;
+                }
+                meditDlg.add(data[0].Id);
+            }
+            , btnEdit: function () {  //编辑
+                var checkStatus = table.checkStatus('mainList')
+                    , data = checkStatus.data;
+                if (data.length != 1) {
+                    layer.msg("请选择编辑的行，且同时只能编辑一行");
+                    return;
+                }
+                editDlg.update(data[0]);
+            }
+
+            , btnEditMenu: function () {  //编辑菜单
+                var checkStatus = table.checkStatus('menuList')
+                    , data = checkStatus.data;
+                if (data.length != 1) {
+                    layer.msg("请选择编辑的菜单");
+                    return;
+                }
+                meditDlg.update(data[0]);
+            }
+
+            , search: function () {   //搜索
+                mainList({ key: $('#key').val() });
+            }
+            , btnRefresh: function () {
+                mainList();
+            }
+        };
+
+        $('.toolList .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+
+        form.on('switch(test)', function (data) {
+            console.log(data);
+        });
+
+
+    })
+</script>

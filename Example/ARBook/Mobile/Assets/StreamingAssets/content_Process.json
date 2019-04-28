@@ -1,0 +1,64 @@
+﻿{
+  "Type": "LiuCheng",
+  "Name": "水泥土桩墙工程施工工艺",
+  "CNID": "图1-31",
+  "aburl": "/AssetBundles/p1-31",
+  "TypeCalculation": {
+  },
+  "TypeItem": {
+  },
+  "TypeMethod": {
+  },
+  "TypeTable": {
+  },
+  "TypeProcess": {
+    "AbObjectName": "shencengdanzhoujiaobanjidonghua",
+    "Frames": "20-38,58-102,118-130,151-179,191-220,244-320",
+    "AnimStates": [
+      {
+        "Index": 1,
+        "StateInfo": "（1）定位。深层搅拌机桩架到达指定桩位、对中",
+        "Audio": "http://resource.73cloud.top/p1-31_1.mp3"
+      },
+      {
+        "Index": 2,
+        "StateInfo": "（2）预搅下沉。 放松起重机的钢线绳，使搅拌机沿导向架搅拌切土下沉",
+        "Audio": "http://resource.73cloud.top/p1-31_2.mp3"
+      },
+      {
+        "Index": 3,
+        "StateInfo": "（3）提升喷浆搅拌。开启灰浆泵将水泥浆压入地基土中，并且边喷浆、边旋转",
+        "Audio": "http://resource.73cloud.top/p1-31_3.mp3"
+      },
+      {
+        "Index": 4,
+        "StateInfo": "（4）重复下沉搅拌。为使软土和水泥浆搅拌均匀，可再次将搅拌头边旋转边沉入土中",
+        "Audio": "http://resource.73cloud.top/p1-31_4.mp3"
+      },
+      {
+        "Index": 5,
+        "StateInfo": "（5）重复提升搅拌。至设计加固深度后再将搅拌头提升出地面",
+        "Audio": "http://resource.73cloud.top/p1-31_5.mp3"
+      },
+      {
+        "Index": 6,
+        "StateInfo": "（6）成桩结束。成桩结束后，桩架移至下一桩位施工",
+        "Audio": "http://resource.73cloud.top/p1-31_6.mp3"
+      }
+    ],
+    "Practices": {
+      "TextInfo": "水泥土桩墙工程的施工工艺流程为",
+      "TaskPicName": "wallhaven-637809.jpg",
+      "TaskPicUrl": "http://arbookresouce.73data.cn/wallhaven-637809.jpg",
+      "AnswerPicName": "1524478227471.jpg",
+      "AnswerPicUrl": "http://arbookresouce.73data.cn/1524478227471.jpg",
+      "IsShowAnswer": true,
+      "PracObjects": ["重复下沉搅拌", "成桩结束", "重复提升搅拌"],
+      "Answers": [
+        { "Index": 1, "Text": "重复下沉搅拌" },
+        { "Index": 2, "Text": "成桩结束" },
+        { "Index": 3, "Text": "重复提升搅拌" }
+      ]
+    }
+  }
+}

@@ -1,0 +1,54 @@
+﻿{
+  "Type": "TuBiao",
+  "Name": "填土压实的影响因素",
+  "CNID": "图1-17",
+  "aburl": "/AssetBundles/p1-17",
+  "TypeCalculation": {},
+  "TypeItem": {},
+  "TypeMethod": {},
+  "TypeTable": {
+    "Effect": [
+      {
+        "Title": "压实功作用",
+        "Key": "图1-17",
+        "IsOn": false,
+        "BackgroundUrl": "http://arbookresouce.73data.cn/BackTemplate.png",
+        "DynamicPicUrl": "http://arbookresouce.73data.cn/DynamicTemplate.png",
+        "GameObjectName": "yalujidonghua",
+        "Audio": "http://resource.73cloud.top/p1-17.mp3"
+      },
+      {
+        "Title": "压实功作用2",
+        "Key": "图1-18",
+        "IsOn": true,
+        "BackgroundUrl": "http://arbookresouce.73data.cn/BackTemplate.png",
+        "DynamicPicUrl": "http://arbookresouce.73data.cn/DynamicTemplate.png",
+        "GameObjectName": "yalujidonghua",
+        "Audio": "http://resource.73cloud.top/p1-18.mp3"
+      }
+    ],
+    "Practices": {
+      "TextInfo": "影响土压实的因素有#,#,#",
+      "TaskPicName": "wallhaven-637809.jpg",
+      "TaskPicUrl": "http://arbookresouce.73data.cn/wallhaven-637809.jpg",
+      "AnswerPicName": "1524478227471.jpg",
+      "AnswerPicUrl": "http://arbookresouce.73data.cn/1524478227471.jpg",
+      "IsShowAnswer": true,
+      "Answers": [
+        {
+          "Index": 1,
+          "Answer": "因素1"
+        },
+        {
+          "Index": 2,
+          "Answer": "因素2"
+        },
+        {
+          "Index": 3,
+          "Answer": "因素3"
+        }
+      ]
+    }
+  },
+  "TypeProcess": {}
+}

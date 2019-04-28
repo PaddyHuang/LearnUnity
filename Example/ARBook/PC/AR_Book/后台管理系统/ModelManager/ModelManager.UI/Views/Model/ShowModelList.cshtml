@@ -1,0 +1,354 @@
+﻿ 
+@{
+    ViewBag.Title = "模型列表";
+    Layout = "~/Views/Shared/_weuilayout.cshtml";
+    if (string.IsNullOrEmpty(ViewBag.Keyword as string))
+    {
+        ViewBag.Keyword = "大门"; 
+        
+        //ViewBag.Cate 
+    }
+    
+    if (string.IsNullOrEmpty( ViewBag.Cate  as string))
+    {
+         ViewBag.Cate  = ""; 
+        
+       
+    }
+}
+@section styles{
+    <style>
+        body {
+           background-color:  #f5f5f5;
+        }
+
+
+    </style>
+    
+    
+    }
+<header class="weui-header fixed-top">
+    <div class="weui-search-bar" id="searchBar">
+        <form class="weui-search-bar__form">
+            <div class="weui-search-bar__box">
+                <i class="weui-icon-search"></i>
+                <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索模型" required="">
+                <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+            </div>
+            <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                <i class="weui-icon-search"></i>
+                <span>搜索模型</span>
+            </label>
+        </form>
+        <a href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+    </div>
+    <div class="weui-cells searchbar-result" id="searchResult" style="display: none;">
+
+    </div>
+    @*<div class="pro-sort">
+        <div class="weui-flex">
+            <div class="weui-flex__item"><div class=" "></div></div>
+            <div class="weui-flex__item"><div class=" "></div></div>
+            <div class="weui-flex__item"><div class=""></div></div>
+        </div>
+    </div>*@
+</header>
+
+<div class="weui-content" style="padding-top:44px;">
+    <!--产品列表--滑动加载-->
+    @*<div class="weui-pull-to-refresh__layer">
+        <div class="weui-pull-to-refresh__arrow"></div>
+        <div class="weui-pull-to-refresh__preloader"></div>
+        <div class="down">下拉刷新</div>
+        <div class="up">释放刷新</div>
+        <div class="refresh">正在刷新</div>
+    </div>*@
+    <div id="list" class="demos-content-padded proListWrap">
+        @*<div class="pro-items">
+            <a href="pro_info.html" class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd"><img class="weui-media-box__thumb" src="upload/pro3.jpg" alt=""></div>
+                <div class="weui-media-box__bd">
+                    <h1 class="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</h1>
+                    <div class="wy-pro-pri">¥<em class="num font-15">296.00</em></div>
+                    <ul class="weui-media-box__info prolist-ul">
+                        <li class="weui-media-box__info__meta"><em class="num">0</em>条评价</li>
+                        <li class="weui-media-box__info__meta"><em class="num">100%</em>好评</li>
+                    </ul>
+                </div>
+            </a>
+        </div>*@
+
+
+    </div>
+    @*<div class="weui-loadmore">
+        <i class="weui-loading"></i>
+        <span class="weui-loadmore__tips">正在加载</span>
+    </div>*@
+
+
+</div>
+@section scripts{
+   @*<script src="https://cdn.bootcss.com/template7/1.3.1/template7.min.js"></script>*@
+<script src="~/Content/weixin/js/jquery.redirect.js"></script>
+    <script>
+
+        $(function () {
+
+           
+
+         
+
+
+            /* ***************start************* */
+
+            var $searchBar = $('#searchBar'),
+                $searchResult = $('#searchResult'),
+                $searchText = $('#searchText'),
+                $searchInput = $('#searchInput'),
+                $searchClear = $('#searchClear'),
+                $searchCancel = $('#searchCancel');
+
+                function hideSearchResult() {
+                    $searchResult.hide();
+                    $searchInput.val('');
+                }
+                function cancelSearch() {
+                    hideSearchResult();
+                    $searchBar.removeClass('weui-search-bar_focusing');
+                    $searchText.show();
+                }
+
+                $searchText.on('click', function () {
+                    $searchBar.addClass('weui-search-bar_focusing');
+                    $searchInput.focus();
+                });
+
+            $(document).on('click', '#searchResult p', function () {
+
+                var $thatp = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetModelByName", "Model")' + "?name=" + encodeURIComponent($thatp.text()) ,
+                    dataType: 'json',
+                    beforeSend: function () {
+                        // $.showLoading();
+                    },
+                    success: function (result, status, xhr) {
+                        if (result.Code == 0) {
+                            $.redirect("http://www.73data.cn/mod/examples/gl.php",
+                                    {
+                                        id: result.Result.ModelcontentPath,
+                                        title: result.Result.Name,
+                                        description: result.Result.Desc,
+                                        pic: result.Result.ThumbUrl,
+                                        bigpic: result.Result.ImgUrl,
+                                        showtype: result.Result.IsShowThumb,
+                                        realimg: result.Result.RealImgUrl
+
+                                    },
+                                    "POST", null, null, true);
+                        }
+                        else {
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        //common.msgError('treeDemo error:' + error);
+                        // layer.closeAll("loading");
+                    },
+                    complete: function (xhr, status) {
+                        $.hideLoading();
+                    }
+                });
+            })
+            $searchInput.removeClass("searching");
+            $searchInput
+                .on('blur', function () {
+                    if (!this.value.length) cancelSearch();
+                })
+                .on('input', function () {
+                    if (this.value.length) {
+                        if ($(this).hasClass("searching")) {
+
+                        }
+                        else {
+                            $(this).removeClass("searching");
+                            $(this).addClass("searching");
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("GetKeyWords", "Category")' + "?search=" + encodeURIComponent(this.value),
+                                dataType: 'json',
+                                beforeSend: function () {
+                                    //  $.showLoading();
+                                },
+                                success: function (result, status, xhr) {
+                                    if (result.Code == 0) {
+                                        var html = "";
+
+
+
+                                        if (result.Result.length > 0) {
+                                            for (var i = 0; i < result.Result.length; i++) {
+                                                html += ('<div class="weui-cell weui-cell_access">'
+                                               + '<div class="weui-cell__bd weui-cell_primary">'
+                                               + '<p>' + result.Result[i] + '</p>'
+                                               + '</div>'
+                                               + '</div>');
+                                            }
+                                        }
+                                        $searchResult.html(html);
+                                    }
+                                    else {
+                                    }                             
+                                },
+                                error: function (xhr, status, error) {
+                              
+                                },
+                                complete: function (xhr, status) {
+                                    $.hideLoading();
+                                    $searchInput.removeClass("searching");
+                                }
+                            });
+                        }
+                        $searchResult.show();
+                    } else {
+                        $searchResult.hide();
+                    }
+                }) ;
+            $searchClear.on('click', function () {
+                hideSearchResult();
+                $searchInput.focus();
+            });
+            $searchCancel.on('click', function () {
+                cancelSearch();
+                $searchInput.blur();
+            });
+
+
+
+            $('#form').submit(function (obj) {
+
+                // $.alert("测试");
+
+
+
+
+                obj.preventDefault();
+            })
+            /*************** end *************** */
+
+
+
+            $(document).on("click", 'a.linkmodel', function () {
+
+
+                var $thatp = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetModelByName", "Model")' + "?name=" + encodeURIComponent($thatp.data("id")),
+                    dataType: 'json',
+                    beforeSend: function () {
+                        // $.showLoading();
+                    },
+                    success: function (result, status, xhr) {
+                        if (result.Code == 0) {
+
+
+
+                            $.redirect("http://www.73data.cn/mod/examples/gl.php",
+                                    {
+                                        id: result.Result.ModelcontentPath,
+                                        title: result.Result.Name,
+                                        description: result.Result.Desc,
+                                        pic: result.Result.ThumbUrl,
+                                        bigpic: result.Result.ImgUrl,
+                                        showtype: result.Result.IsShowThumb,
+                                        realimg: result.Result.RealImgUrl
+
+                                    },
+                                    "POST", null, null, true);
+                        }
+                        else {
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        //common.msgError('treeDemo error:' + error);
+                        // layer.closeAll("loading");
+                    },
+                    complete: function (xhr, status) {
+                        $.hideLoading();
+                    }
+                });
+
+
+
+            })
+
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetUISearchModelList", "Model")' + "?name=" + encodeURIComponent('@ViewBag.Keyword') + "&cate=" + encodeURIComponent('@ViewBag.Cate'),
+                dataType: 'json',
+                beforeSend: function () {
+                    $.showLoading();
+                },
+                success: function (result, status, xhr) {
+                    if (result.Code == 0) {
+
+
+                       // console.log(JSON.stringify(result));
+
+                        var html = "";
+                        if (result.Result.length > 0) {
+                            for (var i = 0; i < result.Result.length; i++) {
+
+
+                                var imglink = result.Result[i].ThumbUrl;
+
+                                if (!imglink)
+                                {
+                                    result.Result[i].ThumbUrl = '/Images/qskjerror.jpg';
+                                }
+
+                                html +=( '<div class="pro-items">' +
+                                    '<a href="javascript:void(0);" data-id="' + result.Result[i].Name + '" class="weui-media-box weui-media-box_appmsg linkmodel">'
+                                    + '<div class="weui-media-box__hd"><img class="weui-media-box__thumb" src="' + result.Result[i].ThumbUrl + '" alt=""></div>'
+                                    + '<div class="weui-media-box__bd">'
+                                    + '<h1 class="weui-media-box__desc">' + result.Result[i].Name + '</h1>'
+                                    + '<div class="wy-pro-pri"><em class="num font-15"></em></div>' 
+                                    + '<ul class="weui-media-box__info prolist-ul">'
+                                    + '<li class="weui-media-box__info__meta"><em class="num">关键字：</em>' + result.Result[i].Keywords + '</li>'
+                                    + '<li class="weui-media-box__info__meta"><em class="num"></em></li>'
+                                    + '</ul> </div></a> </div>');
+                            }
+                        }
+                        $('#list').html(html);
+                    }
+                    else {
+                    }
+                },
+                error: function (xhr, status, error) {
+
+                },
+                complete: function (xhr, status) {
+                    $.hideLoading();
+                    $searchInput.removeClass("searching");
+                }
+
+
+            })
+
+
+
+
+        })
+
+
+
+
+
+    </script>
+    
+    
+    
+    }

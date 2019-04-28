@@ -1,0 +1,472 @@
+﻿.post_box
+{
+    background-color: #EFEFEF;
+    padding: 40px 15px 9px;
+    position: relative;
+    background: url(Images/MessageTeart.png) no-repeat 16px 10px #F1F1F1;
+    zoom: 1;
+}
+.post_box_cont
+{
+    width: 100%;
+    position: relative;
+}
+.clearfix
+{
+    zoom: 1;
+}
+textarea
+{
+    outline-style: none;
+    -webkit-appearance: none;
+    margin: 0;
+    font-family: monospace;
+}
+.post_box_cont textarea
+{
+    width: 90%;
+    height: 75px;
+    line-height: 24px;
+    float: left;
+    margin-left: 50px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px #C6C6C6 inset;
+    overflow: auto;
+    padding: 4px 10px;
+    background: white;
+    font-size: 14px;
+    resize: none;
+}
+.post_inline_comment
+{
+    width: 90px;
+    height: 40px;
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 40px;
+    float: right;
+    background: url(Images/nav_btn_ico.png) no-repeat 8px -80px;
+}
+.post_inline_comment1
+{
+    width: 90px;
+    height: 40px;
+    display: inline-block;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 40px;
+    float: right;
+    margin-right: -200px;
+    background: url(Images/nav_btn_ico.png) no-repeat -85px -80px;
+}
+.cmnt_user_cont
+{
+    display: block;
+    padding: 12px 0 0;
+    position: relative;
+}
+.clearfix::after
+{
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    clear: both;
+}
+#MessageFile ul
+{
+    display: block;
+    list-style-type: disc;
+    list-style: none;
+    line-height: 25px;
+    font-size: 14px;
+}
+#MessageFile ul li
+{
+    display: list-item;
+    text-align: left;
+    padding-left: 10px;
+    margin-bottom: 6px;
+    width: 288px;
+    height: 25px;
+    overflow: hidden;
+}
+#MessageFile ul li a
+{
+    text-decoration: none;
+    cursor: auto;
+    color: Blue;
+}
+/*通知公告列表*/
+.week_pro .panel
+{
+    width: 100%;
+    margin: 0px auto;
+}
+
+.week_pro h1
+{
+    padding: 0;
+    font-size: 20px;
+    border: none;
+    overflow: visible;
+    color: #333;
+    line-height: 30px;
+    margin-top: 20px;
+}
+.week_pro .tip
+{
+    margin: 5px 0 0;
+    position: relative;
+    height: 21px;
+    line-height: 21px;
+    color: #999;
+    text-indent: 0;
+    font-size: 12px;
+}
+
+.MessageReplyList
+{
+    width: 960px;
+    display: block;
+    margin: 0 auto;
+    background: #f4f4f4;
+    border-top: 1px solid #ccc;
+}
+.MessageReplyList .MessageHeeard
+{
+    margin: 0 auto;
+    width: 960px;
+    display: block;
+    background-color: #fff;
+}
+.MessageReplyList .MessageHeeard h3
+{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    height: 40px;
+    background-color: #f3f3f3;
+    line-height: 40px;
+    text-indent: 2em;
+}
+.MessageHeeard .ContentBox
+{
+    font-size: 14px;
+    margin: 0 auto;
+    display: block;
+    width: 960px;
+    padding: 5px 0px 15px 0;
+    border-top: 1px solid #ccc;
+}
+.ContentBox .UserFace
+{
+    width: 50px;
+    height: 80px;
+    margin: 10px 10px 10px 50px;
+    float: left;
+}
+.UserFace i
+{
+    height: 30px;
+    width: 80px;
+    text-align: center;
+    font-size: 12px;
+    font: 12px/20px "宋体";
+}
+.ContentBox .MgContent
+{
+    width: 810px;
+    height: auto;
+    margin: 10px;
+    float: left;
+    text-align: left;
+}
+.ContentBox .SplitLine
+{
+    border-bottom: 1px dashed #C5C0C0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+}
+.ContentBox .LineButtom
+{
+    line-height: 15px;
+    margin: 10px 0px 5px 0px;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+}
+.ContentBox .LineButtom .SpanLeft
+{
+    margin-right: 165px;
+    margin-top: 20px;
+    font-size: 12px;
+    float: right;
+}
+
+/*.ContentBox .LineButtom .SpanLeft a
+{
+    display: inline-block;
+    width: 50px;
+    height: 35px;
+    line-height: 24px;
+    vertical-align: middle;
+    text-align: center;
+    margin: -10px;
+    background: url(Images/replybtn.png) no-repeat 0 -1px;
+}*/
+
+.ContentBox .LineButtom .SpanRight
+{
+    margin-right: 40px;
+    margin-top: 20px;
+    font-size: 12px;
+    float: right;
+}
+
+.ContentBox .Clear
+{
+    clear: both;
+}
+/*通知公告回复*/
+.Replay_box
+{
+    background-color: #EFEFEF;
+    padding: 40px 15px 9px;
+    position: relative;
+    background: url(Images/MessageTeart.png) no-repeat 16px 10px #F1F1F1;
+    zoom: 1;
+}
+.Replay_box textarea
+{
+    width: 90%;
+    line-height: 24px;
+    height: 70px;
+    text-indent: 1em;
+    box-shadow: 0 1px 1px #C6C6C6 inset;
+    overflow: auto;
+    margin-left: 40px;
+    background: white;
+    border-radius: 4px;
+    font-size: 12px;
+    resize: none;
+}
+.TopCont
+{
+    height: 9px;
+    position: relative;
+    z-index: 100;
+    margin-top: -6px;
+}
+.TopCont_border_top
+{
+    left: 90px;
+}
+.TopCont_border_top *
+{
+    display: block;
+    font-size: 16px;
+    font-style: normal;
+    font-family: "SimSun";
+    height: 12px;
+    overflow: hidden;
+    font-family: 12px/20px "宋体";
+}
+.TopCont_border_top em
+{
+    color: #CCC;
+    margin-right: 1170px;
+    text-align: right;
+    margin-top: 8px;
+}
+.TopCont_border_top span
+{
+    color: #F1F1F1;
+    margin-top: -12px;
+    margin-right: 170px;
+    text-align: right;
+}
+.Replay_box .ReplyButton
+{
+    display: inline-block;
+    color: white;
+    float: right;
+    margin: 3px 40px auto;
+    width: 90px;
+    height: 40px;
+    line-height: 40px;
+    background: url(Images/nav_btn_ico.png) no-repeat 8px -80px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+}
+.ReplayListBox
+{
+    margin: 10px 20px 10px 30px; /*border-bottom: 1px dashed #C5C0C0;*/
+}
+.ReplayListBox .UserFace2
+{
+    width: 50px;
+    height: 80px;
+    margin: 10px 10px 10px 10px;
+    float: left;
+}
+.UserFace2 i
+{
+    height: 30px;
+    width: 80px;
+    text-align: center;
+    font-size: 12px;
+    font: 12px/20px "宋体";
+}
+.ReplayListBox .MgContent2
+{
+    padding: 2px 5px 2px 10px;
+    font-family: Arial;
+    border: 1px solid #CED1D5;
+    border-radius: 10px;
+    width: 670px;
+    height: auto;
+    margin: 10px;
+    float: left;
+    text-align: left;
+}
+
+.ReplayListBox2
+{
+    margin: 10px 20px 10px 100px; /*border-bottom: 1px dashed #C5C0C0;*/
+}
+
+.ReplayListBox2 .UserFace2
+{
+    width: 50px;
+    height: 80px;
+    margin: 10px 10px 10px 10px;
+    float: left;
+}
+.UserFace2 i
+{
+    height: 30px;
+    width: 80px;
+    text-align: center;
+    font-size: 12px;
+    font: 12px/20px "宋体";
+}
+.ReplayListBox2 .MgContent2
+{
+    padding: 2px 5px 2px 10px;
+    font-family: Arial;
+    border: 1px solid #CED1D5;
+    border-radius: 10px;
+    width: 670px;
+    height: auto;
+    margin: 10px;
+    float: left;
+    text-align: left;
+}
+.IsOpen
+{
+    float: left;
+    margin-left: 100px;
+    padding-top: 8px;
+}
+
+.ContentBox .LineButtom .SpanRight a
+{
+    margin-right: 25px;
+}
+.AngleBox
+{
+    width: 700px;
+    height: auto;
+    background-color: #FFFFFF;
+    border: 1px solid #CED1D5;
+    border-radius: 10px;
+    position: relative;
+    float: left;
+    text-align: left;
+    font-family: Arial;
+    margin: 12px auto auto 20px;
+    padding: 2px 5px 2px 10px;
+    border-radius: 10px;
+}
+.AngleBox .right-triangle-border
+{
+    width: 0px;
+    height: 0px;
+    border-width: 11px;
+    border-style: solid;
+    border-color: transparent #CED1D5 transparent transparent;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    position: absolute;
+    top: 20px;
+    left: -22px;
+}
+.AngleBox .right-triangle
+{
+    width: 0px;
+    height: 0px;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent #FFFFFF transparent transparent;
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    position: absolute;
+    top: -10px;
+    left: -9px;
+}
+/*选项卡*/
+.tabs
+{
+    height: 32px;
+    border-bottom: 1px solid #CED1D5;
+    border-left: 1px solid #CED1D5;
+    width: 100%;
+}
+.tabs .thistab, .tabs .thistab a:hover
+{
+    background: #fff;
+    border-bottom: 1px solid #fff;
+}
+.tabs li
+{
+    height: 31px;
+    line-height: 31px;
+    float: left;
+    border: 1px solid #CED1D5;
+    border-left: none;
+    margin-bottom: -1px;
+    background: #e0e0e0;
+    overflow: hidden;
+    position: relative;
+}
+.tab_conbox
+{
+    border-top: none;
+}
+.tab_con
+{
+    padding: 12px 0px 12px 0px;
+    font-size: 14px;
+    line-height: 175%;
+}
+.tabs li a
+{
+    display: block;
+    padding: 0 20px;
+    border: 1px solid #fff;
+    outline: none;
+    cursor: pointer;
+}

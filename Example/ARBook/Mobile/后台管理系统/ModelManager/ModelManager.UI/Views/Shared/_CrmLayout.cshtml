@@ -1,0 +1,225 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    @*<link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/base.css")" />
+    <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/master.css")" />*@
+    <link type="text/css" href="~/Content/crm/base.css" rel="stylesheet" />
+    <link type="text/css" href="~/Content/crm/master.css" rel="stylesheet" />
+    <link href="~/Content/crm/manage.css" rel="stylesheet" />
+    @RenderSection("css", false)
+    @*<script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>*@
+
+</head>
+<body>
+    @RenderBody()
+    <div id="background" class="background" style="display: none;">
+    </div>
+    <div id="progressBar" class="progressBar" style="display: none;">
+        数据加载中，请稍等...
+    </div>
+
+
+
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    @*<script src="https://cdn.bootcss.com/artDialog/6.0.4/dialog-min.js"></script>*@
+    @*<script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/jquery.form.js")"></script>*@
+    @*<script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")" ></script>*@
+    @*<script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/messages_cn.js")"></script>*@
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/crm/messages_cn.js")"></script>
+
+    <script type="text/javascript" language="javascript" src="http://p21686b06.bkt.clouddn.com/qskj/crm/jquery.artDialog.js"></script>
+    <script type="text/javascript" language="javascript" src="http://p21686b06.bkt.clouddn.com/qskj/crm/iframeTools.js"></script>
+    @*<script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/iframeTools.js")"></script>*@
+    @*<script type="text/javascript" language="javascript" src="http://p21686b06.bkt.clouddn.com/qskj/crm/iframeTools.js"></script>*@
+
+    @*<script type="text/javascript" language="javascript" src="http://p21686b06.bkt.clouddn.com/qskj/crm/My97DatePicker/WdatePicker.js"></script>*@
+
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/crm/My97DatePicker/WdatePicker.js")"></script>
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/crm/JScript.js")"></script>
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/crm/json2.js")"></script>
+    <script type="text/javascript" language="javascript" src="@Url.Content("~/Scripts/crm/validate.expand.js")"></script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            screenauto();
+            jQuery(window).resize(function () { screenauto(); });
+
+            $("#tab_panel li").click(function () {
+                $("#tab_panel ul li").removeClass("tab-hover");
+                $("#tab_panel ul li").addClass("tab");
+                $(this).addClass("tab-hover");
+                //chang portal
+                $("#content .portal-iframe").hide();
+                $("#content_portal").show();
+            });
+
+            $(document).bind("click", function (e) {
+                var target = $(e.target);
+                if (target.closest(".startmenu,.menu-parent").length == 0) {
+                    panelmenu(false);
+                }
+            });
+
+            $(".startmenu").click(function () {
+                if ($("#panel_menu").css('display') == "none") {
+                    panelmenu(true);
+                }
+                else {
+                    panelmenu(false);
+                }
+            });
+
+            $(".menu-parent li").click(function () {
+                $(".menu-parent li").removeClass("select");
+                $(this).addClass("select");
+                //点击切换
+                $(".menu-sub").hide();
+                //左右等高
+                var id = $(this).attr("id");
+                var h = $(".menu-parent").height();
+                $("#panel_" + id).css('min-height', h);
+                $("#panel_" + id).show();
+            });
+
+            $(".menu-sub li").click(function () {
+                //alert($(this).attr("for"));
+                openportal($(this).attr("id"), $(this).text(), $(this).attr("for"));
+            });
+
+            $(".icolink").click(function () {
+                var id = $(this).attr("id").replace("ico_", "").replace("text_", "");
+                var url = $("#link_" + id).text();
+                var txt = $("#txt_" + id).text();
+                openportal(id, txt, url);
+                return false;
+            });
+            ShowDialog();
+        });
+        //便签提醒
+        function ShowDialog() {
+            var url = $("#controller").val() + 'TalkMemo';
+            $.ajax({
+                type: "POST",
+                url: url,
+                success: function (data) {
+                    var obj = data;
+                    var status = obj.Value;
+                    var message = obj.Text;
+                    if (status == "1") {
+                        art.dialog({
+                            id: 'msg',
+                            title: '消息提醒',
+                            content: message,
+                            width: 380,
+                            height: 240,
+                            left: '98%',
+                            top: '98%',
+                            fixed: true,
+                            drag: false,
+                            resize: false
+                        })
+                    }
+                }
+            });
+        }
+
+        function screenauto() {
+            var w = $(document.body).width();
+            var h = $("#main").height(); //alert($("#content_portal").height());
+            if (w <= 1024) {
+                $("#content_portal,.panel-app").css('width', '900px');
+                $(".panel-app li").css('margin-left', '45px');
+                $(".panel-app li").css('margin-right', '45px');
+            }
+            else {
+                if (w < 1600) {
+                    $("#content_portal,.panel-app").css('width', '1100px');
+                    $(".panel-app li").css('margin-left', '65px');
+                    $(".panel-app li").css('margin-right', '65px');
+                }
+                else {
+                    $("#content_portal,.panel-app").css('width', '1300px');
+                    $(".panel-app li").css('margin-left', '85px');
+                    $(".panel-app li").css('margin-right', '85px');
+                }
+            }
+            var p = ((h - 130 - 390 - 60) / 3) / 3;
+            $(".panel-app li").css('margin-top', p - (p / 3) + "px");
+            $(".panel-app li").css('margin-bottom', p + (p / 3) + "px");
+            //alert(p);
+            //alert(w+"*"+h);
+            $("#content").css("height", ($(window).height() - 130));
+            $("iframe[id^='portal_iframe']").css("height", ($(window).height() - 130));
+        }
+
+        function panelmenu(show) {
+            if (show) {
+                $("#panel_menu,.sl-angle").show();
+            }
+            else {
+                $("#panel_menu,.sl-angle").hide();
+            }
+        }
+
+        function openportal(id, text, url) {
+            $("#tab_panel li").removeClass("tab-hover");
+            $("#tab_panel li").addClass("tab");
+            if ($("#tab_" + id).length == 0) {
+                $("#tab_panel ul").append("<li id=\"tab_" + id + "\" class=\"ico tab-hover\"><label title=" + text + ">" + text + "</label><i id=\"tab_del_" + id + "\" class=\"ico\"></i></li>");
+                var portal = "<div id=\"portal_" + id + "\" class=\"portal-iframe\">";
+                portal += "<iframe id=\"portal_iframe_" + id + "\" name=\"portal_iframe_" + id + "\" allowtransparency=\"true\" src=\"" + url + "\" frameborder=\"0\" framespacing=\"0\" marginheight=\"0\" marginwidth=\"0\">";
+                portal += "</iframe></div>";
+                $("#content").append(portal);
+                //注册事件
+                $("#tab_del_" + id).click(function () {
+                    $("#tab_panel li").addClass("tab");
+                    //删除
+                    $("#tab_" + id).remove();
+                    $("#portal_" + id).remove();
+                    //返回个人桌面
+                    $("#tab_panel li").removeClass("tab-hover");
+                    $("#tab_0").addClass("tab-hover");
+                    //chang portal
+                    $("#content .portal-iframe").hide();
+                    $("#content_portal").show();
+                });
+                $("#tab_" + id).click(function () {
+                    //返回个人桌面
+                    $("#tab_panel li").removeClass("tab-hover");
+                    $("#tab_panel li").addClass("tab");
+                    $(this).addClass("tab-hover");
+                    //chang portal
+                    $("#content .portal-iframe").hide();
+                    $("#portal_" + id).show();
+                });
+            }
+            else {
+                $("#tab_" + id).addClass("tab-hover");
+            }
+            $("#content .portal-iframe").hide();
+            $("#portal_" + id).show();
+            $("#portal_iframe_" + id).css("height", ($(window).height() - 130));
+        }
+
+        function frameauto(h) {
+            var fid = "";
+            $(".tab-hover").each(function () {
+                fid = $(this).attr("id").split("_")[1];
+            });
+            var fh = $(fid).height();
+            if (h > fh) {
+                $("#portal_" + fid).addClass("scrollee");
+            }
+        }
+    </script>
+    @RenderSection("js", false)
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+[
+ {
+		"title": "客户信息管理",
+		"icon": "&#x1002;",
+		"spread": true,
+		"children": [
+			{
+				"title": "微信公众号",
+				"icon": "fa-check-square-o",
+				"href": "../WechatOrg/index"
+			},
+			{
+				"title": "用户列表",
+				"icon": "fa-check-square-o",
+				"href": "../CustomerBasic/Index"
+			}
+		]
+	}
+ ]

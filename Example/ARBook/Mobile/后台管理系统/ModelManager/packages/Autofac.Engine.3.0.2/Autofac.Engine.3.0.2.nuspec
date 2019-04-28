@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Autofac.Engine</id>
+    <version>3.0.2</version>
+    <title>Autofac.Engine</title>
+    <authors>Lycan</authors>
+    <owners>Lycan</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Code : {
+    Init:  EngineContext.Initialize(false,ScopeTag.None);
+    WebMvc SetResolver:  DependencyResolver.SetResolver(new AutofacDependencyResolver(EngineContext.Scope));
+    WebApi SetResolver:  GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(EngineContext.Scope);
+    Registrar:  IDependencyRegistrar:  { builder.RegisterType&lt;Service&gt;().As&lt;IService&gt;().InstancePerLifetimeScope(); }
+    Resolve: EngineContext.Resolve&lt;IService&gt;();
+}</description>
+    <summary>Autofac.Engine
+http://git.oschina.net/Lycan80/Autofac.Engine
+该类库只是针对Autofac进行简单的封装，主要目标是使开发者在应用时更为简单。
+参考：NopCommerce,Autofac,Autofac.Integration.Mvc,已应用在多个项目经验</summary>
+    <releaseNotes>Autofac.Engine
+http://git.oschina.net/Lycan80/Autofac.Engine
+该类库只是针对Autofac进行应用封装，主要目标是使开发者在应用时更为简单。
+参考：NopCommerce,Autofac,Autofac.Integration.Mvc,已应用在多个项目经验</releaseNotes>
+    <language>zh-CN</language>
+    <tags>Autofac</tags>
+    <dependencies>
+      <dependency id="Autofac" version="3.5.2" />
+    </dependencies>
+  </metadata>
+</package>

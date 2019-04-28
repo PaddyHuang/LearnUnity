@@ -1,0 +1,99 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>   
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>产品目录</title>
+
+    <style type="text/css">
+        body {
+            margin: 0;
+            font-family: "microsoft yahei";
+            font-size: 13px;
+            line-height: 1.5;
+            background: #eee;
+        }
+
+        .wrap {
+         /*margin: 0px auto 0 auto;*/
+        }
+
+        .tabs {
+            /*height: 140px;*/
+        }
+
+            .tabs a {
+                display: block;
+                float: left;
+                width: 33.33%;
+                color: #333;
+                text-align: center;
+                background: #eee;
+                height:40px;
+                line-height: 40px;
+                font-size: 12px;
+                text-decoration: none;
+            }
+
+                .tabs a.active {
+                    color: #fff;
+                    background: #333;
+                    border-radius: 5px 5px 0px 0px;
+                }
+
+        .swiper-container {
+            background: #333;
+            height: auto;
+            /*height: 610px;*/
+            border-radius: 0 0 5px 5px;
+            width: 100%;
+            border-top: 0;
+        }
+
+        .swiper-slide {
+            height: auto;
+            width: 100%;
+            background: none;
+            color: #fff;
+        }
+
+        .content-slide {
+            padding: 1em;
+        }
+
+            .content-slide p {
+                text-indent: 2em;
+                line-height: 1.9;
+            }
+        ul {
+            font-size: 11px;
+            padding: 0px;
+            /*list-style-position: outside;*/
+            -webkit-padding-start: 1em;
+        }
+
+    </style>
+    <link href="~/Content/weixin/css/idangerous.swiper.css" rel="stylesheet" />
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    
+    
+    
+    
+    @RenderBody()
+
+
+
+
+    <script src="https://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+    <script src="~/Content/weixin/js/idangerous.swiper.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

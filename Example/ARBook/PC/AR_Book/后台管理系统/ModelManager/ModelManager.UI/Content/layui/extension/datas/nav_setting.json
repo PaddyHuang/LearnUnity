@@ -1,0 +1,42 @@
+[
+ {
+		"title": "系统管理员",
+		"icon": "&#x1002;",
+		"spread": true,
+		"children": [
+			{
+				"title": "管理员列表",
+				"icon": "fa-check-square-o",
+				"href": "/User/ShowList"
+			},
+			{
+				"title": "角色列表",
+				"icon": "fa-check-square-o",
+				"href": "/Role/Index"
+			},
+			{
+				"title": "管理员组列表",
+				"icon": "fa-check-square-o",
+				"href": "/Group/Index"
+			}
+		]
+	},
+	{
+		"title": "菜单管理",
+		"icon": "fa-th-large",
+		"spread": true,
+		"children": [
+			{
+				"title": "菜单列表",
+				"icon": "fa-building-o",
+				"href": "/Menu/Index"
+			},
+			{
+				"title": "权限列表",
+				"icon": "fa-address-card",
+				"href": "/Role/Index"
+			}
+			
+		]
+	}
+ ]

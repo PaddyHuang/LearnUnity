@@ -1,0 +1,65 @@
+﻿
+@{
+    //Layout = "~/Areas/Administrator/Views/Shared/View.cshtml";
+
+    //ViewBag.Title = "我要移民 - 广西南宁麦格瑞出国咨询有限公司";
+}
+
+@section header
+{
+    <link rel="stylesheet" href="~/Content/admin/css/treetable.css" />
+    <style>
+        .layui-table-view .layui-table[lay-size="sm"] .layui-table-cell {
+            height: 38px;
+            line-height: 38px;
+        }
+    </style>
+}
+<blockquote class="layui-elem-quote news_search toolList" id="menus"></blockquote>
+
+<div class="layui-row">
+    @* <div class="layui-col-xs1">
+                <ul id="tree" class="ztree"
+                    style="padding: 2px; border: 1px solid #ddd; overflow: auto;"></ul>
+        </div>*@
+    <div class="layui-col-xs12">
+        <table class="layui-table"
+               lay-data="{height: 'full-200', id:'mainList'}"
+               lay-filter="list" lay-size="sm">
+            <thead>
+                <tr>
+                    <th lay-data="{checkbox:true, fixed: true}"></th>
+                    <th lay-data="{field:'Name', width:220, sort: true, fixed: true}">名称</th>
+                    <th lay-data="{field:'Type', width:100}">类型</th>
+                    <th lay-data="{field:'KeyWords', width:80}">搜索关键字</th>
+                    <th lay-data="{field:'AbUrl', width:80}">资源包地址</th>
+                    <th lay-data="{field:'Resource'}">资源信息</th>
+                    <th lay-data="{field:'Sort', width:80}">排序</th>
+                    <th lay-data="{field:'BookID', width:80}">所属书籍</th>
+                    @*<th lay-data="{fixed: 'right', width:100, toolbar: '#barList'}"></th>*@
+                </tr>
+            </thead>
+        </table>
+        <!--列表右边的按钮-->
+        <script type="text/html" id="barList">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看菜单</a>
+        </script>
+        <script type="text/html" id="iconTpl">
+            {{#  if( d.Styles != null && d.Styles != ''){ }}
+            <i class="layui-icon">{{ d.Styles }}</i>
+            {{#  } else { }}
+            {{ d.Styles }}
+            {{#  } }}
+        </script>
+    </div>
+
+
+</div>
+
+
+
+
+<script type="text/javascript" src="~/Content/admin/layui/layui.js"></script>
+<script type="text/javascript" src="~/Content/admin/userJs/typeitem.js"></script>
+
+@*migratenews*@

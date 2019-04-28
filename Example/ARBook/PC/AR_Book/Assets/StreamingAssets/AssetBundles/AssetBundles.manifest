@@ -1,0 +1,37 @@
+ManifestFileVersion: 0
+CRC: 1166150613
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: testab
+      Dependencies: {}
+    Info_1:
+      Name: testjisuan
+      Dependencies: {}
+    Info_2:
+      Name: testtubiao
+      Dependencies: {}
+    Info_3:
+      Name: testfangshi
+      Dependencies: {}
+    Info_4:
+      Name: testliucheng
+      Dependencies: {}
+    Info_5:
+      Name: common
+      Dependencies: {}
+    Info_6:
+      Name: p1-12
+      Dependencies: {}
+    Info_7:
+      Name: p1-11
+      Dependencies: {}
+    Info_8:
+      Name: p1-16
+      Dependencies: {}
+    Info_9:
+      Name: p1-13
+      Dependencies: {}
+    Info_10:
+      Name: p1-18
+      Dependencies: {}

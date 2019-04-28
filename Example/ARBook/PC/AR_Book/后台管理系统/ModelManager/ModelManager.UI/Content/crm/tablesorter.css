@@ -1,0 +1,72 @@
+/* tables */
+table.tablesorter
+{
+    margin: 10px auto;
+    border: 1px solid #e0e0e0;
+    border-right: none;
+    border-bottom: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 98%;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th
+{
+    border-top: 1px solid #e0e0e0;
+    height: 33px;
+    line-height: 33px;
+    background-color: #f9f9f9;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 5px;
+}
+table.tablesorter thead tr td, table.tablesorter tfoot tr td
+{
+    border-top: 1px solid #e0e0e0;
+    height: 25px;
+    line-height: 25px;
+    background-color: #f9f9f9;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 3px;
+}
+
+table.tablesorter thead tr .header
+{
+    background-image: url(Images/bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+table.tablesorter tbody td
+{
+    color: #3D3D3D;
+    background-color: #FFF;
+    height: 33px !important;
+    height: 25px;
+    min-height: 25px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 5px;
+}
+table.tablesorter tbody tr.odd td
+{
+    background-color: #F0F0F6;
+    height: 33px !important;
+    height: 25px;
+    min-height: 25px;
+    border-right: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0 5px;
+}
+table.tablesorter thead tr .headerSortUp
+{
+    background-image: url(Images/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown
+{
+    background-image: url(Images/desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp
+{
+    background-color: #EDEAEA;
+}

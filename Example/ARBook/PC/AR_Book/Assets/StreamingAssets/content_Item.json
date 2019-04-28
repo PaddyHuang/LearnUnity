@@ -1,0 +1,120 @@
+﻿{
+  "Type": "WuJian",
+  "Name": "CL7型自行式铲运机",
+  "CNID": "图1-14",
+  "aburl": "/AssetBundles/p1-14",
+  "TypeCalculation": {},
+  "TypeItem": {
+    "AbObjectName": "TestGo",
+    "Introduce": {
+      "Title": "铲运机介绍",
+      "Info": "铲运机是一种能独立完成铲土、运土、卸土、填筑、场地平整的土方施工机械。其对道路要求较低，操纵灵活，具有生产效率较高的特点。",
+      "Audio": "http://resource.73cloud.top/p1-14_t.mp3"
+    },
+    "Structs": {
+      "Title": "铲运机结构",
+      "Struct": [
+        {
+          "Index": 2,
+          "Info": "前轮",
+          "GameObjectName": "qianlun",
+          "LeftOrRight": false,
+          "Audio": "http://resource.73cloud.top/p1-14_s2.mp3"
+        },
+        {
+          "Index": 1,
+          "Info": "驾驶室",
+          "GameObjectName": "jiashishi",
+          "LeftOrRight": false,
+          "Audio": "http://resource.73cloud.top/p1-14_s1.mp3"
+        },
+        {
+          "Index": 3,
+          "Info": "中央框架",
+          "GameObjectName": "zhongyangkuangjia",
+          "LeftOrRight": false,
+          "Audio": "http://resource.73cloud.top/p1-14_s3.mp3"
+        },
+        {
+          "Index": 4,
+          "Info": "铲斗",
+          "GameObjectName": "chandou",
+          "LeftOrRight": true,
+          "Audio": "http://resource.73cloud.top/p1-14_s4.mp3"
+        },
+        {
+          "Index": 5,
+          "Info": "尾架",
+          "GameObjectName": "weijia",
+          "LeftOrRight": false,
+          "Audio": "http://resource.73cloud.top/p1-14_s5.mp3"
+        }
+      ]
+    },
+    "Sizes": {
+      "Title": "尺寸",
+      "Size": [
+        {
+          "Index": 1,
+          "Length": 9800,
+          "ObjcetName": "总长",
+          "FromGoName": "zongchang1",
+          "ToGaName": "zongchang2",
+          "Audio": "http://resource.73cloud.top/p1-14_c1.mp3"
+        },
+        {
+          "Index": 2,
+          "Length": 5900,
+          "ObjcetName": "轮距",
+          "FromGoName": "lunju1",
+          "ToGaName": "lunju2",
+          "Audio": "http://resource.73cloud.top/p1-14_c2.mp3"
+        },
+        {
+          "Index": 3,
+          "Length": 2980,
+          "ObjcetName": "头高",
+          "FromGoName": "tougao1",
+          "ToGaName": "tougao2",
+          "Audio": "http://resource.73cloud.top/p1-14_c3.mp3"
+        },
+        {
+          "Index": 4,
+          "Length": 550,
+          "ObjcetName": "尾高",
+          "FromGoName": "weigao1",
+          "ToGaName": "weigao2",
+          "Audio": "http://resource.73cloud.top/p1-14_c4.mp3"
+        }
+      ]
+    },
+    "Video": {
+      "Title": "铲运机测试",
+      "Url": "http://arbookresouce.73data.cn/14c23ae158a44bba908fd13d1cea211d/6768009537160e10eae10451d9f8c950.mp4",
+      "Info": "描述测试"
+    },
+    "Practices": {
+      "AnswerImageUrl": "http://arbookresouce.73data.cn/wallhaven-637809.jpg",
+      "PracticeTitle": "请正确匹配五个铲运机构建：",
+      "IsShowAnswer": true,
+      "PracObjects": [
+        {
+          "Index": 1,
+          "Info": "驾驶室",
+          "GameObjectName": "jiashishi",
+          "LeftOrRight": true
+        },
+        {
+          "Index": 2,
+          "Info": "前轮",
+          "GameObjectName": "qianlun",
+          "LeftOrRight": true
+        }
+      ]
+    }
+  },
+
+  "TypeMethod": {},
+  "TypeTable": {},
+  "TypeProcess": {}
+}

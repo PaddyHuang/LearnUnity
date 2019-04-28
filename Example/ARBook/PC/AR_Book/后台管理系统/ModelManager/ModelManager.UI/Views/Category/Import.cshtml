@@ -1,0 +1,117 @@
+﻿@{
+    ViewBag.Title = "导入模型";
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+}
+<div style="margin: 15px;">
+    <form class="layui-form" method="post" id="form" action="">
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">导入目录数据</label>
+            <div class="layui-upload">
+                <div type="button" class="layui-btn" id="btnmodeldatabin">请上传Excel格式</div>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    示范模板：
+                    <div class="layui-upload-list" id="demo3">
+                        <div class="clear-fix" style="clear:both"></div>
+                        <div id="binmodeldata" class="layui-textarea"><a href="http://39.108.107.2/download/模型上传模板.xlsx">模型上传模板.xlsx</a></div>
+                        <input type="hidden" name="binmodeldatael" id="binmodeldatael" />
+                    </div>
+
+
+                </blockquote>
+                <fieldset class="layui-elem-field">
+                    <legend>数据列表</legend>
+                    <div class="layui-field-box layui-form" id="content">
+                        <table class="layui-hide" id="test" lay-filter="demo"></table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section scripts{
+
+    @*<script src="~/Content/layui/extension/js/begtable.js"></script>*@
+
+    <script>
+    layui.config({
+        base: '../../Content/layui/extension/js/',
+        v: new Date().getTime()
+    }).use(['form', 'layedit', 'laydate', 'common', 'upload'], function () {
+
+        var form = layui.form
+            , $ = layui.jquery
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate
+            , common = layui.common
+            , upload = layui.upload;
+
+
+
+
+
+
+
+
+
+
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#btnmodeldatabin' //绑定元素
+             , field: 'fileUpload' //必填项
+             , accept: 'file'
+             , exts: 'xls|xlsx'
+             ,
+            @*url:'@Url.Action("UploadData","Test")'*@
+            url: common.renderUrl('@Url.Action("ImportCate", "Category")', {
+               // modelID: "@ViewBag.ID"
+            }) //上传接口
+            , before: function (index, file, result) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(); //上传loading
+
+                //var img = '<img id="" name="upload_img" style="float:inherit" src="' + result + '" data-url="' + result + '/>'
+                //$("#img_div").insertAfter(img);
+            }
+          , done: function (res) {
+              //上传完毕回调
+
+              if (res.Code == 0) {
+
+
+
+                  if (res.Result.length == 0) {
+                      layer.msg("上传成功");
+                  }
+                  else
+                  {
+                      layer.msg("有" + res.Result.length + "条记录添加失败");
+                  }
+
+
+              }
+              layer.closeAll('loading'); //关闭loading
+          }
+          , error: function (index, file, result) {
+              layer.closeAll('loading'); //关闭loading
+          }
+        });
+
+
+
+
+
+
+
+    });
+
+
+    </script>
+
+
+}
+

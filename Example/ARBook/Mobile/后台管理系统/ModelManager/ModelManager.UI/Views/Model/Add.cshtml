@@ -1,0 +1,725 @@
+﻿@{
+    ViewBag.Title = "添加模型";
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+}
+
+
+@section styles{
+    @*<link href="~/Content/zTree_v3/css/demo.css" rel="stylesheet" />*@
+<link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/zTreeStyle/zTreeStyle.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/metroStyle/metroStyle.min.css" rel="stylesheet">
+@*<link href="~/Content/zTree_v3/css/metroStyle/metroStyle.css" rel="stylesheet" />*@
+<style type="text/css">
+    ul.ztree {
+        margin-top: 10px;
+        border: 1px solid #617775;
+        background: #f0f6e4;
+        /*width: 220px;*/
+        /*min-height: 360px;*/
+        overflow-y: scroll;
+        overflow-x: auto;
+    }
+
+    .ztree li span.button.add {
+        margin-left: 2px;
+        margin-right: -1px;
+        background-position: -144px 0;
+        vertical-align: top;
+        *vertical-align: middle;
+    }
+
+    #demo2 > div> img {
+        margin:1px;
+        max-width:240px;
+        max-height:240px;
+       
+    }
+
+    #demo2 > div {
+        position: relative;
+        float: left;
+        text-align: center;
+        border: 1px solid #d6c3c3;
+        margin-right: 1em;
+    }
+        #demo2 > div i {
+       
+            position:absolute;
+            top:0px;
+            right:22px;
+            font-size:2em;
+            color:transparent;         
+             }
+        #demo2 > div.hover {
+            border: 1px solid #d6c3c3;
+            transition: border-color .1s ease;
+        }
+        #demo2 > div.hover i {
+            color: red;
+        }
+                                   
+       
+</style>
+
+
+
+    
+    
+    }
+
+<div style="margin: 15px;">
+    <form class="layui-form" method="post" id="form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">模型名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入模型名称" class="layui-input">
+                <input type="hidden" id="modelid" name="modelid" value="@ViewBag.ID" />
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">模型编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="modelNum" lay-verify="required" autocomplete="off" placeholder="请输入模型编码" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">模型关键字</label>
+            <div class=" layui-inline">
+                <input type="text" name="modelkeyword" id="modelkeyword"  autocomplete="off" placeholder="请输入模型关键字" class="layui-input">
+            </div>
+            <div class="layui-btn-group layui-inline">
+                <div class="layui-btn layui-btn-sm" id="btnaddkey">
+                    <i class="layui-icon">&#xe654;</i>
+                </div>
+
+            </div>
+         
+        </div>
+
+       <div class="layui-form-item">
+           <div class="layui-input-block" id="keycontent">
+               
+           </div>
+           <input type="hidden" id="keywords" name="keywords" value="" />
+       </div>
+
+        <div class="layui-form-item">
+            @*<label class="layui-form-label">模型图片</label>*@
+            <div class="layui-upload">
+                <button type="button" class="layui-btn layui-inline" id="btnthumb">模型图片上传</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+             
+                    <div class="layui-upload-list" id="img_div">
+                        <div class="clear-fix" style="clear:both"></div>
+
+                    </div>
+
+                    <input type="hidden" id="imgid" name="imgid" value="" />
+                </blockquote>
+                @*<input type="hidden" name="Picurl" id="Picurl" value="" />*@
+            </div>
+        </div>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="test2">实物图</button><input class="layui-upload-file" type="file" name="file" multiple="">
+            <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+             
+                <div class="layui-upload-list" id="realimg" style="float:left;">
+
+                    <div class="clear-fix" style="clear:both;"></div>
+                </div>
+                <div style="overflow:hidden;height:0px;clear:both;" ></div>
+            </blockquote>
+        </div>
+        @*<div class="layui-form-item">
+
+            <label class="layui-form-label">所属目录</label>
+            <div class="la"></div>
+            <input type="hidden" id="parentID" name="parentID" value="" />
+            <ul id="treeDemo" class="ztree"></ul>
+        </div>*@
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">模型数据（gltf）</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn layui-inline" id="btnmodeldata">模型数据上传</button>
+                <blockquote class="layui-elem-quote layui-quote-nm layui-inline" style="margin-top: 10px;">
+     
+                    <div class="layui-upload-list" id="demo2">
+                        <div id="txtmodeldata" class="layui-textarea layui-hide"></div>
+                        <input type="hidden" name="modelcontent" id="modelcontent" />
+                        @*<div class="clear-fix" style="clear:both"></div>
+                        <div id="txtmodeldata" class="layui-textarea layui-hide"></div>
+                        <input type="hidden" name="modelcontent"  id="modelcontent" />*@
+                    </div>
+
+
+                </blockquote>
+
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">模型数据2(.bin)</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="btnmodeldatabin">模型数据2上传</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    数据预览：
+                    <div class="layui-upload-list" id="demo3">
+                        <div class="clear-fix" style="clear:both"></div>
+                        <div id="binmodeldata" class="layui-textarea layui-hide"></div>
+                        <input type="hidden" name="binmodeldatael"  id="binmodeldatael" />
+                    </div>
+
+
+                </blockquote>
+
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">请填写描述</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="desccontent" class="layui-textarea"></textarea>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        @*<div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="sort" id="sort" lay-verify="number" placeholder="排序" autocomplete="off" class="layui-input" value="">
+                </div>
+            </div>
+        </div>*@
+
+
+
+        @*<div class="layui-form-item">
+                <label class="layui-form-label">产品描述</label>
+                <div class="layui-input-block">
+                    <textarea name="PContent" placeholder="请输入产品描述" lay-verify="required" class="layui-textarea"></textarea>
+                </div>
+            </div>*@
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">模型状态</label>
+            <div class="layui-input-block">
+                <input type="checkbox" checked="" name="flag" lay-skin="switch" lay-filter="switchTest" lay-text="收费|免费">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <button class="layui-btn l" lay-submit="" lay-filter="productadd">保存并提交</button>
+                <button class="layui-btn" lay-submit="" lay-filter="productsave">保存草稿</button>
+                <button type="reset" id="formreset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section scripts{
+
+    @*<script src="~/Content/layui/extension/js/begtable.js"></script>*@
+    <script src="https://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.all.min.js"></script>
+    <script>
+    layui.config({
+        base: '../../Content/layui/extension/js/',
+        v: new Date().getTime()
+    }).use(['form', 'layedit', 'laydate', 'common', 'upload'], function () {
+
+        var form = layui.form
+            , $ = layui.jquery
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate
+            , common = layui.common
+            , upload = layui.upload;
+
+        var code;
+
+        function setCheck() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            type = { "Y": "ps", "N": "ps" };
+            zTree.setting.check.chkboxType = type;
+            //showCode('setting.check.chkboxType = { "Y" : "ps", "N" : "pd" };');
+        }
+        function showCode(str) {
+            if (!code) code = $("#code");
+            code.empty();
+            code.append("<li>" + str + "</li>");
+        }
+
+        var setting = {
+            check: {
+                enable: true,
+                chkStyle: "radio",
+                radioType: "all"
+            },
+            data: {
+                key: {
+                    checked: "Checked"
+                },
+                simpleData: {
+                    enable: true,
+                    open: "Open",
+                    checked: "Checked"
+                }
+
+            },
+            callback: {
+              //  onCheck: zTreeOnCheck
+                //  onClick: zTreeOnClick
+            }
+        };
+
+        var code;
+        function setCheck() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            type = { "Y": "ps", "N": "ps" };
+            zTree.setting.check.chkboxType = type;
+            //showCode('setting.check.chkboxType = { "Y" : "ps", "N" : "pd" };');
+        }
+        function showCode(str) {
+            if (!code) code = $("#code");
+            code.empty();
+            code.append("<li>" + str + "</li>");
+        }
+
+        function zTreeOnCheck(event, treeId, treeNode) {
+
+
+            if (treeNode.Checked) {
+                $("#parentID").val(treeNode.id);
+            }
+            else {
+                // layer.msg("去勾选");
+            }
+
+
+        };
+
+        function selectAll() {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            zTree.setting.edit.editNameSelectAll = $("#selectAll").attr("checked");
+        }
+
+
+
+
+        $(function () {
+
+
+            $(document).on("mouseover", "#realimg > div", function () {
+
+
+                $(this).removeClass("hover");
+
+                $(this).addClass("hover");
+                /// layer.msg(" 测试");
+
+            })
+
+            $(document).on("mouseout", "#realimg > div", function () {
+
+
+                $(this).removeClass("hover");
+                /// layer.msg(" 测试");
+
+            })
+
+
+            $(document).on("click", "#realimg > div >i", function () {
+
+                //  layer.msg(" 测试");
+
+            })
+           // $(document).on("ho")
+    
+                
+            @*$.ajax({
+                type: "POST",
+                url: '@Url.Action("GetList", "Category")',
+                // async: false, //_config.async,
+                dataType: 'json',
+                beforeSend: function () {
+                    layer.load(0);
+                },
+                success: function (result, status, xhr) {
+
+                    // $.fn.zTree.init($("#treeDemo"), setting, result.Result);
+                    $.fn.zTree.init($("#treeDemo"), setting, result.Result);
+                    //  $("#selectAll").bind("click", selectAll);
+                },
+                error: function (xhr, status, error) {
+
+                    layer.closeAll("loading");
+                    common.msgError('treeDemo error:' + error);
+                },
+                complete: function (xhr, status) {
+                    layer.closeAll("loading");
+                }
+            });*@
+
+
+
+
+
+        })
+
+
+
+        $('.dodel').on("click", function () {
+
+
+            var $that = $(this);
+            layer.open({
+                content: '确定删除',
+                yes: function (index, layero) {
+                    //do something
+                    layer.msg("关键词不能为空");
+                    $that.parent.remove();
+
+                    layer.close(index); //如果设定了yes回调，需进行手工关闭
+                }
+            });
+
+        })
+
+        //
+        $('#btnaddkey').click(function () {
+            var keyword = $('#modelkeyword').val();
+            if (keyword == "") {
+                layer.msg("关键词不能为空");
+                return;
+            }
+
+
+
+
+            var btn = '<div class="layui-inline"><input  class="keyvals layui-input layui-inline"  name="keyvals" value="' + $('#modelkeyword').val() + '" > <div class="layui-btn  layui-inline dodel">删除</div></div>';
+            $("#keycontent").append(btn);
+            $('#modelkeyword').val("");
+            form.render();
+            ///*********************绑定事件***************************///
+
+            $('.dodel').unbind("click");
+
+            $('.dodel').bind("click", function () {
+
+
+                var $that = $(this);
+                layer.open({
+                    content: '确定删除',
+                    yes: function (index, layero) {
+                        //do something
+                        layer.msg("关键词不能为空");
+                        $that.parent().remove();
+
+                        var keywords = "";
+                        $('input.keyvals').each(function () {
+
+
+                            if (keywords == "") {
+                                keywords += $(this).val();
+                            }
+                            else {
+                                keywords += "," + $(this).val();
+                            }
+
+
+                        });
+
+                        $('#keywords').val(keywords);
+                        layer.close(index); //如果设定了yes回调，需进行手工关闭
+                    }
+                });
+
+            })
+            ///***************************结束绑定****************************/////
+
+
+            var keywords = "";
+            $('input.keyvals').each(function () {
+
+                if (keywords == "") {
+                    keywords += $(this).val();
+                }
+                else {
+                    keywords += "," + $(this).val();
+                }
+            });
+
+            $('#keywords').val(keywords);
+
+
+        })
+
+
+
+
+
+        //   http://www.73data.cn/wx_ser/uploadprocess.php
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#btnthumb' //绑定元素
+             , field: 'modelthumb' //必填项
+          ,
+            @*url:'@Url.Action("UploadData","Test")'*@
+            url: common.renderUrl('@Url.Action("UploadImg", "Test")', {
+                modelID: "@ViewBag.ID"
+            }) //上传接口
+            , before: function (index, file, result) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(); //上传loading
+
+                //var img = '<img id="" name="upload_img" style="float:inherit" src="' + result + '" data-url="' + result + '/>'
+                //$("#img_div").insertAfter(img);
+            }
+          , done: function (res) {
+              //上传完毕回调
+              layer.closeAll('loading'); //关闭loading
+              if (res.Code == 0) {
+
+                  //var img = '<img id="" name="upload_img" style="float:inherit" src="' + res.Result.url + '" data-url="' + res.Result.id + '/>'
+                  $("#img_div").html("");
+
+                  var img = document.createElement("img");
+                  img.src = res.Result.Path;
+                  img.width = 100;
+                  img.height = 100;
+                  $('#imgid').val(res.Result.OldName);
+                  $("#img_div").html(img);
+
+
+              }
+
+          }
+          , error: function (index, file, result) {
+              layer.closeAll('loading'); //关闭loading
+          }
+        });
+
+
+
+        var uploadfile = upload.render({
+
+            elem: '#btnmodeldata' //绑定元素
+             , field: 'modelthumb' //必填项
+
+            , accept: 'file'
+            , exts: 'gltf'
+          , url: common.renderUrl('@Url.Action("UploadData", "Test")', {
+              modelID: "@ViewBag.ID"
+          }) //上传接口
+            , before: function (index, file, result) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(); //上传loading
+
+
+
+
+                //var img = '<img id="" name="upload_img" style="float:inherit" src="' + result + '" data-url="' + result + '/>'
+                //$("#img_div").insertAfter(img);
+            }
+          , done: function (res) {
+              //上传完毕回调
+              layer.closeAll('loading'); //关闭loading
+
+
+              if (res.Code == 0) {
+                  $('#txtmodeldata').text(res.Result.Path);
+                  $('#modelcontent').val(res.Result.OldName);
+                  $('#txtmodeldata').removeClass("layui-hide");
+              }
+
+          }
+          , error: function () {
+              layer.closeAll('loading'); //关闭loading
+          }
+
+        });
+
+
+        var uploadfile = upload.render({
+
+            elem: '#btnmodeldatabin' //绑定元素
+                , field: 'modelthumb' //必填项
+
+                , accept: 'file'
+                , exts: 'bin'
+                , url: common.renderUrl('@Url.Action("UploadData", "Test")', {
+                    modelID: "@ViewBag.ID"
+                }) //上传接口
+                , before: function (index, file, result) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                    layer.load(); //上传loading
+                }
+                , done: function (res) {
+                    //上传完毕回调
+                    layer.closeAll('loading'); //关闭loading
+
+
+                    if (res.Code == 0) {
+                        $('#binmodeldata').text(res.Result.Path);
+                        $('#binmodeldatael').val(res.Result.OldName);
+                        $('#binmodeldata').removeClass("layui-hide");
+                    }
+
+                }
+          , error: function () {
+              layer.closeAll('loading'); //关闭loading
+          }
+
+        });
+
+
+
+        //多图片上传
+       var realimg = upload.render({
+           elem: '#test2'
+           , field: 'modelthumb'
+          , url:common.renderUrl( '@Url.Action("CreateDir", "QiniuClient")', {
+              modelID: "@ViewBag.ID"
+           })
+           //, multiple: true
+           , before: function (obj) {
+               //预读本地文件示例，不支持ie8
+               //obj.preview(function (index, file, result) {
+               //    $('#demo2').append('<img src="' + result + '" alt="' + file.name + '" class="layui-upload-img">')
+               //});
+           }
+           , done: function (res) {
+              // console.log(JSON.stringify(res));
+
+
+               if (res.Code == 0)
+               {
+                   $('#realimg').html("");
+
+                   $('#realimg').append('<div> <img  src="' + res.Result.url + '" data-id="' + res.Result.path + '" alt="' + res.Result.path + '" class="layui-upload-img"><i class="layui-icon"></i> </div>')
+               }
+
+              
+
+              // layer.msg(JSON.stringify(res));
+               //上传完毕
+           }
+        });
+
+
+        form.verify({
+            username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                    return '用户名不能有特殊字符';
+                }
+                if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                    return '用户名首尾不能出现下划线\'_\'';
+                }
+                if (/^\d+\d+\d$/.test(value)) {
+                    return '用户名不能全为数字';
+                }
+            }
+
+            //我们既支持上述函数式的方式，也支持下述数组的形式
+            //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+              , pass: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+              ]
+
+               , template: function (value, item) {
+                   if (!value || value.length == 0) {
+                       return '模板信息，不能为空'
+                   }
+
+               }
+        });
+
+
+        //监听提交
+        form.on('submit(productadd)', function (data) {
+
+            //$(this).text()
+
+
+            var realimg = "";
+
+            $('#realimg > div> img').each(function () {
+
+                var dataid = $(this).data("id");
+
+                if (dataid)
+                {
+                    realimg += dataid +",";
+                }
+
+
+            })
+
+            data.field.realimg = realimg;
+
+
+            $.ajax({
+                type: "POST",
+                url: common.renderUrl('@Url.Action("SaveModel", "Model")', {
+
+                }),
+                data: data.field,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    layer.load();
+                    //  xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                },
+                success: function (res) {
+
+
+
+                    if (res.Code == 0) {
+
+                        $('#formreset').trigger("click");
+                        $('#modelid').val(res.Result);
+
+
+                        layer.msg("添加成功");
+
+
+                    }
+                    else {
+                        layer.msg(res.ErrorDesc);
+                    }
+
+
+
+
+                    layer.closeAll('loading');
+                },
+
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                    layer.closeAll();
+                }
+            });
+            return false;
+            title: '最终的提交信息'
+        });
+
+
+
+    });
+
+
+</script>
+
+
+}
+

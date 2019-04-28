@@ -1,0 +1,18 @@
+﻿html, body, div, p, ul, li, ol, dl, dt, dd, form, h1, h2, h3, h4, h5, h6, input, fieldset, legend, optgroup, table, tr, td{margin: 0;padding: 0;}
+html, body, form{font-family: "Microsoft Yahei" , "微软雅黑e软雅黑6f\96c5\9ed1" ,Tahoma,Arial,STHeiti,sans-serif;font-size: 12px;color: #000;line-height: 18px;text-align: center;}
+body{color: #333;background: url("images/profile_bg.png") 0 0 repeat #dedede;}
+div{text-align: left;}
+.week_pro{margin: 10px auto;border: 1px solid #e0e0e0;border-right: none;border-bottom: none;border-collapse: collapse;border-spacing: 0;width: 98%;background-color: #ffffff;box-shadow: 0 1px 3px rgba(0, 0, 0, .07);border-radius: 3px;}
+.week_pro th{font-weight: bold;border-top: 1px solid #e0e0e0;}
+.week_pro th,.week_pro td{border-right: 1px solid #e0e0e0;border-bottom: 1px solid #e0e0e0;padding: 0 5px;font-size:12px;color:#333;}
+.week_pro th{height: 33px;line-height: 33px;background-color:#f9f9f9;background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f9f9f9));}
+.week_pro td{height: 33px !important;height: 25px;min-height: 25px;}
+#content{width: 650px;margin:0px auto;clear: both;}
+#content .profile-edit{width: 98%;padding:30px 5px 5px 5px;background:#fff;border: 1px solid #ccc;border-bottom: 1px solid #b4b4b4;margin: 30px auto 15px auto;box-shadow: 1px 3px 3px rgba(150,152,153,0.3);zoom: 1;position: relative;}
+#content .profile-edit h2{border-bottom: 1px solid #ccc;padding-bottom: 7px;line-height: 19px;padding-right: 20px;}
+#content .profile-edit h2 span{float: right;padding-top: 8px;line-height: 14px;height: 14px;display: block;}
+#content .profile-edit h2 i{font-style: normal;font-size: 18px;font-family: 'Microsoft YaHei','hei','tahoma';line-height: 22px;display: inline-block;vertical-align: middle;}
+#content .profile-edit h2 em{width: 5px;height: 19px;overflow: hidden;margin-right: 10px;display: inline-block;background: #e76322;vertical-align: bottom;}
+#content .profile-edit a.green, a.high:visited{text-decoration: none;color: #86b5d7;font-size:12px;}
+.print{background: url("images/print.png") no-repeat 0px 0px;width: 17px;height: 17px;display: block;}
+.yahei{font-family: "Microsoft Yahei" , "微软雅黑e软雅黑6f\96c5\9ed1" ,Tahoma,Arial,STHeiti,sans-serif;}

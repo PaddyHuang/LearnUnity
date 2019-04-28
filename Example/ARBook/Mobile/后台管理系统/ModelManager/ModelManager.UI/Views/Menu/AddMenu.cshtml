@@ -1,0 +1,354 @@
+﻿@{
+    ViewBag.Title = "添加新菜单";
+    Layout = "~/Views/Shared/IframLayout.cshtml";
+}
+
+
+@section styles{
+
+    @*<link href="~/Content/zTree_v3/css/demo.css" rel="stylesheet" />*@
+    <link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/zTreeStyle/zTreeStyle.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/zTree.v3/3.5.29/css/metroStyle/metroStyle.min.css" rel="stylesheet">
+    @*<link href="~/Content/zTree_v3/css/metroStyle/metroStyle.css" rel="stylesheet" />*@
+    <style>
+        ul.ztree {
+            margin-top: 10px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            width: 220px;
+            /*height: 360px;*/
+            overflow-y: scroll;
+            overflow-x: auto;
+          
+        }
+       
+    </style>
+
+}
+
+<div style="margin: 15px;">
+
+    <!-- ID, ParentID,Title,IsTopMenu, NAME, Areas, Controller, ACTION,PathAndQuery,Href,Icon,Flag, CreateTime, UpdateTime -->
+
+
+    <form class="layui-form" method="post" id="form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">名字</label>
+            <div class="layui-input-block">
+                <input type="text" name="Name" lay-verify="required" autocomplete="off" placeholder="菜单名字" class="layui-input">
+                <input type="hidden" id="ID" name="ID" value="@ViewBag.ID" />
+
+                @Html.AntiForgeryToken()
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-block">      
+                <input type="text" id="Title" name="Title" autocomplete="off" placeholder="标题" class="layui-input" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否置顶</label>
+            <div class="layui-input-block">
+
+                <input type="checkbox" checked="" name="istopmenu" lay-skin="switch" lay-text="顶部|子菜单" lay-filter="topswitch" title="菜单级别">
+               
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">上级菜单</label>
+            <div class="zTreeDemoBackground left layui-input-inline">
+                <input id="citySel" name="parentID" type="text"  readonly value="" onclick="showMenu();" class="layui-input" />
+
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <a id="menuBtn" href="#" onclick="showMenu(); return false;">请选择</a>
+            </div>
+
+            <div id="menuContent" class="menuContent" style="display: none; position: absolute; z-index: 100000;">
+                <ul id="treeDemo" class="ztree" style="margin-top:0; width:180px;"></ul>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">超链接</label>
+            <div class="layui-input-block">
+                <input type="text" name="Href"  autocomplete="off" placeholder="填写菜单链接" class="layui-input">
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">小图标</label>
+            <div class="layui-input-block">
+                <input type="text" name="Icon" autocomplete="off" placeholder="请输入小图标icon" class="layui-input">
+
+            </div>
+        </div>
+        @*<div class="layui-form-item">
+            <label class="layui-form-label">手机号码</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" lay-verify="phone" autocomplete="off" placeholder="手机号码不能为空" class="layui-input">
+            </div>
+        </div>*@
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+
+                <input type="checkbox" checked="" name="flag" lay-skin="switch" lay-text="启用|禁用" lay-filter="switchTest" title="是否可用">
+                @*<input type="text" name="phone" lay-verify="phone" autocomplete="off" placeholder="填写状态" class="layui-input">*@
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <div class="layui-btn" lay-submit="" lay-filter="productadd">保存并提交</div>
+                @*<button class="layui-btn" lay-submit="" lay-filter="productsave">保存草稿</button>*@
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section scripts{
+<script src="https://cdn.bootcss.com/jquery/1.12.0/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.all.min.js"></script>
+    @*<script src="~/Content/layui/extension/js/begtable.js"></script>*@
+  <script type="text/javascript">
+
+		  function showMenu() {
+                var cityObj = $("#citySel");
+                var cityOffset = $("#citySel").offset();
+                $("#menuContent").css({ left: cityOffset.left + "px", top: cityOffset.top + cityObj.outerHeight() + "px" }).slideDown("fast");
+                $(document).bind("mousedown", onBodyDown);
+                //$("body").bind("mousedown", onBodyDown);
+            }
+            function hideMenu() {
+                $("#menuContent").fadeOut("fast");
+                //document.onmousedown(function () {
+
+
+                //})
+                $(document).unbind("mousedown", onBodyDown)
+                //$("body").unbind("mousedown", onBodyDown);
+            }
+            function onBodyDown(event) {
+
+                if (!(event.target.id == "menuBtn" || event.target.id == "citySel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
+                    hideMenu();
+                }
+            }
+
+</script>
+    <script>
+        layui.config({
+            base: '../../Content/layui/extension/js/',
+            v: new Date().getTime()
+        }).use(['form', 'layedit', 'laydate', 'common', 'upload'], function () {
+
+            var form = layui.form
+                , $ = layui.jquery
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , common = layui.common
+                , upload = layui.upload;
+
+            var setting = {
+                check: {
+                    enable: true,
+                    chkStyle: "radio",
+                    radioType: "all"
+                },
+                view: {
+                    dblClickExpand: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true
+                    }
+                },
+                callback: {
+                    onClick: onClick,
+                    onCheck: onCheck
+                }
+            };
+
+            var zNodes = [
+                { id: 1, pId: 0, name: "北京" },
+                { id: 2, pId: 0, name: "天津" },
+                { id: 3, pId: 0, name: "上海" },
+                { id: 6, pId: 0, name: "重庆" },
+                { id: 4, pId: 0, name: "河北省", open: true, nocheck: true },
+                { id: 41, pId: 4, name: "石家庄" },
+                { id: 42, pId: 4, name: "保定" },
+                { id: 43, pId: 4, name: "邯郸" },
+                { id: 44, pId: 4, name: "承德" },
+                { id: 5, pId: 0, name: "广东省", open: true, nocheck: true },
+                { id: 51, pId: 5, name: "广州" },
+                { id: 52, pId: 5, name: "深圳" },
+                { id: 53, pId: 5, name: "东莞" },
+                { id: 54, pId: 5, name: "佛山" },
+                { id: 6, pId: 0, name: "福建省", open: true, nocheck: true },
+                { id: 61, pId: 6, name: "福州" },
+                { id: 62, pId: 6, name: "厦门" },
+                { id: 63, pId: 6, name: "泉州" },
+                { id: 64, pId: 6, name: "三明" }
+            ];
+
+            function onClick(e, treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                zTree.checkNode(treeNode, !treeNode.checked, null, true);
+                return false;
+            }
+
+            function onCheck(e, treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                nodes = zTree.getCheckedNodes(true),
+                v = "";
+                vv = "";
+                for (var i = 0, l = nodes.length; i < l; i++) {
+                    v += nodes[i].name + ",";
+                    vv += nodes[i].id + ",";
+
+                }
+                if (v.length > 0) v = v.substring(0, v.length - 1);
+                var cityObj = $("#citySel");
+                cityObj.attr("value", vv);
+                //data.field.menuID = v;
+            }
+
+
+
+            $(function () {
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: common.renderUrl('@Url.Action("GetMenuTree", "Menu")', {
+                            id: ''
+
+                        }),
+                        // async: false, //_config.async,
+                        dataType: 'json',
+                        beforeSend: function () {
+                            layer.load(0);
+                        },
+                        success: function (result, status, xhr) {
+
+                            // $.fn.zTree.init($("#treeDemo"), setting, result.Result);
+                            $.fn.zTree.init($("#treeDemo"), setting, result.Result);
+                            //  $("#selectAll").bind("click", selectAll);
+                        },
+                        error: function (xhr, status, error) {
+
+                            layer.closeAll("loading");
+                            common.msgError('treeDemo error:' + error);
+                        },
+                        complete: function (xhr, status) {
+                            layer.closeAll("loading");
+                        }
+                    });
+
+
+                //layer.msg("页面加载完成");
+
+            })
+
+
+
+
+
+
+
+
+
+
+
+            form.verify({
+                username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                        return '用户名不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                        return '用户名首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)) {
+                        return '用户名不能全为数字';
+                    }
+                }
+
+                //我们既支持上述函数式的方式，也支持下述数组的形式
+                //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+                  , pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                  ]
+
+                   , template: function (value,item) {
+                       if (!value || value.length == 0)
+                       {
+                           return '模板信息，不能为空'
+                       }
+
+                   }
+            });
+
+
+            //监听提交
+            form.on('submit(productadd)', function (data) {
+
+                $(this).text()
+                $.ajax({
+                    type: "POST",
+                    url: common.renderUrl('@Url.Action("AddMenu", "Menu")', {
+
+                    }),
+                    data: data.field,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        layer.load();
+                       // console.log(JSON.stringify(data.field));
+                        //  xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                    },
+                    success: function (res) {
+                        if (res.Code == 0) {
+                            layer.msg("添加成功，用户初始密码为123456");
+                        }
+                        else {
+                            layer.msg(res.ErrorDesc);
+                        }
+                        layer.closeAll();
+                    },
+
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                        layer.closeAll();
+                    }
+                });
+
+
+                return false;
+
+
+                title: '最终的提交信息'
+
+
+
+
+            });
+
+
+
+        });
+
+
+    </script>
+
+
+}
+

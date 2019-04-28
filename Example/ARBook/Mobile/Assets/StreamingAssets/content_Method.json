@@ -1,0 +1,40 @@
+﻿{
+  "Type": "FangShi",
+  "Name": "正铲挖土机作业方式",
+  "CNID": "图1-15",
+  "aburl": "/AssetBundles/p1-15",
+  "TypeCalculation": {
+  },
+  "TypeItem": {
+  },
+  "TypeMethod": {
+    "Methods": [
+      {
+        "Index": 1,
+        "Title": "正向挖土 侧向卸土",
+        "Info": "正向开挖侧向卸土即挖土机向前进方向挖土，汽车停在侧面装土，此开挖方式因挖掘机卸土时回转角小、运输方便、生产效率高而应用较广。",
+        "GameObjectName": "zhengchanwajuejidonghua",
+        "Audio": "http://resource.73cloud.top/p1-15_1.mp3"
+      }
+    ],
+    "Practices": {
+      "TextInfo": "某单位在进行深基坑场地平整，请根据当前地形，将正确的作业工具拖动到场地中：",
+      "IsShowAnswer": false,
+      "TaskPicName": "wallhaven-637809.jpg",
+      "TaskPicUrl": "http://arbookresouce.73data.cn/wallhaven-637809.jpg",
+      "AnswerPicName": "1524478227471.jpg",
+      "AnswerPicUrl": "http://arbookresouce.73data.cn/1524478227471.jpg",
+      "PracObjects": [
+        { "Index": 1, "Url": "http://arbookresouce.73data.cn/1524478227471.jpg" },
+        { "Index": 2, "Url": "http://arbookresouce.73data.cn/1524478227471.jpg" },
+        { "Index": 3, "Url": "http://arbookresouce.73data.cn/1524478227471.jpg" },
+        { "Index": 4, "Url": "http://arbookresouce.73data.cn/1524478227471.jpg" }
+      ],
+      "Answers": [1, 4]
+    }
+  },
+  "TypeTable": {
+  },
+  "TypeProcess": {
+  }
+}

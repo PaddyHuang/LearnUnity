@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: BooksAtlas
+  m_EditorData:
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 4096
+      textureCompression: 2
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingParameters:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: b15056db7d5cedf45bba4cf4180a3409, type: 3}
+    - {fileID: 2800000, guid: cc73d294845b228488f5222e43a73367, type: 3}
+    - {fileID: 2800000, guid: f2bb77e93d4ebf8438b1b5e52fa84184, type: 3}
+    - {fileID: 2800000, guid: fa55f6624c25bd54b8c03dcf2620630d, type: 3}
+    - {fileID: 2800000, guid: f4efbed35ccb4be4dba5089b1c0df5e2, type: 3}
+    - {fileID: 2800000, guid: 76634046af716bf418932a83f31e3f85, type: 3}
+    - {fileID: 2800000, guid: ceedbec4fdcbae3439e78e0ea75a5491, type: 3}
+    - {fileID: 2800000, guid: 2600afa3def2b564bb0f257cd78642b4, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 2600afa3def2b564bb0f257cd78642b4, type: 3}
+  - {fileID: 21300000, guid: ceedbec4fdcbae3439e78e0ea75a5491, type: 3}
+  - {fileID: 21300000, guid: cc73d294845b228488f5222e43a73367, type: 3}
+  - {fileID: 21300000, guid: f2bb77e93d4ebf8438b1b5e52fa84184, type: 3}
+  - {fileID: 21300000, guid: b15056db7d5cedf45bba4cf4180a3409, type: 3}
+  - {fileID: 21300000, guid: fa55f6624c25bd54b8c03dcf2620630d, type: 3}
+  - {fileID: 21300000, guid: f4efbed35ccb4be4dba5089b1c0df5e2, type: 3}
+  - {fileID: 21300000, guid: 76634046af716bf418932a83f31e3f85, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - "\u5730\u7406\u79D1\u5B66\u5BFC\u8BBA"
+  - "\u666E\u901A\u52A8\u7269\u5B66"
+  - "\u4E66\u672C2"
+  - "\u4E66\u672C3"
+  - "\u4E66\u672C1"
+  - "\u4E66\u672C4"
+  - "\u4E66\u672C5"
+  - "\u884C\u661F\u79D1\u5B66"
+  m_Tag: BooksAtlas
+  m_IsVariant: 0

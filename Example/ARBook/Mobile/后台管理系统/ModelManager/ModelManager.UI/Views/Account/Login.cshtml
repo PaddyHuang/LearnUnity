@@ -1,0 +1,143 @@
+﻿@model ModelManager.UI.Models.LoginViewModel
+
+@{
+    
+    Layout = null;
+    ViewBag.Title = "登录";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>登录</title>
+
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/login.css" rel="stylesheet" />
+</head>
+<body class="beg-login-bg">
+    <div class="beg-login-box">
+        <header>
+            <h1>后台登录</h1>
+        </header>
+        <div class="beg-login-main">
+            <form class="layui-form" method="post">
+
+                @Html.AntiForgeryToken()
+            
+                <div class="layui-form-item">
+                    <label class="beg-login-icon">
+                        <i class="layui-icon">&#xe612;</i>
+                    </label>
+                    <input id="returnurl" type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                    <input type="text" name="userName" lay-verify="required" autocomplete="off" placeholder="这里输入登录名" class="layui-input">
+                </div>
+                <div class="layui-form-item">
+                    <label class="beg-login-icon">
+                        <i class="layui-icon">&#xe642;</i>
+                    </label>
+                    <input type="password" name="password" id="password" lay-verify="password" autocomplete="off" placeholder="这里输入密码" class="layui-input">
+                </div>
+                <div class="layui-form-item">
+                    <div class="beg-pull-left beg-login-remember">
+                        <label>记住帐号？</label>
+                        <input type="checkbox" name="rememberMe" value="true" lay-skin="switch" checked/>
+                        <div class="layui-btn layui-btn-primary" lay-submit lay-filter="login">
+                            <i class="layui-icon">&#xe650;</i> 登录
+                        </div>
+                    </div>
+                    <div class="beg-clear"></div>
+                </div>
+            </form>
+        </div>
+        <footer>
+            <p>BIM后台管理系统 © 七三科技</p>
+        </footer>
+    </div>
+    <script src="~/Content/layui/layui.js"></script>
+  
+    <script>
+        layui.config({
+            base: '../../Content/layui/extension/js/',
+            v: new Date().getTime()
+        }).use(['layer', 'form', 'common'], function () {
+            var layer = layui.layer,
+                $ = layui.jquery,
+                common = layui.common,
+                form = layui.form;
+
+
+
+            form.verify({
+                username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                        return '用户名不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                        return '用户名首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)) {
+                        return '用户名不能全为数字';
+                    }
+                }
+
+                //我们既支持上述函数式的方式，也支持下述数组的形式
+                //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+               , pass: [
+                 /^[\S]{6,12}$/
+                 , '密码必须6到12位，且不能出现空格'
+               ]
+
+                , template: function (value, item) {
+                    if (!value || value.length == 0) {
+                        return '模板信息，不能为空'
+                    }
+
+                }
+            });
+
+            form.on('submit(login)', function (data) {
+                $.ajax({
+                    type: "POST",
+                    url: common.renderUrl('@Url.Action("Login", "Account")', {
+
+                    }),
+                    data: data.field,
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        layer.load();
+                        //  xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+                    },
+                    success: function (res) {
+                        //console.log("提交成功:" + JSON.stringify(res))
+                      
+
+                        if (res.Code == 0) {
+                            layer.msg("登录成功");
+
+                            location.href = '@Url.Action("Index","Home")';
+                        }
+                        else
+                        {
+                            layer.msg("登录失败:" + res.ErrorDesc);
+                        }
+
+
+                        layer.closeAll("loading");
+                    },
+
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+
+                        layer.closeAll("loading");
+                    }
+                });
+
+               // location.href = '@Url.Action("Index", "Home")';
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

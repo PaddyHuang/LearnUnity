@@ -1,0 +1,402 @@
+﻿@model List<ModelManager.Domain.Entitys.Category>
+@{
+    ViewBag.Title = "TestPage";
+    Layout = "~/Views/Shared/WxLayout.cshtml";
+
+    var id = ViewBag.ID;
+
+    var initIndex = false;
+
+
+    if (!string.IsNullOrEmpty(id))
+    {
+        initIndex = true; 
+    }
+
+}
+
+@section styles{
+
+    <link href="~/Content/zTree_v3/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+    <link href="~/Content/zTree_v3/css/metroStyle/metroStyle.css" rel="stylesheet" />
+
+    <style type="text/css">
+        ul.ztree {
+            margin-top: 10px;
+            border: 1px solid #617775;
+            background: #f0f6e4;
+            overflow-y: scroll;
+            overflow-x: auto;
+        }
+
+        .ztree li span.button.add {
+            margin-left: 2px;
+            margin-right: -1px;
+            background-position: -144px 0;
+            vertical-align: top;
+            *vertical-align: middle;
+        }
+
+        ul.ztree {
+            background: #333;
+            overflow-x: scroll;
+        }
+
+        .ztree li a {
+            color: #f8f8f8;
+        }
+
+        .ztree li span.button {
+            background-image: url(/Content/zTree_v3/css/metroStyle/img/metro.png);
+        }
+    </style>
+}
+
+
+@helper CateShow(ModelManager.Domain.Entitys.Category cate)
+{
+
+
+
+    var catesList = Model.Where(x => x.ParentID.Equals(cate.ID));
+
+    if (catesList.Count() == 0)
+    {
+        return;
+    }
+
+
+
+}
+
+
+@helper ShowTree(List<ModelManager.Domain.Entitys.Category> cates)
+{
+    <ul>
+        @foreach (var cate in cates.OrderBy(x => x.CateNum).ToList())
+        {
+            <li>
+                <a href="#" id="@cate.ID"></a>  @cate.Name
+
+                @{
+
+            var childlist = @Model.Where(x => x.ParentID.Equals(cate.ID));
+                }
+
+                @if (childlist.Count() > 0)
+                {
+                    @ShowTree(childlist.ToList())
+                }
+            </li>
+        }
+    </ul>
+}
+
+<div class="wrap">
+    <div class="tabs">
+
+        @{
+            var cates = Model.Where(x => x.ParentID.Equals("0")).ToList();
+            int topIndex = 0;
+        }
+
+
+
+        @if (initIndex)
+        {
+                 foreach (var item in cates.OrderBy(x => x.CateNum).ToList())
+                    {
+
+                        if (id == item.ID)
+                        {
+                            <a href="#@item.ID" data-id="@item.ID" hidefocus="true" class="active">@item.Name</a>
+                            
+                        }
+                        else
+                        {
+
+                            <a href="#@item.ID" data-id="@item.ID" hidefocus="true">@item.Name</a>
+                        }
+                        //建筑工程标准图集  、 工程识图和图例
+                    }
+        }
+        else
+        {
+                    foreach (var item in cates.OrderBy(x => x.CateNum).ToList())
+                    {
+
+                        if (topIndex == 0)
+                        {
+                            <a href="#@item.ID" data-id="@item.ID" hidefocus="true" class="active">@item.Name</a>
+                            topIndex++;
+                        }
+                        else
+                        {
+
+                            <a href="#@item.ID" data-id="@item.ID" hidefocus="true">@item.Name</a>
+                        }
+                        //建筑工程标准图集  、 工程识图和图例
+                    }
+        }
+
+
+
+        @*<a href="#tab2" hidefocus="true">建筑工程标准图集</a>
+            <a href="#tab3" hidefocus="true">工程识图和图例</a>*@
+
+
+
+    </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+
+
+
+            @foreach (var item in cates.OrderBy(x => x.CateNum).ToList())
+            {
+                <div class="swiper-slide" id="@item.ID">
+                    <div class="content-slide">
+                        <div class="zTreeDemoBackground left">
+                            @{
+                                var treeID = "treeDemo" + @item.ID;
+                            }
+
+                            <ul id="@treeID" class="ztree"></ul>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/Content/layui/layui.js"></script>
+    <script src="~/Content/layui/extension/js/layout.js"></script>
+    <script src="~/Content/zTree_v3/js/jquery.ztree.all.min.js"></script>
+    <script src="~/Content/weixin/js/jquery.redirect.js"></script>
+    @*<script src="https://cdn.bootcss.com/zTree.v3/3.5.29/js/jquery.ztree.all.min.js"></script>*@
+
+    <script>
+        layui.config({
+            base: '../../Content/layui/extension/js/',
+            v: new Date().getTime()
+        }).use(['form', 'layedit', 'laypage', 'layer', 'element', 'laydate', 'common', 'table', 'upload'], function () {
+            var form = layui.form
+            , $ = layui.jquery
+            , layer = layui.layer
+             , table = layui.table //表格
+            , layedit = layui.layedit
+            , laydate = layui.laydate
+            , common = layui.common
+            , upload = layui.upload;
+
+            function RefreshTable(treeNode) {
+                if (treeNode) {
+                    if (treeNode.isParent) {
+                        var zTree = $.fn.zTree.getZTreeObj("treeDemo" + $($(".tabs a.active")[0]).data("id"));
+                        if (treeNode.open) {
+                            zTree.expandNode(treeNode, false, true);
+                        }
+                        else {
+                            zTree.expandNode(treeNode, true, true);
+                        }
+                    }
+                    else {                      
+                        $.ajax({
+                            type: "POST",
+                            url: common.renderUrl('@Url.Action("GetModelByName", "Model")', {
+                                name: treeNode.name,
+                            }),
+                            dataType: 'json',
+                            beforeSend: function () {
+                                layer.load(0);
+                            },
+                            success: function (result, status, xhr) {
+
+                                //$.fn.zTree.init($("#treeDemo" + $($(".tabs a.active")[0]).data("id")), setting, result.Result);
+                                //$("#selectAll").bind("click", selectAll);
+                                //$that.addClass('loaded');
+
+
+                                console.log(result);
+
+
+                                if (result.Code == 0) {
+                                    //使用post 跳转界面
+                                    $.redirect("http://www.73data.cn/mod/examples/gl.php",
+                                            {
+                                                id: result.Result.ModelcontentPath,
+                                                title: result.Result.Name,
+                                                description: result.Result.Desc,
+                                                pic: result.Result.ThumbUrl,
+                                                bigpic: result.Result.ImgUrl,
+                                                showtype: result.Result.IsShowThumb,
+                                                realimg: result.Result.RealImgUrl
+                                             
+                                            }, 
+                                            "POST", null, null, true);
+                                }
+                                else {
+                                    layer.msg("该目录的内容正在完善...")
+
+                                }
+
+
+                                layer.closeAll("loading");
+                            },
+                            error: function (xhr, status, error) {
+                                //common.msgError('treeDemo error:' + error);
+                                layer.closeAll("loading");
+                            },
+                            complete: function (xhr, status) {
+                                layer.closeAll("loading");
+                            }
+                        });
+
+
+                    }
+                    return;
+                }
+            }
+            function zTreeOnClick(event, treeId, treeNode) {
+                RefreshTable(treeNode);
+            }
+            var setting = {
+                view: {
+
+                    selectedMulti: false
+                },
+                edit: {
+                    enable: false,
+                    editNameSelectAll: false,
+                },
+                data: {
+
+                    simpleData: {
+                        enable: true,
+
+                    }
+
+                },
+                callback: {
+
+                    onClick: zTreeOnClick
+                }
+            };
+
+            function getTime() {
+                var now = new Date(),
+                h = now.getHours(),
+                m = now.getMinutes(),
+                s = now.getSeconds(),
+                ms = now.getMilliseconds();
+                return (h + ":" + m + ":" + s + " " + ms);
+            }
+
+            function selectAll() {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo" + $($(".tabs a.active")[0]).data("id"));
+            }
+            $(function () {
+                var tabsSwiper = new Swiper('.swiper-container', {
+                    speed: 500,
+                    onSlideChangeStart: function () {
+                        $(".tabs .active").removeClass('active');
+                        $(".tabs a").eq(tabsSwiper.activeIndex).addClass('active');
+                    }
+                });
+                $(".tabs a").on('touchstart mousedown', function (e) {
+                    e.preventDefault()
+                    $(".tabs .active").removeClass('active');
+                    $(this).addClass('active');
+                    var $that = $(this);
+
+
+                    ///是否已经加载过
+                    if (!$that.hasClass("loaded")) {
+                        $.ajax({
+                            type: "POST",
+                            url: common.renderUrl('@Url.Action("GetWxList", "Category")', {
+                                id: $($(".tabs a.active")[0]).data("id")
+
+                            }),
+                            dataType: 'json',
+                            beforeSend: function () {
+                                layer.load(0);
+                            },
+                            success: function (result, status, xhr) {
+
+                                $.fn.zTree.init($("#treeDemo" + $($(".tabs a.active")[0]).data("id")), setting, result.Result);
+                                $("#selectAll").bind("click", selectAll);
+                                $that.addClass('loaded');
+
+                                $('.swiper-wrapper,.swiper-slide').css("height", "auto")
+
+                                layer.closeAll("loading");
+
+                                tabsSwiper.swipeTo($that.index());
+
+                            },
+                            error: function (xhr, status, error) {
+                                common.msgError('treeDemo error:' + error);
+                                layer.closeAll("loading");
+                            },
+                            complete: function (xhr, status) {
+                                tabsSwiper.swipeTo($(this).index());
+                                layer.closeAll("loading");
+                            }
+                        });
+                    }
+                    else
+                    {
+                        tabsSwiper.swipeTo($that.index());
+                    }
+
+                   
+                });
+
+                $(".tabs a").click(function (e) {
+                    e.preventDefault();
+                });
+
+                $(".tabs a.active").trigger("mousedown");
+                @*$.ajax({
+                    type: "POST",
+                    url: common.renderUrl('@Url.Action("GetWxList", "Category")', {
+                        id: $($(".tabs a.active")[0]).data("id")
+                    }),
+                    dataType: 'json',
+                    beforeSend: function () {
+                        layer.load(0);
+                    },
+                    success: function (result, status, xhr) {
+
+                        $.fn.zTree.init($("#treeDemo" + $($(".tabs a.active")[0]).data("id")), setting, result.Result);
+
+                        $($(".tabs a.active")[0]).addClass("loaded")
+                        $("#selectAll").bind("click", selectAll);
+                        $('.swiper-wrapper,.swiper-slide').css("height", "auto")
+                        layer.closeAll("loading");
+                    },
+                    error: function (xhr, status, error) {
+                        common.msgError('treeDemo error:' + error);
+                        layer.closeAll("loading");
+                    },
+                    complete: function (xhr, status) {
+                        layer.closeAll("loading");
+                    }
+                });*@
+            })
+
+
+        });
+    </script>
+}

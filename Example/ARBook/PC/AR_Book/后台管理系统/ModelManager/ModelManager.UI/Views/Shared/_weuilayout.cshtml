@@ -1,0 +1,94 @@
+﻿@{
+    Layout = null;
+
+    if (ViewBag.Title == null)
+    {
+        ViewBag.Title = string.Empty;
+    }
+    //ViewBag.Title = string.Empty ;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @*<link href="~/Content/weixin/weui.css" rel="stylesheet" />
+        <link href="~/Content/weixin/css/jquery-weui.css" rel="stylesheet" />
+        <link href="~/Content/weixin/css/demos.css" rel="stylesheet" />
+        <link href="~/Content/weixin/css/style.css" rel="stylesheet" />*@
+
+    <link href="http://p21686b06.bkt.clouddn.com/weui.min.css" rel="stylesheet" />
+    <link href="http://p21686b06.bkt.clouddn.com/css/jquery-weui.min.css" rel="stylesheet" />
+    <link href="http://p21686b06.bkt.clouddn.com/css/demos.css" rel="stylesheet" />
+    <link href="http://p21686b06.bkt.clouddn.com/css/style.css" rel="stylesheet" />
+    <style>
+        .weui-navbar {
+            background: linear-gradient(to bottom, #fff 0%,#efefef 100%);
+        }
+
+        .weui-navbar__item.weui-bar__item--on {
+            color: #e21323;
+            font-weight: bold;
+            background-color: inherit;
+        }
+
+        .weui-navbar__item.proinfo-tab-tit.weui-bar__item--on:before {
+            content: "";
+            width: 34px;
+            height: 3px;
+            background: #e21323;
+            position: absolute;
+            left: 50%;
+            margin-left: -17px;
+            bottom: -1px;
+            z-index: 10;
+        }
+
+        .swiper-container {
+            width: 100%;
+        }
+
+            .swiper-container img {
+                display: block;
+                width: 100%;
+            }
+    </style>
+    @RenderSection("styles", required: false)
+
+</head>
+<body>
+
+    @RenderSection("header", required: false)
+
+    @RenderBody()
+
+</body>
+</html>
+
+<script src="http://p21686b06.bkt.clouddn.com/jquery-2.1.4.js"></script>
+
+<script src="http://p21686b06.bkt.clouddn.com/fastclick.js"></script>
+
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+</script>
+<script src="http://p21686b06.bkt.clouddn.com/jquery-weui.min.js"></script>
+
+<script src="http://p21686b06.bkt.clouddn.com/swiper.js"></script>
+
+
+<script>
+    $(function () {
+        $("img").error(function () {
+            $("img").replaceWith('<img src="../Images/qskjerror.jpg" />');
+        });
+
+    })
+
+</script>
+
+@RenderSection("scripts", required: false)

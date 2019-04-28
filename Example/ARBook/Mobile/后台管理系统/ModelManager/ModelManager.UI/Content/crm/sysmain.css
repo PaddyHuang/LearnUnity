@@ -1,0 +1,25 @@
+﻿html, body, div, p, ul,li, ol, dl, dt, dd, form, h1, h2, h3, h4, h5, h6, input, fieldset, legend, optgroup, table, tr, td{ margin:0; padding:0; }
+html, body, form { font-family:"Microsoft Yahei","微软雅黑e软雅黑6f\96c5\9ed1",Tahoma,Arial,STHeiti,sans-serif; font-size:12px; color:#444; line-height:18px; text-align:center; }
+h1, h2, h3, h4, h5, h6, em, strong, input, textarea,table{ font-family:"Microsoft Yahei","微软雅黑e软雅黑6f\96c5\9ed1",Tahoma,Arial,STHeiti,sans-serif; font-size:12px; font-style:normal; font-weight:normal; }
+.clearfix{zoom:1;}
+.clearfix:after{content:´.´;display:block;visibility:none;height:0;clear:both;}
+div{margin:0;padding:0;}
+a img { border:0; }
+a{text-decoration:none; color:#343434; }
+a:hover { text-decoration:none; color:#FF9933;}
+#head{width:100%;margin:0px auto;display: block;height:81px;background-color:#146e3c;text-align:right;}
+#head .logo{width:300px;float:left;text-align:left;}
+#head .logo img{margin:10px 0 10px 0px;padding:0 0 0 20px;}
+#head .link{float:right;padding-right:50px;width:350px;margin-top:30px;text-align:right;}
+#head .link a{color:#ffffff;font-size:14px;}
+#head .link a:hover{color:#FF9933;}
+#head .link .splitter{background-color: #ffffff;font-size: 1px;height: 12px;line-height: 1px;margin: 3px 10px 0;overflow: hidden;width: 1px;}
+#content .content-right{display: block;float:right;width:100%;height:100%;margin-left:-25em;}
+#content .content-right .content{display: block;margin-left:200px;height:100%;}
+#content .content-left{display: block;height:100%;width:200px;float:left;background-color: #ffffff;border-right:1px solid #e0ded7;overflow:auto;}
+#content .content-left ul{margin:20px 0px 20px 0px;}
+#content .content-left ul li{height:28px;line-height:28px;text-align:center;font-size:14px;list-style-type: none}
+#content .content-left ul li a{display:block;height:35px;width:98%;}
+#content .content-left ul li a:hover{display:block;height:35px;width:100%;background-color:#146e3c;margin:0px auto;color:#ffffff;}
+#content .content-left ul li .cur{display:block;height:35px;width:100%;background-color:#146e3c;margin:0px auto;color:#ffffff;}
+#bottom{width: 100%;height: 30px;background-color: #f5f5f5;line-height: 30px;text-align: center;font-size: 12px;border-top:1px solid #e0ded7;}

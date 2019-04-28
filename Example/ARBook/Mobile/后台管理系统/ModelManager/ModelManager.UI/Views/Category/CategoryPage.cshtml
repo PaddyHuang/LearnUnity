@@ -1,0 +1,866 @@
+﻿@model List<ModelManager.Domain.Entitys.Category>
+@{
+    ViewBag.Title = "模型目录";
+    Layout = "~/Views/Shared/_weuilayout.cshtml";
+    var id = ViewBag.ID;
+
+    var initIndex = false;
+
+
+    if (!string.IsNullOrEmpty(id))
+    {
+        initIndex = true;
+    }
+}
+
+@section styles{
+
+   
+    <style> body {
+        font-family: 'Microsoft YaHei UI';
+        font-size:14px;
+        background-color:#f5f5f5;
+    }
+        .weui-search-bar {
+            background-color:white;
+        }
+        
+        
+        
+         .menu-left ul li {
+            padding-top: 0.6em;
+            background-color: #FFFFFF;
+            height: auto;
+            min-height: 42px;
+            line-height: 1.8em;
+            padding-top: 0.6em;
+            padding-bottom: 0.6em;
+            padding-left: 0.4em;
+            padding-right: 0.4em;
+        }
+
+
+            .menu-left ul li.active:before {
+                background: #0094DE;
+                color: #0094DE;
+                width:4px;
+            }
+        .menu-left ul li.active > a {
+            color: #0094DE;
+        }
+            .menu-left ul li.active {
+                background-color: #F5F5F5;
+            }
+
+        .menu-left {
+            background: #ffffff;
+        }
+
+
+
+        .menu-right h5:first-child {
+            margin-top: 0.5em;
+        }
+
+        .menu-right {
+           background-color:#F5F5F5;
+        }
+        .menu-right h5 {
+            /*color: #111;*/
+            font-weight: bold;
+            color:black;
+            padding-bottom:0px;
+            border:none;
+            /*border-bottom: 1px solid #0C97D2;*/
+        }
+    /*.menu-left ul li a {
+
+            }*/
+    .menu-left ul li a {
+        color: #111;
+    }
+
+        .menu-left ul li {
+            /*border-bottom: 1px solid #F5EEEE;*/
+            font-size: 14px;
+        }
+
+    /*.menu-left ul li > a {
+                color:white;
+                font-size: 1.2em;
+                font-weight: bold;
+            }*/
+    .w-3 {
+        width: auto;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+    }
+
+
+        .menu-right ul li span {
+            color: black;
+            font-size: 13px;
+            /*padding-bottom: 4px;*/
+            border-bottom: 2px solid #fff;
+        }
+
+
+        .menu-right ul {
+            background-color: white;
+        
+            position: relative;
+        }
+
+
+
+
+        /*li.blue {
+            background-color: #0074C5;
+            color: #fff;
+        }*/
+
+
+            .menu-right ul li.blue span {
+                color: #0094DE;
+                border-bottom: 2px solid #0094DE;
+            }
+
+
+
+
+    .hidden {
+        display: none;
+    }
+
+        li.kuanlink {
+            float: left;
+            /*padding: .1rem .4rem;*/
+            box-sizing: border-box;
+            width: auto;
+        }
+
+        li.kuanlink > a {
+            float: left;
+            position: relative;
+        }
+
+        .menu-right ul li.kuanlink span {
+            /*color: white;*/
+            padding: .1rem .4rem;
+            border: 1px solid #F5F5F5;
+            margin-left: 4px;
+            margin-top: 2px;
+            color: #615E5D;
+            margin-bottom: 10px;
+        }
+
+
+    .tiao {
+        background-color: aliceblue;
+        /*background-color: #0074C5;*/
+    }
+
+    </style >
+
+
+
+
+}
+@helper  ShowTree(string id)
+{
+
+
+    var children = Model.Where(x => x.ParentID.Equals(id)).ToList();
+
+
+    if (children.Count > 0)
+    {
+       // return true;
+    }
+
+  //  return false;
+
+    @*<ul>
+            @foreach (var cate in cates.OrderBy(x => x.CateNum).ToList())
+            {
+                <li>
+                    <a href="#" id="@cate.ID"></a>  @cate.Name
+
+                    @{
+
+                var childlist = @Model.Where(x => x.ParentID.Equals(cate.ID));
+                    }
+
+                    @if (childlist.Count() > 0)
+                    {
+                        @ShowTree(childlist.ToList())
+                    }
+                </li>
+            }
+        </ul>*@
+}
+<div class="wy-content">
+    <div class="category-top">
+        <header class="weui-header">
+            <div class="weui-search-bar" id="searchBar">
+                <form class="weui-search-bar__form" id="form">
+                    <div class="weui-search-bar__box">
+                        <i class="weui-icon-search"></i>
+                        <input type="search" class="weui-search-bar__input" id="searchInput" placeholder="搜索您想要的模型名称" required="">
+                        <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
+                    </div>
+                    <label class="weui-search-bar__label" id="searchText" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                        <i class="weui-icon-search"></i>
+                        <span>搜索您想要的模型名称</span>
+                    </label>
+                </form>
+                <a href="javascript:void(0);" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
+            </div>
+
+            <div class="weui-cells searchbar-result" id="searchResult" style="display: none;">
+
+            </div>
+
+        </header>
+    </div>
+    <aside>
+        <div class="menu-left scrollbar-none" id="sidebar">
+            <ul>
+
+                @{
+                    var cates = Model.Where(x => x.ParentID.Equals("0")).ToList();
+                    int topIndex = 0;
+                }
+
+
+
+                @if (initIndex)
+                {
+                    foreach (var item in cates.OrderBy(x => x.CateNum).ToList())
+                    {
+
+                        if (id == item.ID)
+                        {
+
+                    <li class="active"><a href="javascript:void(0);" data-id="@item.ID" hidefocus="true" class="active">@item.Name</a></li>
+
+
+
+                        }
+                        else
+                        {
+                    <li><a href="javascript:void(0);" data-id="@item.ID" hidefocus="true">@item.Name</a></li>
+
+                        }
+                        //建筑工程标准图集  、 工程识图和图例
+                    }
+                }
+                else
+                {
+                    foreach (var item in cates.OrderBy(x => x.CateNum).ToList())
+                    {
+
+                        if (topIndex == 0)
+                        {
+                    <li class="active"><a href="javascript:void(0);" data-id="@item.ID" hidefocus="true" class="active">@item.Name</a></li>
+                            topIndex++;
+                        }
+                        else
+                        {
+
+                    <li><a href="javascript:void(0);" data-id="@item.ID" hidefocus="true">@item.Name</a></li>
+                        }
+                        //建筑工程标准图集  、 工程识图和图例
+                    }
+                }
+            </ul>
+        </div>
+    </aside>
+
+    @if (initIndex)
+    {
+
+
+            foreach (var item in cates.OrderBy(x => x.CateNum).ToList())
+            {
+
+
+                if (id == item.ID)
+                {
+        <section class="menu-right padding-all j-content">
+
+            @* *******获取节数据****** *@
+            @{
+
+                                         var subcates = Model.Where(x => item.ID.Equals(x.ParentID)).OrderBy(x => x.CateNum).ToList();
+
+            }
+
+            @foreach (var jieitem in subcates)
+                                {
+                <h5>@jieitem.Name</h5>
+                                    var kuancates = Model.Where(x => jieitem.ID.Equals(x.ParentID)).OrderBy(x => x.CateNum).ToList();
+                <ul style="min-height: 2em; padding-top: 1em; padding-bottom: 1em;">
+                    @if (kuancates.Count > 0)
+{
+    // int index = 3;
+
+    foreach (var kuanitem in kuancates)
+    {
+
+        var children = Model.Where(x => x.ParentID.Equals(kuanitem.ID)).ToList();
+
+
+        var count = children.Count;
+
+                        <li class="w-3 jie" data-id="@kuanitem.ID" data-child="@count" data-name="@kuanitem.Name"><a href="javascript:void(0);"></a><span>@kuanitem.Name</span></li>
+    }
+
+}
+                    <li style="float:left;width:100%;" class="hidden tiao">
+                        <ul style="border-top: dashed 1px #dde2e6; padding-top: 0.6em; ">
+                            @*<li><a href="javascript:void(0);"></a><span>测试</span></li>*@
+
+                        </ul>
+                    </li>
+                </ul>
+                                }
+
+        </section>
+                }
+                else
+                {
+        <section class="menu-right padding-all j-content" style="display:none">
+
+            @* *******获取节数据****** *@
+            @{
+
+                    var subcates = Model.Where(x => item.ID.Equals(x.ParentID)).OrderBy(x => x.CateNum).ToList();
+
+            }
+
+            @foreach (var jieitem in subcates)
+                        {
+                <h5>@jieitem.Name</h5>
+                            var kuancates = Model.Where(x => jieitem.ID.Equals(x.ParentID)).OrderBy(x => x.CateNum).ToList();
+                <ul style="min-height: 2em; padding-top: 1em; padding-bottom: 1em;">
+                    @if (kuancates.Count > 0)
+                    {
+
+
+                        foreach (var kuanitem in kuancates)
+                        {
+                            var children = Model.Where(x => x.ParentID.Equals(kuanitem.ID)).ToList();
+
+
+                            var count = children.Count;
+
+                                            <li class="w-3 jie" data-id="@kuanitem.ID" data-child="@count" data-name="@kuanitem.Name"><a href="javascript:void(0);"></a><span>@kuanitem.Name</span></li>
+                        }
+
+                    }
+
+                    <li style="float:left;width:100%;" class="hidden tiao">
+                        <ul style="border-top: dashed 1px #dde2e6; padding-top: 0.6em; ">
+                            @*<li><a href="javascript:void(0);"></a><span>测试</span></li>*@
+
+                        </ul>
+                    </li>
+                </ul>
+                        }
+
+        </section>
+
+                }
+
+
+            }
+    }
+    else
+    {
+
+                topIndex = 0;
+                foreach (var item in cates.OrderBy(x => x.CateNum).ToList())
+                    {
+
+                        if (topIndex == 0)
+                        {
+
+        <section class="menu-right padding-all j-content">
+
+            @* *******获取节数据****** *@
+            @{
+
+                            var subcates = Model.Where(x => item.ID.Equals(x.ParentID)).OrderBy(x => x.CateNum).ToList();
+
+            }
+
+            @foreach (var jieitem in subcates)
+                                {
+                <h5>@jieitem.Name</h5>
+                                    var kuancates = Model.Where(x => jieitem.ID.Equals(x.ParentID)).OrderBy(x => x.CateNum).ToList();
+                <ul style="min-height: 2em; padding-top: 1em;padding-bottom:1em;">
+                    @if (kuancates.Count > 0)
+                                        {
+
+
+                                            foreach (var kuanitem in kuancates)
+                                            {
+                                                var children = Model.Where(x => x.ParentID.Equals(kuanitem.ID)).ToList();
+
+
+                                                var count = children.Count;
+
+                        <li class="w-3 jie" data-id="@kuanitem.ID" data-child="@count" data-name="@kuanitem.Name"><a href="javascript:void(0);"></a><span>@kuanitem.Name</span></li>
+                                            }
+
+                                        }
+                    <li style="float:left;width:100%;" class="hidden tiao">
+                        <ul style="border-top: dashed 1px #dde2e6; padding-top: 0.6em; ">
+                          
+
+                        </ul>
+                    </li>
+
+                </ul>
+                                }
+
+
+
+        </section>
+                            topIndex++;
+                        }
+                        else
+                        {
+
+        <section class="menu-right padding-all j-content" style="display:none">
+
+            @* *******获取节数据****** *@
+            @{
+
+                            var subcates = Model.Where(x => item.ID.Equals(x.ParentID)).OrderBy(x => x.CateNum).ToList();
+
+            }
+
+            @foreach (var jieitem in subcates)
+                                    {
+                <h5>@jieitem.Name</h5>
+                                        var kuancates = Model.Where(x => jieitem.ID.Equals(x.ParentID)).OrderBy(x => x.CateNum).ToList();
+                <ul style="min-height: 2em; padding-top: 1em; padding-bottom: 1em;">
+                    @if (kuancates.Count > 0)
+                                        {
+
+
+                                            foreach (var kuanitem in kuancates)
+                                            {
+
+                                                var children = Model.Where(x => x.ParentID.Equals(kuanitem.ID)).ToList();
+
+
+                                                var count = children.Count;
+
+                        <li class="w-3 jie" data-id="@kuanitem.ID" data-child="@count" data-name="@kuanitem.Name"><a href="javascript:void(0);"></a><span>@kuanitem.Name</span></li>
+                                            }
+
+                                        }
+
+                    <li style="float:left;width:100%;" class="hidden tiao">
+                        <ul style="border-top: dashed 1px #dde2e6; padding-top: 0.6em; ">
+                            @*<li><a href="javascript:void(0);"></a><span>测试</span></li>*@
+
+                        </ul>
+                    </li>
+                </ul>
+                                    }
+
+        </section>
+
+                            //<li><a href="#@item.ID" data-id="@item.ID" hidefocus="true">@item.Name</a></li>
+                        }
+                        //建筑工程标准图集  、 工程识图和图例
+                    }
+    }
+
+
+
+</div>
+
+@section scripts{
+    <script src="~/Content/weixin/js/jquery.redirect.js"></script>
+    <script type="text/javascript">
+
+
+        $(function () {
+
+
+            /* ***************start************* */
+
+            var $searchBar = $('#searchBar'),
+                $searchResult = $('#searchResult'),
+                $searchText = $('#searchText'),
+                $searchInput = $('#searchInput'),
+                $searchClear = $('#searchClear'),
+                $searchCancel = $('#searchCancel');
+
+            function hideSearchResult() {
+                $searchResult.hide();
+                $searchInput.val('');
+            }
+            function cancelSearch() {
+                hideSearchResult();
+                $searchBar.removeClass('weui-search-bar_focusing');
+                $searchText.show();
+            }
+
+            $searchText.on('click', function () {
+                $searchBar.addClass('weui-search-bar_focusing');
+                $searchInput.focus();
+            });
+
+            $(document).on('click', '#searchResult p', function () {
+
+                var $thatp = $(this);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetModelByName", "Model")' + "?name=" + encodeURIComponent($thatp.text()),
+                    dataType: 'json',
+                    beforeSend: function () {
+                        // $.showLoading();
+                    },
+                    success: function (result, status, xhr) {
+                        if (result.Code == 0) {
+                            $.redirect("http://www.73data.cn/mod/examples/gl.php",
+                                    {
+                                        id: result.Result.ModelcontentPath,
+                                        title: result.Result.Name,
+                                        description: result.Result.Desc,
+                                        pic: result.Result.ThumbUrl,
+                                        bigpic: result.Result.ImgUrl,
+                                        showtype: result.Result.IsShowThumb,
+                                        realimg: result.Result.RealImgUrl
+                                    },
+                                    "POST", null, null, true);
+
+                        }
+                        else {
+                            // layer.msg("该目录的内容正在完善...")
+
+                            $.alert("该目录的内容正在完善...");
+
+                        }
+
+
+                        // layer.closeAll("loading");
+                    },
+                    error: function (xhr, status, error) {
+                        //common.msgError('treeDemo error:' + error);
+                        // layer.closeAll("loading");
+                    },
+                    complete: function (xhr, status) {
+                        $.hideLoading();
+                    }
+                });
+
+
+            })
+
+            $searchInput.removeClass("searching");
+
+
+            $searchInput
+                .on('blur', function () {
+                    if (!this.value.length) cancelSearch();
+                })
+                .on('input', function () {
+                    if (this.value.length) {
+
+
+
+                        if ($(this).hasClass("searching")) {
+
+
+
+                        }
+                        else {
+
+                            $(this).removeClass("searching");
+                            $(this).addClass("searching");
+
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("GetKeyWords", "Category")' + "?search=" + encodeURIComponent(this.value),
+                                dataType: 'json',
+                                beforeSend: function () {
+                                    //  $.showLoading();
+                                },
+                                success: function (result, status, xhr) {
+                                    if (result.Code == 0) {
+
+
+                                        var html = "";
+                                        if (result.Result.length > 0) {
+
+
+                                            for (var i = 0; i < result.Result.length; i++) {
+                                                html += ('<div class="weui-cell weui-cell_access">'
+                                               + '<div class="weui-cell__bd weui-cell_primary">'
+                                               + '<p>' + result.Result[i] + '</p>'
+                                               + '</div>'
+                                               + '</div>');
+                                            }
+
+
+                                        }
+
+
+                                        $searchResult.html(html);
+                                        //$.redirect("http://www.73data.cn/mod/examples/gl.php",
+                                        //        {
+                                        //            id: result.Result.ModelcontentPath,
+                                        //            title: result.Result.Name,
+                                        //            description: result.Result.Desc,
+                                        //            pic: result.Result.ThumbUrl,
+                                        //            bigpic: result.Result.ImgUrl
+
+                                        //        },
+                                        //        "POST", null, null, true);
+
+
+
+                                    }
+                                    else {
+
+                                    }
+
+
+                                    // layer.closeAll("loading");
+                                },
+                                error: function (xhr, status, error) {
+                                    ;
+                                },
+                                complete: function (xhr, status) {
+                                    $.hideLoading();
+
+                                    $searchInput.removeClass("searching");
+                                }
+                            });
+                        }
+                        $searchResult.show();
+                    } else {
+                        $searchResult.hide();
+                    }
+                })
+            ;
+            $searchClear.on('click', function () {
+                hideSearchResult();
+                $searchInput.focus();
+            });
+            $searchCancel.on('click', function () {
+                cancelSearch();
+                $searchInput.blur();
+            });
+
+
+
+            $('#form').submit(function (obj) {
+
+                // $.alert("测试");
+
+
+                location.href = '@Url.Action("ShowModelList", "Model")' + '?name=' + encodeURIComponent($('#searchInput').val());
+
+                obj.preventDefault();
+            })
+
+
+
+
+
+            /*************** end *************** */
+
+
+
+
+
+
+
+
+            $('#sidebar ul li').click(function () {
+                $(this).addClass('active').siblings('li').removeClass('active');
+                var index = $(this).index();
+                $('.j-content').eq(index).show().siblings('.j-content').hide();
+            })
+
+
+            $(document).on('click', 'li.kuanlink', function () {
+
+
+                var name = $(this).data("name")
+
+                var child = $(this).data("haschild");
+
+
+                // $.alert("是否有子目录：" + child);
+
+
+                if (!child) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("GetModelByName", "Model")' + "?name=" + encodeURIComponent(name),
+                        dataType: 'json',
+                        beforeSend: function () {
+                            // $.showLoading();
+                        },
+                        success: function (result, status, xhr) {
+                            if (result.Code == 0) {
+                                $.redirect("http://www.73data.cn/mod/examples/gl.php",
+                                        {
+                                            id: result.Result.ModelcontentPath,
+                                            title: result.Result.Name,
+                                            description: result.Result.Desc,
+                                            pic: result.Result.ThumbUrl,
+                                            bigpic: result.Result.ImgUrl,
+                                            showtype: result.Result.IsShowThumb,
+                                            realimg: result.Result.RealImgUrl
+
+                                        },
+                                        "POST", null, null, true);
+
+
+
+                            }
+                            else {
+                                // layer.msg("该目录的内容正在完善...")
+
+                                // $.alert("该目录的内容正在完善...");
+
+                            }
+
+
+                            // layer.closeAll("loading");
+                        },
+                        error: function (xhr, status, error) {
+                            //common.msgError('treeDemo error:' + error);
+                            // layer.closeAll("loading");
+                        },
+                        complete: function (xhr, status) {
+                            $.hideLoading();
+                        }
+                    });
+                }
+                else {
+                    location.href = '@Url.Action("ShowModelList", "Model")' + '?cate=' + encodeURIComponent(name);
+                    // location.href = "http://www.baidu.com";
+                }
+
+
+
+
+                // $.alert("最底层目录");
+
+            })
+
+
+            //$('.kuanlink').on('click', function () {
+
+
+            //    $.alert("最底层目录");
+            //})
+
+
+
+            $('.jie').click(function () {
+
+
+                if ($(this).hasClass("blue")) {
+                    // $('.jie').removeClass("blue")
+
+                    //// $(this).addClass('blue');
+
+                    // $(this).siblings(".tiao").hide();
+                }
+                else {
+                    $('.jie').removeClass("blue")
+                    $(this).addClass('blue');
+                    $('.tiao').hide();
+                    $that = $(this);
+                    var count = $that.data("child");
+                    if (count == "0") {
+                        var name = $that.data("name")
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("GetModelByName", "Model")' + "?name=" + encodeURIComponent(name),
+                            dataType: 'json',
+                            beforeSend: function () {
+                                $.showLoading();
+                            },
+                            success: function (result, status, xhr) {
+                                if (result.Code == 0) {
+                                    $.redirect("http://www.73data.cn/mod/examples/gl.php",
+                                            {
+                                                id: result.Result.ModelcontentPath,
+                                                title: result.Result.Name,
+                                                description: result.Result.Desc,
+                                                pic: result.Result.ThumbUrl,
+                                                bigpic: result.Result.ImgUrl,
+                                                showtype: result.Result.IsShowThumb,
+                                                realimg: result.Result.RealImgUrl
+                                            },
+                                            "POST", null, null, true);
+                                }
+                                else {
+                                    $.alert("该目录的内容正在完善...");
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                            },
+                            complete: function (xhr, status) {
+                                $.hideLoading();
+                            }
+                        });
+                    }
+                    else {
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("GetChildrenList", "Category")' + "?id=" + $that.data("id"),
+                            dataType: 'json',
+                            beforeSend: function () {
+                                $.showLoading();
+                            },
+                            success: function (result, status, xhr) {
+                                if (result.Code == 0) {
+                                    var html = "";
+                                    if (result.Result && result.Result.length > 0) {
+                                        for (var i = 0; i < result.Result.length; i++) {
+                                            html += '<li class="kuanlink"  data-id="' + result.Result[i].ID + '"  data-name="' + result.Result[i].Name + '" data-haschild="' + result.Result[i].HasChildren + '" ><span>' + result.Result[i].Name + '</span></li>';
+                                        }
+                                        $that.siblings(".tiao").children("ul").html(html);
+                                        $that.siblings(".tiao").show();
+                                    }
+                                }
+                                else {
+                                }
+                                $.hideLoading();
+                            },
+                            error: function (xhr, status, error) {
+                                //common.msgError('treeDemo error:' + error);
+                                $.hideLoading();
+                            },
+                            complete: function (xhr, status) {
+                                $.hideLoading();
+                            }
+                        });
+                    }
+                }
+
+
+
+
+
+
+            })
+        })
+    </script>
+
+}

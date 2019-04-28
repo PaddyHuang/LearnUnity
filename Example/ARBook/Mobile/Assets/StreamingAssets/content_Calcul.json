@@ -1,0 +1,71 @@
+﻿{
+  "Type": "JiSuan",
+  "Name": "基坑土方量计算",
+  "CNID": "图1-1",
+  "aburl": "/AssetBundles/p1-1",
+  "TypeCalculation": {
+    "AbObjectName": "JiSuanTestGo",
+    "OverallInfo": {
+      "Title": "基坑概念",
+      "Info": "基坑是指长宽比小于或等于3的矩形土体",
+	  "Audio":"http://resource.73cloud.top/p1-1_0.mp3"
+    },
+    "Calculations": {
+      "Title": "土方量计算",
+      "Info": "基坑土方量计算公式：V=H/6(A1+4A0+A2)",
+      "Calcul": [
+        {
+          "Index": 3,
+          "Info": "基坑上底的面积,m²",
+          "LeftOrRight": true,
+          "GameObjectName": "d003",
+          "GameObjectIndex": "A1",
+          "Audio": "http://resource.73cloud.top/p1-1_3.mp3"
+        },
+        {
+          "Index": 1,
+          "Info": "基坑下底的面积,m²",
+          "LeftOrRight": false,
+          "GameObjectName": "d001",
+          "GameObjectIndex": "A2",
+          "Audio": "http://resource.73cloud.top/p1-1_1.mp3"
+        },
+        {
+          "Index": 2,
+          "Info": "基坑中截面的面积,m²",
+          "LeftOrRight": false,
+          "GameObjectName": "d002",
+          "GameObjectIndex": "A0",
+          "Audio": "http://resource.73cloud.top/p1-1_2.mp3"
+        }
+      ],
+      "Sizes": [
+        {
+          "Index": 4,
+          "Length": "H",
+          "FromGoName": "Dummy002",
+          "ToGaName": "Dummy001",
+          "Audio": "http://resource.73cloud.top/p1-1_4.mp3"
+        }
+      ]
+    },
+    "Practices": {
+      "TextInfo": "某基坑平面尺寸如上图所示，坑深5.5m，四边均按1:0.4的坡度放坡，抗深范围内箱形基础的体积为2000m3。基坑开挖的土方量面积为#m3。",
+      "TaskPicName": "wallhaven-637809.jpg",
+      "TaskPicUrl": "http://arbookresouce.73data.cn/wallhaven-637809.jpg",
+      "AnswerPicName": "1524478227471.jpg",
+      "AnswerPicUrl": "http://arbookresouce.73data.cn/1524478227471.jpg",
+      "IsShowAnswer": true,
+      "Answers": [
+        {
+          "Index": 1,
+          "Answer": 10.52
+        }
+      ]
+    }
+  },
+  "TypeItem": {},
+  "TypeMethod": {},
+  "TypeTable": {},
+  "TypeProcess": {}
+}

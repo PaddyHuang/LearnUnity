@@ -1,0 +1,46 @@
+﻿/*-----reset css start-----*/
+html, body, div, p, ul,li, ol, dl, dt, dd, form, h1, h2, h3, h4, h5, h6, input, fieldset, legend, optgroup, table, tr, td{ margin:0; padding:0; }
+
+html, body, form { font-family:"Microsoft Yahei","微软雅黑e软雅黑6f\96c5\9ed1",Tahoma,Arial,STHeiti,sans-serif; font-size:12px; color:#444; line-height:18px; text-align:center; background:#F6F6F6;}
+h1, h2, h3, h4, h5, h6, em, strong, input, textarea,table{ font-family:"Microsoft Yahei","微软雅黑e软雅黑6f\96c5\9ed1",Tahoma,Arial,STHeiti,sans-serif; font-size:12px; font-style:normal; font-weight:normal; }
+ul, li { list-style:none; }
+input, select, textarea { font-size:12px; vertical-align:middle; }
+textarea { border:1px solid #d4d4d4; }
+a img { border:0; }
+a{text-decoration:none; color:#343434; }
+a:hover { text-decoration:none; color:#FF9933;}
+form{background-color:#ffffff;}
+select {height: 25px;line-height: 25px;color: #333;border: solid 1px #BBCAD4;border-radius: 2px;padding: 1px;padding-left: 5px;font-size: 13px;background: -webkit-gradient(linear,left top,left bottom,from(#FBFBFC),to(#F1F3F6));}
+input[type="text"],input[type="password"]{width:300px;height:25px;line-height:25px;box-shadow: inset 0 1px 3px -1px rgba(0, 0, 0, 0.1);border: 1px solid #CCC;font-family: tahoma,arial;padding:2px 0 2px 5px;color: #666;font-size: 14px;margin:5px 0px 5px 5px;}
+
+/*float*/
+.left{ float:left;}
+.right{ float:right;}
+.clear { clear: both; margin: 0; padding: 0; height: 0; font-size: 0; line-height: 0; overflow: hidden; }
+.clearfix{overflow:hidden;zoom:1;}
+
+/*--字体类--*/
+.note { color:#999; }
+.font14 { font-size: 14px}
+.font16{ font-size:16px}
+.fb { font-weight: bold}
+.fu { text-decoration: underline}
+.fn { text-decoration: none}
+.orange{color:#d25e01;}
+.blue{ color:#0362be;}
+.red_font{ color:#F00;}
+
+/*input, textarea {border: 1px solid #e2e2e2;background: #fff;color: #333;font-size: 1.2em; margin: 5px 0 6px 0;padding: 5px;width: 300px;}
+textarea {font-family: inherit;width: 500px;}
+input:focus, textarea:focus {border: 1px solid #7ac0da;}
+input[type="checkbox"],input[type="radio"] {background: transparent;border: inherit;width: auto;}
+input[type="submit"],
+input[type="button"],
+button {background-color: #d3dce0;border: 1px solid #787878;cursor: pointer;font-size: 1.2em;font-weight: 600;padding: 7px;margin-right: 8px;width: auto;}
+td input[type="submit"],td input[type="button"],td button {font-size: 1em;padding: 4px;margin-right: 4px;}*/
+
+/*--页脚--*/
+.footer{ z-index:2; position:absolute; bottom:0; width:100%; height:30px; line-height:30px; text-align:center; border-top:1px solid #ccc; background:#f5f5f5;}
+
+/*--上传附件删除按钮样式--*/
+.MultiFile-remove{ color: Red;}
